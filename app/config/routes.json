@@ -1,0 +1,74 @@
+{
+  "routes": [
+    {
+      "path": "/home",
+      "page": "home",
+      "layout": "main"
+    },
+    {
+      "path": "/ajuda",
+      "page": "ajuda",
+      "layout": "main"
+    },
+    {
+      "path": "/config",
+      "page": "config",
+      "layout": "main"
+    },
+    {
+      "path": "/connections",
+      "page": "connections",
+      "layout": "main"
+    },
+    {
+      "path": "/credentials",
+      "page": "credentials",
+      "layout": "main"
+    },
+    {
+      "path": "/dashboard",
+      "page": "dashboard",
+      "layout": "main"
+    },
+    {
+      "path": "/exit",
+      "page": "exit",
+      "layout": "main"
+    },
+    {
+      "path": "/groups",
+      "page": "groups",
+      "layout": "main"
+    },
+    {
+      "path": "/help",
+      "page": "help",
+      "layout": "main"
+    },
+    {
+      "path": "/messages",
+      "page": "messages",
+      "layout": "main"
+    },
+    {
+      "path": "/proofs",
+      "page": "proofs",
+      "layout": "main"
+    },
+    {
+      "path": "/schemas",
+      "page": "schemas",
+      "layout": "main"
+    },
+    {
+      "path": "/server",
+      "page": "server",
+      "layout": "main"
+    },
+    {
+      "path": "/users",
+      "page": "users",
+      "layout": "main"
+    }
+  ]
+}

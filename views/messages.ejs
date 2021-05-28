@@ -1,0 +1,87 @@
+<!-- Wappler include head-page="layouts/main" is="dmx-app" id="messages" appConnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cerulean" bootstrap_icons="cdn" -->
+
+
+<body is="dmx-app" id="index">
+    <meta name="ac:route" content="/messages">
+    <div class="container-fluid mt-5">
+        <h4 class="text-xl-center text-black-50 text-center font-weight-bold h-50 w-auto">
+            <p wappler-empty="undefined" wappler-command="editContent"><br></p>Mensagens
+        </h4>
+        <button id="btn1" class="btn font-weight-bold btn-sm btn-primary" dmx-on:click="data_detail1.select(0);modal1.show()" style="cursor: pointer;">Adicionar&nbsp;&nbsp;<i class="fa fa-plus-circle fa-lg"></i>
+        </button>
+        <div class="modal" id="modal1" is="dmx-bs4-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Mensagem</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="api/messages/modMessages" dmx-generator="bootstrap4" dmx-form-type="horizontal" dmx-populate="data_detail1.data"
+                            dmx-on:success="modal1.hide();sc_messages.load({},true)">
+                            <div class="form-group row">
+                                <label for="inp_state" class="col-sm-2 col-form-label col-form-label-sm">State</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-control-sm" id="inp_state" name="state" dmx-bind:value="data_detail1.data.state" aria-describedby="inp_state_help" placeholder="Enter State">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inp_messageID" class="col-sm-2 col-form-label col-form-label-sm">Message</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-control-sm" id="inp_messageID" name="messageID" dmx-bind:value="data_detail1.data.messageID" aria-describedby="inp_messageID_help" placeholder="Enter Message">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inp_from" class="col-sm-2 col-form-label col-form-label-sm">From</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-control-sm" id="inp_from" name="from" dmx-bind:value="data_detail1.data.from" aria-describedby="inp_from_help" placeholder="Enter From">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inp_msg" class="col-sm-2 col-form-label col-form-label-sm">Msg</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-control-sm" id="inp_msg" name="msg" dmx-bind:value="data_detail1.data.msg" aria-describedby="inp_msg_help" placeholder="Enter Msg">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inp_date" class="col-sm-2 col-form-label col-form-label-sm">Date</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control form-control-sm" id="inp_date" name="date" dmx-bind:value="data_detail1.data.date" aria-describedby="inp_date_help" placeholder="Enter Date">
+                                </div>
+                            </div>
+                            <input type="hidden" name="id" id="inp_id" dmx-bind:value="data_detail1.data.id"><input type="hidden" name="operator" id="inp_operator" dmx-bind:value="data_detail1.data.operator">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" dmx-on:click="run([{run:{action:`modal1.serverconnectform1.inp_operator.setValue(\'delete\')`}},{run:{action:`modal1.serverconnectform1.submit()`}}])">Excluir</button>
+                        <button type="button" class="btn btn-primary"
+                            dmx-on:click="run([{condition:{if:`(data_detail1.data != null)`,then:{steps:{run:{action:`modal1.serverconnectform1.inp_operator.setValue(\'update\')`}}},else:{steps:{run:{action:`modal1.serverconnectform1.inp_operator.setValue(\'add\')`}}}}},{run:{action:`modal1.serverconnectform1.submit()`}}])">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table class="table table-striped table-bordered table-borderless table-hover table-sm">
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Message</th>
+                    <th>From</th>
+                </tr>
+            </thead>
+            <tbody is="dmx-repeat" dmx-generator="bs4table" dmx-bind:repeat="sc_messages.data.query" id="tableRepeat1">
+                <tr dmx-on:click="data_detail1.select(id);modal1.show()">
+                    <td dmx-text="state"></td>
+                    <td dmx-text="messageID"></td>
+                    <td dmx-text="from"></td>
+                </tr>
+            </tbody>
+        </table>
+        <dmx-serverconnect id="sc_messages" url="api/messages/getMessages"></dmx-serverconnect>
+        <dmx-data-detail id="data_detail1" dmx-bind:data="sc_messages.data.query" key="id"></dmx-data-detail>
+    </div>
+
+    <script src="bootstrap/4/js/popper.min.js"></script>
+    <script src="bootstrap/4/js/bootstrap.min.js"></script>
+</body>

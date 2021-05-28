@@ -1,0 +1,127 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "ssi",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "users",
+              "column": "id"
+            },
+            {
+              "table": "users",
+              "column": "name"
+            },
+            {
+              "table": "users",
+              "column": "surname"
+            },
+            {
+              "table": "users",
+              "column": "email"
+            },
+            {
+              "table": "users",
+              "column": "document"
+            },
+            {
+              "table": "users",
+              "column": "group"
+            },
+            {
+              "table": "users",
+              "column": "did"
+            },
+            {
+              "table": "users",
+              "column": "verkey"
+            },
+            {
+              "table": "users",
+              "column": "wallet"
+            },
+            {
+              "table": "users",
+              "column": "password"
+            },
+            {
+              "table": "users",
+              "column": "token"
+            }
+          ],
+          "table": {
+            "name": "users"
+          },
+          "joins": [],
+          "query": "SELECT id, name, surname, email, document, group, did, verkey, wallet, password, token\nFROM users",
+          "params": []
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "name": "id",
+          "type": "text"
+        },
+        {
+          "name": "name",
+          "type": "text"
+        },
+        {
+          "name": "surname",
+          "type": "text"
+        },
+        {
+          "name": "email",
+          "type": "text"
+        },
+        {
+          "name": "document",
+          "type": "text"
+        },
+        {
+          "name": "group",
+          "type": "text"
+        },
+        {
+          "name": "did",
+          "type": "text"
+        },
+        {
+          "name": "verkey",
+          "type": "text"
+        },
+        {
+          "name": "wallet",
+          "type": "text"
+        },
+        {
+          "name": "password",
+          "type": "text"
+        },
+        {
+          "name": "token",
+          "type": "text"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}

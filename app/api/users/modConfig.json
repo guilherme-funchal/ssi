@@ -1,0 +1,435 @@
+{
+  "meta": {
+    "$_POST": [
+      {
+        "type": "text",
+        "name": "name"
+      },
+      {
+        "type": "text",
+        "name": "surname"
+      },
+      {
+        "type": "text",
+        "name": "email"
+      },
+      {
+        "type": "text",
+        "name": "document"
+      },
+      {
+        "type": "date",
+        "name": "date_birth"
+      },
+      {
+        "type": "text",
+        "name": "group"
+      },
+      {
+        "type": "datetime",
+        "name": "date_creation"
+      },
+      {
+        "type": "text",
+        "name": "did"
+      },
+      {
+        "type": "text",
+        "name": "verkey"
+      },
+      {
+        "type": "text",
+        "name": "wallet"
+      },
+      {
+        "type": "text",
+        "name": "password"
+      },
+      {
+        "type": "text",
+        "name": "token"
+      },
+      {
+        "type": "number",
+        "name": "id"
+      },
+      {
+        "type": "text",
+        "name": "operator"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "",
+        "module": "core",
+        "action": "condition",
+        "options": {
+          "if": "{{$_POST.operator == 'add'}}",
+          "then": {
+            "steps": {
+              "name": "insert",
+              "module": "dbupdater",
+              "action": "insert",
+              "options": {
+                "connection": "ssi",
+                "sql": {
+                  "type": "insert",
+                  "values": [
+                    {
+                      "table": "users",
+                      "column": "name",
+                      "type": "text",
+                      "value": "{{$_POST.name}}"
+                    },
+                    {
+                      "table": "users",
+                      "column": "surname",
+                      "type": "text",
+                      "value": "{{$_POST.surname}}"
+                    },
+                    {
+                      "table": "users",
+                      "column": "email",
+                      "type": "text",
+                      "value": "{{$_POST.email}}"
+                    },
+                    {
+                      "table": "users",
+                      "column": "document",
+                      "type": "text",
+                      "value": "{{$_POST.document}}"
+                    },
+                    {
+                      "table": "users",
+                      "column": "group",
+                      "type": "text",
+                      "value": "{{$_POST.group}}"
+                    },
+                    {
+                      "table": "users",
+                      "column": "did",
+                      "type": "text",
+                      "value": "{{$_POST.did}}"
+                    },
+                    {
+                      "table": "users",
+                      "column": "verkey",
+                      "type": "text",
+                      "value": "{{$_POST.verkey}}"
+                    },
+                    {
+                      "table": "users",
+                      "column": "wallet",
+                      "type": "text",
+                      "value": "{{$_POST.wallet}}"
+                    },
+                    {
+                      "table": "users",
+                      "column": "password",
+                      "type": "text",
+                      "value": "{{$_POST.password}}"
+                    },
+                    {
+                      "table": "users",
+                      "column": "token",
+                      "type": "text",
+                      "value": "{{$_POST.token}}"
+                    }
+                  ],
+                  "table": "users",
+                  "returning": "id",
+                  "query": "INSERT INTO users\n(name, surname, email, document, group, did, verkey, wallet, password, token) VALUES (:P1 /* {{$_POST.name}} */, :P2 /* {{$_POST.surname}} */, :P3 /* {{$_POST.email}} */, :P4 /* {{$_POST.document}} */, :P5 /* {{$_POST.group}} */, :P6 /* {{$_POST.did}} */, :P7 /* {{$_POST.verkey}} */, :P8 /* {{$_POST.wallet}} */, :P9 /* {{$_POST.password}} */, :P10 /* {{$_POST.token}} */)",
+                  "params": [
+                    {
+                      "name": ":P1",
+                      "type": "expression",
+                      "value": "{{$_POST.name}}"
+                    },
+                    {
+                      "name": ":P2",
+                      "type": "expression",
+                      "value": "{{$_POST.surname}}"
+                    },
+                    {
+                      "name": ":P3",
+                      "type": "expression",
+                      "value": "{{$_POST.email}}"
+                    },
+                    {
+                      "name": ":P4",
+                      "type": "expression",
+                      "value": "{{$_POST.document}}"
+                    },
+                    {
+                      "name": ":P5",
+                      "type": "expression",
+                      "value": "{{$_POST.group}}"
+                    },
+                    {
+                      "name": ":P6",
+                      "type": "expression",
+                      "value": "{{$_POST.did}}"
+                    },
+                    {
+                      "name": ":P7",
+                      "type": "expression",
+                      "value": "{{$_POST.verkey}}"
+                    },
+                    {
+                      "name": ":P8",
+                      "type": "expression",
+                      "value": "{{$_POST.wallet}}"
+                    },
+                    {
+                      "name": ":P9",
+                      "type": "expression",
+                      "value": "{{$_POST.password}}"
+                    },
+                    {
+                      "name": ":P10",
+                      "type": "expression",
+                      "value": "{{$_POST.token}}"
+                    }
+                  ]
+                }
+              },
+              "meta": [
+                {
+                  "name": "identity",
+                  "type": "text"
+                },
+                {
+                  "name": "affected",
+                  "type": "number"
+                }
+              ],
+              "output": true
+            }
+          }
+        },
+        "outputType": "boolean"
+      },
+      {
+        "name": "",
+        "module": "core",
+        "action": "condition",
+        "options": {
+          "if": "{{$_POST.operator == 'update'}}",
+          "then": {
+            "steps": {
+              "name": "update",
+              "module": "dbupdater",
+              "action": "update",
+              "options": {
+                "connection": "ssi",
+                "sql": {
+                  "type": "update",
+                  "values": [
+                    {
+                      "table": "users",
+                      "column": "name",
+                      "type": "text",
+                      "value": "{{$_POST.name}}"
+                    },
+                    {
+                      "table": "users",
+                      "column": "surname",
+                      "type": "text",
+                      "value": "{{$_POST.surname}}"
+                    },
+                    {
+                      "table": "users",
+                      "column": "email",
+                      "type": "text",
+                      "value": "{{$_POST.email}}"
+                    },
+                    {
+                      "table": "users",
+                      "column": "document",
+                      "type": "text",
+                      "value": "{{$_POST.document}}"
+                    },
+                    {
+                      "table": "users",
+                      "column": "group",
+                      "type": "text",
+                      "value": "{{$_POST.group}}"
+                    },
+                    {
+                      "table": "users",
+                      "column": "did",
+                      "type": "text",
+                      "value": "{{$_POST.did}}"
+                    },
+                    {
+                      "table": "users",
+                      "column": "verkey",
+                      "type": "text",
+                      "value": "{{$_POST.verkey}}"
+                    },
+                    {
+                      "table": "users",
+                      "column": "wallet",
+                      "type": "text",
+                      "value": "{{$_POST.wallet}}"
+                    },
+                    {
+                      "table": "users",
+                      "column": "password",
+                      "type": "text",
+                      "value": "{{$_POST.password}}"
+                    },
+                    {
+                      "table": "users",
+                      "column": "token",
+                      "type": "text",
+                      "value": "{{$_POST.token}}"
+                    }
+                  ],
+                  "table": "users",
+                  "wheres": {
+                    "condition": "AND",
+                    "rules": [
+                      {
+                        "id": "id",
+                        "type": "double",
+                        "operator": "equal",
+                        "value": "{{$_POST.id}}",
+                        "data": {
+                          "column": "id"
+                        },
+                        "operation": "="
+                      }
+                    ]
+                  },
+                  "query": "UPDATE users\nSET name = :P1 /* {{$_POST.name}} */, surname = :P2 /* {{$_POST.surname}} */, email = :P3 /* {{$_POST.email}} */, document = :P4 /* {{$_POST.document}} */, group = :P5 /* {{$_POST.group}} */, did = :P6 /* {{$_POST.did}} */, verkey = :P7 /* {{$_POST.verkey}} */, wallet = :P8 /* {{$_POST.wallet}} */, password = :P9 /* {{$_POST.password}} */, token = :P10 /* {{$_POST.token}} */\nWHERE id = :P11 /* {{$_POST.id}} */",
+                  "params": [
+                    {
+                      "name": ":P1",
+                      "type": "expression",
+                      "value": "{{$_POST.name}}"
+                    },
+                    {
+                      "name": ":P2",
+                      "type": "expression",
+                      "value": "{{$_POST.surname}}"
+                    },
+                    {
+                      "name": ":P3",
+                      "type": "expression",
+                      "value": "{{$_POST.email}}"
+                    },
+                    {
+                      "name": ":P4",
+                      "type": "expression",
+                      "value": "{{$_POST.document}}"
+                    },
+                    {
+                      "name": ":P5",
+                      "type": "expression",
+                      "value": "{{$_POST.group}}"
+                    },
+                    {
+                      "name": ":P6",
+                      "type": "expression",
+                      "value": "{{$_POST.did}}"
+                    },
+                    {
+                      "name": ":P7",
+                      "type": "expression",
+                      "value": "{{$_POST.verkey}}"
+                    },
+                    {
+                      "name": ":P8",
+                      "type": "expression",
+                      "value": "{{$_POST.wallet}}"
+                    },
+                    {
+                      "name": ":P9",
+                      "type": "expression",
+                      "value": "{{$_POST.password}}"
+                    },
+                    {
+                      "name": ":P10",
+                      "type": "expression",
+                      "value": "{{$_POST.token}}"
+                    },
+                    {
+                      "operator": "equal",
+                      "type": "expression",
+                      "name": ":P11",
+                      "value": "{{$_POST.id}}"
+                    }
+                  ]
+                }
+              },
+              "meta": [
+                {
+                  "name": "affected",
+                  "type": "number"
+                }
+              ],
+              "output": true
+            }
+          }
+        },
+        "outputType": "boolean"
+      },
+      {
+        "name": "",
+        "module": "core",
+        "action": "condition",
+        "options": {
+          "if": "{{$_POST.operator == 'delete'}}",
+          "then": {
+            "steps": {
+              "name": "delete",
+              "module": "dbupdater",
+              "action": "delete",
+              "options": {
+                "connection": "ssi",
+                "sql": {
+                  "type": "delete",
+                  "table": "users",
+                  "wheres": {
+                    "condition": "AND",
+                    "rules": [
+                      {
+                        "id": "id",
+                        "type": "double",
+                        "operator": "equal",
+                        "value": "{{$_POST.id}}",
+                        "data": {
+                          "column": "id"
+                        },
+                        "operation": "="
+                      }
+                    ]
+                  },
+                  "query": "DELETE\nFROM users\nWHERE id = :P1 /* {{$_POST.id}} */",
+                  "params": [
+                    {
+                      "operator": "equal",
+                      "type": "expression",
+                      "name": ":P1",
+                      "value": "{{$_POST.id}}"
+                    }
+                  ]
+                }
+              },
+              "meta": [
+                {
+                  "name": "affected",
+                  "type": "number"
+                }
+              ]
+            }
+          }
+        },
+        "outputType": "boolean"
+      }
+    ]
+  }
+}

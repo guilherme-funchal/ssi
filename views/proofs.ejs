@@ -1,0 +1,83 @@
+<!-- Wappler include head-page="layouts/main" is="dmx-app" id="proofs" appConnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cerulean" bootstrap_icons="cdn" -->
+<meta name="ac:route" content="/proofs">
+
+<div class="modal mt-5" id="modal1" is="dmx-bs4-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="api/proofs/modProva" dmx-generator="bootstrap4" dmx-form-type="horizontal" dmx-populate="data_detail1.data"
+                    dmx-on:success="modal1.hide();serverconnect1.load({},true)">
+                    <div class="form-group row">
+                        <label for="inp_name" class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inp_name" name="name" dmx-bind:value="data_detail1.data.name" aria-describedby="inp_name_help" placeholder="Enter Name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_description" class="col-sm-2 col-form-label">Description</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inp_description" name="description" dmx-bind:value="data_detail1.data.description" aria-describedby="inp_description_help" placeholder="Enter Description">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_req_attrs" class="col-sm-2 col-form-label">Req attrs</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inp_req_attrs" name="req_attrs" dmx-bind:value="data_detail1.data.req_attrs" aria-describedby="inp_req_attrs_help" placeholder="Enter Req attrs">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_precates" class="col-sm-2 col-form-label">Precates</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inp_precates" name="precates" dmx-bind:value="data_detail1.data.precates" aria-describedby="inp_precates_help" placeholder="Enter Precates">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_schema" class="col-sm-2 col-form-label">Schema</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inp_schema" name="schema" dmx-bind:value="data_detail1.data.schema" aria-describedby="inp_schema_help" placeholder="Enter Schema">
+                        </div>
+                    </div>
+                    <input type="hidden" name="id" id="inp_id" dmx-bind:value="data_detail1.data.id"><input type="hidden" name="operator" id="inp_operator" dmx-bind:value="data_detail1.data.operator">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" dmx-on:click="run([{run:{action:`modal1.serverconnectform1.inp_operator.setValue(\'delete\')`}},{run:{action:`modal1.serverconnectform1.submit()`}}])">Excluir</button>
+                <button type="button" class="btn btn-primary"
+                    dmx-on:click="run([{condition:{if:`(data_detail1.data != null)`,then:{steps:{run:{action:`modal1.serverconnectform1.inp_operator.setValue(\'update\')`}}},else:{steps:{run:{action:`modal1.serverconnectform1.inp_operator.setValue(\'add\')`}}}}},{run:{action:`modal1.serverconnectform1.submit()`}}])">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<dmx-serverconnect id="serverconnect1" url="api/proofs/getProva"></dmx-serverconnect>
+<dmx-data-detail id="data_detail1" dmx-bind:data="serverconnect1.data.query" key="id">
+
+</dmx-data-detail>
+
+<div class="container-fluid mt-5">
+    <h5 class="text-black-50 text-center font-weight-bold">
+        <p wappler-empty="undefined" wappler-command="editContent"><br></p>Provas
+    </h5>
+    <button id="btn1" class="btn btn-primary font-weight-bold btn-sm" dmx-on:click="data_detail1.select(0);modal1.show()" style="cursor: pointer;">Adicionar&nbsp;<i class="fa fa-plus-circle"></i></button>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover table-sm">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody is="dmx-repeat" dmx-generator="bs4table" dmx-bind:repeat="serverconnect1.data.query" id="tableRepeat1">
+                <tr dmx-on:click="data_detail1.select(id);modal1.show()">
+                    <td dmx-text="id"></td>
+                    <td dmx-text="name"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+{
+  "teste.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "home.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "ajuda.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "config.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "connections.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "credentials.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "dashboard.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "exit.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "groups.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "help.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "messages.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "proofs.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "schemas.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "server.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "users.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "usuarios.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  }
+}

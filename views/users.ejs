@@ -1,0 +1,126 @@
+<!-- Wappler include head-page="layouts/main" is="dmx-app" id="users" appConnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cerulean" bootstrap_icons="cdn" -->
+<meta name="ac:route" content="/users">
+
+<dmx-serverconnect id="serverconnect1" url="api/users/getConfig"></dmx-serverconnect>
+<dmx-data-detail id="data_detail1" dmx-bind:data="serverconnect1.data.query" key="id">
+
+</dmx-data-detail>
+<div class="modal mt-5" id="modal1" is="dmx-bs4-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-black-50">Usuário</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="api/users/modConfig" dmx-generator="bootstrap4" dmx-form-type="horizontal" dmx-populate="data_detail1.data"
+                    dmx-on:success="modal1.hide();serverconnect1.load({},true)">
+                    <div class="form-group row">
+                        <label for="inp_name" class="col-sm-2 col-form-label col-form-label-sm">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="inp_name" name="name" dmx-bind:value="data_detail1.data.name" aria-describedby="inp_name_help" placeholder="Enter Name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_surname" class="col-sm-2 col-form-label col-form-label-sm">Surname</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="inp_surname" name="surname" dmx-bind:value="data_detail1.data.surname" aria-describedby="inp_surname_help" placeholder="Enter Surname">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_email" class="col-sm-2 col-form-label col-form-label-sm">Email</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="inp_email" name="email" dmx-bind:value="data_detail1.data.email" aria-describedby="inp_email_help" placeholder="Enter Email">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_document" class="col-sm-2 col-form-label col-form-label-sm">Document</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="inp_document" name="document" dmx-bind:value="data_detail1.data.document" aria-describedby="inp_document_help" placeholder="Enter Document">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_group" class="col-sm-2 col-form-label col-form-label-sm">Group</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="inp_group" name="group" dmx-bind:value="data_detail1.data.group" aria-describedby="inp_group_help" placeholder="Enter Group">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_did" class="col-sm-2 col-form-label col-form-label-sm">Did</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="inp_did" name="did" dmx-bind:value="data_detail1.data.did" aria-describedby="inp_did_help" placeholder="Enter Did">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_verkey" class="col-sm-2 col-form-label col-form-label-sm">Verkey</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="inp_verkey" name="verkey" dmx-bind:value="data_detail1.data.verkey" aria-describedby="inp_verkey_help" placeholder="Enter Verkey">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_wallet" class="col-sm-2 col-form-label col-form-label-sm">Wallet</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="inp_wallet" name="wallet" dmx-bind:value="data_detail1.data.wallet" aria-describedby="inp_wallet_help" placeholder="Enter Wallet">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_password" class="col-sm-2 col-form-label col-form-label-sm">Password</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="inp_password" name="password" dmx-bind:value="data_detail1.data.password" aria-describedby="inp_password_help" placeholder="Enter Password">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_token" class="col-sm-2 col-form-label col-form-label-sm">Token</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="inp_token" name="token" dmx-bind:value="data_detail1.data.token" aria-describedby="inp_token_help" placeholder="Enter Token">
+                        </div>
+                    </div>
+                    <input type="hidden" name="id" id="inp_id" dmx-bind:value="data_detail1.data.id">
+                    <div class="form-group row">
+                        <label for="inp_operator" class="col-sm-2 col-form-label col-form-label-sm">Operator</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="inp_operator" name="operator" dmx-bind:value="data_detail1.data.operator" aria-describedby="inp_operator_help" placeholder="Enter Operator">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" dmx-on:click="run([{run:{action:`modal1.serverconnectform1.inp_operator.setValue(\'delete\')`}},{run:{action:`modal1.serverconnectform1.submit()`}}])">Excluir</button>
+                <button type="button" class="btn btn-primary"
+                    dmx-on:click="run([{condition:{if:`(data_detail1.data != null)`,then:{steps:{run:{action:`modal1.serverconnectform1.inp_operator.setValue(\'update\')`}}},else:{steps:{run:{action:`modal1.serverconnectform1.inp_operator.setValue(\'add\')`}}}}},{run:{action:`modal1.serverconnectform1.submit()`}}])"
+                    style="cursor: pointer;">Salva</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt-5">
+    <h5 class="text-center text-black-50 font-weight-bold">
+        <p wappler-empty="undefined" wappler-command="editContent"><br></p>Usuários
+    </h5>
+    <button id="btn1" class="btn btn-primary btn-sm font-weight-bold" dmx-on:click="data_detail1.select(0);modal1.show()">Adicionar&nbsp;&nbsp;
+        <i class="fa fa-plus-circle fa-lg"></i>
+    </button>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover table-sm">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Email</th>
+                    <th>Document</th>
+                </tr>
+            </thead>
+            <tbody is="dmx-repeat" dmx-generator="bs4table" dmx-bind:repeat="serverconnect1.data.query" id="tableRepeat1">
+                <tr dmx-on:click="data_detail1.select(id);modal1.show()">
+                    <td dmx-text="name"></td>
+                    <td dmx-text="surname"></td>
+                    <td dmx-text="email"></td>
+                    <td dmx-text="document"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

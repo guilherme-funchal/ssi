@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "ssi",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "connections",
+              "column": "id"
+            },
+            {
+              "table": "connections",
+              "column": "connection_id"
+            },
+            {
+              "table": "connections",
+              "column": "partner_name"
+            },
+            {
+              "table": "connections",
+              "column": "invitation"
+            },
+            {
+              "table": "connections",
+              "column": "status"
+            }
+          ],
+          "table": {
+            "name": "connections"
+          },
+          "joins": [],
+          "query": "SELECT id, connection_id, partner_name, invitation, status\nFROM connections",
+          "params": []
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "name": "id",
+          "type": "text"
+        },
+        {
+          "name": "connection_id",
+          "type": "text"
+        },
+        {
+          "name": "partner_name",
+          "type": "text"
+        },
+        {
+          "name": "invitation",
+          "type": "text"
+        },
+        {
+          "name": "status",
+          "type": "text"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}

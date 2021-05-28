@@ -1,0 +1,34 @@
+{
+  "meta": {
+    "$_ENV": [
+      {
+        "type": "text",
+        "name": "REST_HOST"
+      },
+      {
+        "type": "text",
+        "name": "REST_PORT"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "_ENV_REST_HOST",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_ENV.REST_HOST}}"
+        }
+      },
+      {
+        "name": "_ENV_REST_PORT",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_ENV.REST_PORT}}"
+        }
+      }
+    ]
+  }
+}

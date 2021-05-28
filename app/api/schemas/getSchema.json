@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "ssi",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "schemas",
+              "column": "id"
+            },
+            {
+              "table": "schemas",
+              "column": "name"
+            },
+            {
+              "table": "schemas",
+              "column": "version"
+            },
+            {
+              "table": "schemas",
+              "column": "data"
+            },
+            {
+              "table": "schemas",
+              "column": "template"
+            },
+            {
+              "table": "schemas",
+              "column": "role"
+            }
+          ],
+          "table": {
+            "name": "schemas"
+          },
+          "joins": [],
+          "query": "SELECT id, name, version, data, template, role\nFROM schemas",
+          "params": []
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "name": "id",
+          "type": "text"
+        },
+        {
+          "name": "name",
+          "type": "text"
+        },
+        {
+          "name": "version",
+          "type": "text"
+        },
+        {
+          "name": "data",
+          "type": "text"
+        },
+        {
+          "name": "template",
+          "type": "text"
+        },
+        {
+          "name": "role",
+          "type": "text"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}

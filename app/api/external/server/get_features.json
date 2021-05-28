@@ -1,0 +1,95 @@
+[
+  {
+    "name": "api",
+    "module": "api",
+    "action": "send",
+    "options": {
+      "url": "https://{{_ENV_REST_HOST}}:{{_ENV_REST_PORT}}/features",
+      "schema": []
+    },
+    "output": true,
+    "meta": [
+      {
+        "type": "object",
+        "name": "data",
+        "sub": [
+          {
+            "type": "key_array",
+            "name": "results"
+          }
+        ]
+      },
+      {
+        "type": "object",
+        "name": "headers",
+        "sub": [
+          {
+            "type": "text",
+            "name": "connection"
+          },
+          {
+            "type": "text",
+            "name": "content-length"
+          },
+          {
+            "type": "text",
+            "name": "content-type"
+          },
+          {
+            "type": "text",
+            "name": "date"
+          },
+          {
+            "type": "text",
+            "name": "server"
+          }
+        ]
+      }
+    ],
+    "outputType": "object"
+  },
+  {
+    "name": "repeat",
+    "module": "core",
+    "action": "repeat",
+    "options": {
+      "repeat": "{{api.data.results}}",
+      "outputFields": [],
+      "exec": {
+        "steps": {
+          "name": "feature",
+          "module": "core",
+          "action": "setvalue",
+          "options": {
+            "value": "{{$name}}"
+          },
+          "output": true
+        }
+      }
+    },
+    "output": true,
+    "meta": [
+      {
+        "name": "$index",
+        "type": "number"
+      },
+      {
+        "name": "$number",
+        "type": "number"
+      },
+      {
+        "name": "$name",
+        "type": "text"
+      },
+      {
+        "name": "$value",
+        "type": "object"
+      },
+      {
+        "name": "feature",
+        "type": "text"
+      }
+    ],
+    "outputType": "array"
+  }
+]

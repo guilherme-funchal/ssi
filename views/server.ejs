@@ -1,0 +1,103 @@
+<dmx-serverconnect id="serverconnect1" url="/api/external/server/get_live"></dmx-serverconnect>
+<!-- Wappler include head-page="layouts/main" is="dmx-app" id="server" appConnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cerulean" bootstrap_icons="cdn" components="{dmxBootstrap4TableGenerator:{},dmxFormatter:{},dmxStateManagement:{}}" -->
+<dmx-serverconnect id="serverconnect4" url="/api/external/server/get_plugins"></dmx-serverconnect>
+<dmx-serverconnect id="serverconnect3" url="/api/external/server/get_features"></dmx-serverconnect>
+
+<dmx-serverconnect id="serverconnect2" url="/api/external/server/get_status"></dmx-serverconnect>
+<div class="container wappler-block mt-2 mb-0 pt-5 pb-0">
+    <h1>Online</h1>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover table-sm">
+            <tbody dmx-generator="bs4table" dmx-populate="content.serverconnect1.data.api.data">
+                <tr>
+                    <th>
+                        Alive</th>
+                    <td dmx-text="content.serverconnect1.data.api.data.alive">
+                        <div id="conditional1" is="dmx-if" dmx-bind:condition="(serverconnect1.data.api.data.alive == true)">
+                            <i class="fa fa-check"></i>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <i>
+    </i>
+</div>
+<div class="container mt-5">
+    <h1>Status</h1>
+
+    <table class="table table-striped table-bordered table-borderless table-hover table-sm">
+        <tbody dmx-generator="bs4table" dmx-populate="content.serverconnect2.data.api.data.conductor">
+            <tr>
+                <th>In sessions</th>
+                <td dmx-text="content.serverconnect2.data.api.data.conductor.in_sessions"></td>
+            </tr>
+            <tr>
+                <th>Out encode</th>
+                <td dmx-text="content.serverconnect2.data.api.data.conductor.out_encode"></td>
+            </tr>
+            <tr>
+                <th>Out deliver</th>
+                <td dmx-text="content.serverconnect2.data.api.data.conductor.out_deliver"></td>
+            </tr>
+            <tr>
+                <th>Task active</th>
+                <td dmx-text="content.serverconnect2.data.api.data.conductor.task_active"></td>
+            </tr>
+            <tr>
+                <th>Task done</th>
+                <td dmx-text="content.serverconnect2.data.api.data.conductor.task_done"></td>
+            </tr>
+            <tr>
+                <th>Task failed</th>
+                <td dmx-text="content.serverconnect2.data.api.data.conductor.task_failed"></td>
+            </tr>
+            <tr>
+                <th>Task pending</th>
+                <td dmx-text="content.serverconnect2.data.api.data.conductor.task_pending"></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>
+<div class="container mt-5">
+    <h1>Features</h1>
+    <table class="table table-striped table-bordered table-borderless table-hover table-sm">
+        <thead>
+            <tr>
+            </tr>
+        </thead>
+        <tbody is="dmx-repeat" dmx-generator="bs4table" dmx-bind:repeat="content.serverconnect3.data.repeat" id="tableRepeat1">
+            <tr>
+                <td dmx-text="feature"></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+</div>
+<div class="container mt-5">
+    <h1>Plugins</h1>
+    <table class="table table-striped table-bordered table-borderless table-hover table-sm">
+        <thead>
+            <tr>
+            </tr>
+        </thead>
+        <tbody is="dmx-repeat" dmx-generator="bs4table" dmx-bind:repeat="content.serverconnect4.data.api.data.result" id="tableRepeat2">
+            <tr>
+                <td dmx-text="$value"></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+
+</div>
+<meta name="ac:route" content="/server">

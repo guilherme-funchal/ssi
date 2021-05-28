@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+
+<head>
+    <script src="/dmxAppConnect/dmxAppConnect.js"></script>
+    <meta name="ac:route" content="/groups">
+    <base href="/">
+    <script src="/js/jquery-3.5.1.slim.min.js"></script>
+    <link rel="stylesheet" href="/fontawesome4/css/font-awesome.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/dmxAppConnect/dmxBootstrap4TableGenerator/dmxBootstrap4TableGenerator.css" />
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="dmxAppConnect/dmxStripe/dmxStripe.js" defer=""></script>
+    <script src="/dmxAppConnect/dmxBootstrap4Modal/dmxBootstrap4Modal.js" defer=""></script>
+    <script src="/dmxAppConnect/dmxDataTraversal/dmxDataTraversal.js" defer=""></script>
+    <script src="dmxAppConnect/dmxFormatter/dmxFormatter.js" defer=""></script>
+    <link rel="stylesheet" href="/bootstrap/4/cerulean/bootstrap.min.css" />
+    <script src="/dmxAppConnect/dmxStripe/dmxStripe.js"></script>
+</head>
+
+<body is="dmx-app" id="index">
+    <h5 class="text-black-50 text-center font-weight-bold">Grupos</h5>
+    <div class="modal" id="modal1" is="dmx-bs4-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Grupos</h5>
+                    <button type="button" class="close font-italic" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="api/groups/modGroups" dmx-generator="bootstrap4" dmx-form-type="horizontal" dmx-populate="data_detail1.data"
+                        dmx-on:success="modal1.hide();sc_messages.load();sc_messages.load({},true)">
+                        <div class="form-group row">
+                            <label for="inp_name" class="col-sm-2 col-form-label col-form-label-sm">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control form-control-sm" id="inp_name" name="name" dmx-bind:value="data_detail1.data.name" aria-describedby="inp_name_help" placeholder="Enter Name">
+                            </div>
+                        </div>
+                        <input type="hidden" name="id" id="inp_id" dmx-bind:value="data_detail1.data.id"><input type="hidden" name="operator" id="inp_operator" dmx-bind:value="data_detail1.data.operator">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" dmx-on:click="run([{run:{action:`modal1.serverconnectform1.inp_operator.setValue(\'delete\')`}},{run:{action:`modal1.serverconnectform1.submit()`}}])"
+                        style="cursor: pointer;">Excluir</button>
+                    <button type="button" class="btn btn-primary"
+                        dmx-on:click="run([{condition:{if:`(data_detail1.data != null)`,then:{steps:{run:{action:`modal1.serverconnectform1.inp_operator.setValue(\'update\')`}}},else:{steps:{run:{action:`modal1.serverconnectform1.inp_operator.setValue(\'add\')`}}}}},{run:{action:`modal1.serverconnectform1.submit()`}}])">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <meta name="ac:route" content="/messages">
+    <div class="container-fluid">
+        <button id="btn1" class="btn btn-sm btn-primary font-weight-bold" dmx-on:click="data_detail1.select(0);modal1.show()">Adicionar&nbsp;<i class="fa fa-plus-circle fa-lg"></i>
+        </button>
+        <table class="table table-striped table-bordered table-borderless table-hover table-sm">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody is="dmx-repeat" dmx-generator="bs4table" dmx-bind:repeat="sc_messages.data.query" id="tableRepeat1">
+                <tr dmx-on:click="data_detail1.select(id);modal1.show()">
+                    <td dmx-text="id"></td>
+                    <td dmx-text="name"></td>
+                </tr>
+            </tbody>
+        </table>
+        <dmx-serverconnect id="sc_messages" url="api/groups/getGroups"></dmx-serverconnect>
+        <dmx-data-detail id="data_detail1" key="id" dmx-bind:data="sc_messages.data.query"></dmx-data-detail>
+    </div>
+
+    <script src="/bootstrap/4/js/popper.min.js"></script>
+    <script src="/bootstrap/4/js/bootstrap.min.js"></script>
+</body>
+
+</html>

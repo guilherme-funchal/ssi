@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "ssi",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "messages",
+              "column": "id"
+            },
+            {
+              "table": "messages",
+              "column": "state"
+            },
+            {
+              "table": "messages",
+              "column": "messageID"
+            },
+            {
+              "table": "messages",
+              "column": "from"
+            },
+            {
+              "table": "messages",
+              "column": "msg"
+            },
+            {
+              "table": "messages",
+              "column": "date"
+            }
+          ],
+          "table": {
+            "name": "messages"
+          },
+          "joins": [],
+          "query": "SELECT id, state, messageID, from, msg, date\nFROM messages",
+          "params": []
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "name": "id",
+          "type": "text"
+        },
+        {
+          "name": "state",
+          "type": "text"
+        },
+        {
+          "name": "messageID",
+          "type": "text"
+        },
+        {
+          "name": "from",
+          "type": "text"
+        },
+        {
+          "name": "msg",
+          "type": "text"
+        },
+        {
+          "name": "date",
+          "type": "text"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}

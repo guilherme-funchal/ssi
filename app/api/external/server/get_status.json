@@ -1,0 +1,89 @@
+{
+  "name": "api",
+  "module": "api",
+  "action": "send",
+  "options": {
+    "url": "https://{{_ENV_REST_HOST}}:{{_ENV_REST_PORT}}/status",
+    "schema": [],
+    "dataType": "json",
+    "passErrors": false
+  },
+  "meta": [
+    {
+      "type": "object",
+      "name": "data",
+      "sub": [
+        {
+          "type": "text",
+          "name": "version"
+        },
+        {
+          "type": "text",
+          "name": "label"
+        },
+        {
+          "type": "object",
+          "name": "conductor",
+          "sub": [
+            {
+              "type": "number",
+              "name": "in_sessions"
+            },
+            {
+              "type": "number",
+              "name": "out_encode"
+            },
+            {
+              "type": "number",
+              "name": "out_deliver"
+            },
+            {
+              "type": "number",
+              "name": "task_active"
+            },
+            {
+              "type": "number",
+              "name": "task_done"
+            },
+            {
+              "type": "number",
+              "name": "task_failed"
+            },
+            {
+              "type": "number",
+              "name": "task_pending"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "object",
+      "name": "headers",
+      "sub": [
+        {
+          "type": "text",
+          "name": "connection"
+        },
+        {
+          "type": "text",
+          "name": "content-length"
+        },
+        {
+          "type": "text",
+          "name": "content-type"
+        },
+        {
+          "type": "text",
+          "name": "date"
+        },
+        {
+          "type": "text",
+          "name": "server"
+        }
+      ]
+    }
+  ],
+  "outputType": "object",
+  "output": true
+}
