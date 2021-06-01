@@ -1,6 +1,10 @@
 {
   "routes": [
     {
+      "path": "/login",
+      "url": ""
+    },
+    {
       "path": "/home",
       "page": "home",
       "layout": "main"
@@ -68,6 +72,27 @@
     {
       "path": "/users",
       "page": "users",
+      "layout": "main"
+    },
+    {
+      "path": "/teste",
+      "page": "teste",
+      "layout": "main"
+    },
+    {
+      "path": "/login-tmp",
+      "page": "login-tmp",
+      "layout": "main"
+    },
+    {
+      "path": "/login",
+      "page": "login",
+      "layout": "main",
+      "routeType": "page"
+    },
+    {
+      "path": "/fail",
+      "page": "fail",
       "layout": "main"
     }
   ]

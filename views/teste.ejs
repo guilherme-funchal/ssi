@@ -1,0 +1,13 @@
+<dmx-local-manager id="local1"></dmx-local-manager>
+<!-- Wappler include head-page="layouts/main" is="dmx-app" id="teste" appConnect="local" jquery_slim_35="local" fontawesome_4="cdn" bootstrap4="cdn" components="{dmxStateManagement:{}}" bootstrap_icons="cdn" -->
+<dmx-cookie-manager id="cookies1"></dmx-cookie-manager>
+<dmx-session-manager id="session1"></dmx-session-manager>
+
+<meta name="ac:route" content="/teste">
+
+<body is="dmx-app" id="index">
+    <div class="container mt-5">
+        <button id="btn1" class="btn"
+            dmx-on:click="local1.set('token','eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ3YWxsZXRfaWQiOiJkZmM5OWYwNC05OWNmLTQ4ZTItYWU1Yi0zMmQ3NmE2MzhkZDMifQ.omNO_eHIemAxOZAjNTQzw0fMRYgSuOecMemWV1N-Zy4');cookies1.set('token','eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ3YWxsZXRfaWQiOiJkZmM5OWYwNC05OWNmLTQ4ZTItYWU1Yi0zMmQ3NmE2MzhkZDMifQ.omNO_eHIemAxOZAjNTQzw0fMRYgSuOecMemWV1N-Zy4',{});session1.set('token','eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ3YWxsZXRfaWQiOiJkZmM5OWYwNC05OWNmLTQ4ZTItYWU1Yi0zMmQ3NmE2MzhkZDMifQ.omNO_eHIemAxOZAjNTQzw0fMRYgSuOecMemWV1N-Zy4')">Button</button>
+    </div>
+</body>

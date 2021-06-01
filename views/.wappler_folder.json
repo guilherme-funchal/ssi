@@ -62,5 +62,37 @@
   "usuarios.ejs": {
     "layoutPage": "main",
     "description": ""
+  },
+  "components.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "componentes.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "storage.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "lgin.ejs": {
+    "layoutPage": "",
+    "description": ""
+  },
+  "lgoin.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "login-tmp.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "login.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "fail.ejs": {
+    "layoutPage": "main",
+    "description": ""
   }
 }

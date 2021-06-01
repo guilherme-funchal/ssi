@@ -1,0 +1,204 @@
+[
+  {
+    "name": "api",
+    "module": "api",
+    "action": "send",
+    "options": {
+      "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections",
+      "schema": [],
+      "headers": {
+        "authorization": "{{'Bearer '+_SESSION_TOKEN}}"
+      }
+    },
+    "output": true,
+    "meta": [
+      {
+        "type": "object",
+        "name": "data",
+        "sub": [
+          {
+            "type": "array",
+            "name": "results",
+            "sub": [
+              {
+                "type": "text",
+                "name": "state"
+              },
+              {
+                "type": "text",
+                "name": "request_id"
+              },
+              {
+                "type": "text",
+                "name": "my_did"
+              },
+              {
+                "type": "text",
+                "name": "connection_id"
+              },
+              {
+                "type": "text",
+                "name": "created_at"
+              },
+              {
+                "type": "text",
+                "name": "updated_at"
+              },
+              {
+                "type": "text",
+                "name": "their_role"
+              },
+              {
+                "type": "text",
+                "name": "rfc23_state"
+              },
+              {
+                "type": "text",
+                "name": "invitation_key"
+              },
+              {
+                "type": "text",
+                "name": "invitation_mode"
+              },
+              {
+                "type": "text",
+                "name": "routing_state"
+              },
+              {
+                "type": "text",
+                "name": "their_label"
+              },
+              {
+                "type": "text",
+                "name": "accept"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "object",
+        "name": "headers",
+        "sub": [
+          {
+            "type": "text",
+            "name": "connection"
+          },
+          {
+            "type": "text",
+            "name": "content-length"
+          },
+          {
+            "type": "text",
+            "name": "content-type"
+          },
+          {
+            "type": "text",
+            "name": "date"
+          },
+          {
+            "type": "text",
+            "name": "server"
+          }
+        ]
+      }
+    ],
+    "outputType": "object"
+  },
+  {
+    "name": "repeat",
+    "module": "core",
+    "action": "repeat",
+    "options": {
+      "repeat": "{{api.data.results}}",
+      "outputFields": [],
+      "exec": {
+        "steps": {
+          "name": "feature",
+          "module": "core",
+          "action": "setvalue",
+          "options": {
+            "value": "{{$name}}"
+          },
+          "output": true
+        }
+      }
+    },
+    "output": true,
+    "meta": [
+      {
+        "name": "$index",
+        "type": "number"
+      },
+      {
+        "name": "$number",
+        "type": "number"
+      },
+      {
+        "name": "$name",
+        "type": "text"
+      },
+      {
+        "name": "$value",
+        "type": "object"
+      },
+      {
+        "name": "state",
+        "type": "text"
+      },
+      {
+        "name": "request_id",
+        "type": "text"
+      },
+      {
+        "name": "my_did",
+        "type": "text"
+      },
+      {
+        "name": "connection_id",
+        "type": "text"
+      },
+      {
+        "name": "created_at",
+        "type": "text"
+      },
+      {
+        "name": "updated_at",
+        "type": "text"
+      },
+      {
+        "name": "their_role",
+        "type": "text"
+      },
+      {
+        "name": "rfc23_state",
+        "type": "text"
+      },
+      {
+        "name": "invitation_key",
+        "type": "text"
+      },
+      {
+        "name": "invitation_mode",
+        "type": "text"
+      },
+      {
+        "name": "routing_state",
+        "type": "text"
+      },
+      {
+        "name": "their_label",
+        "type": "text"
+      },
+      {
+        "name": "accept",
+        "type": "text"
+      },
+      {
+        "name": "feature",
+        "type": "text"
+      }
+    ],
+    "outputType": "array"
+  }
+]
