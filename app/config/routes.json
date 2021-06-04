@@ -7,32 +7,38 @@
     {
       "path": "/home",
       "page": "home",
-      "layout": "main"
+      "layout": "main",
+      "exec": "/api/security/user"
     },
     {
       "path": "/ajuda",
       "page": "ajuda",
-      "layout": "main"
+      "layout": "main",
+      "exec": "/api/security/user"
     },
     {
       "path": "/config",
       "page": "config",
-      "layout": "main"
+      "layout": "main",
+      "exec": "/api/security/user"
     },
     {
       "path": "/connections",
       "page": "connections",
-      "layout": "main"
+      "layout": "main",
+      "exec": "/api/security/user"
     },
     {
       "path": "/credentials",
       "page": "credentials",
-      "layout": "main"
+      "layout": "main",
+      "exec": "/api/security/user"
     },
     {
       "path": "/dashboard",
       "page": "dashboard",
-      "layout": "main"
+      "layout": "main",
+      "exec": "/api/security/user"
     },
     {
       "path": "/exit",
@@ -47,37 +53,38 @@
     {
       "path": "/help",
       "page": "help",
-      "layout": "main"
+      "layout": "main",
+      "exec": "/api/security/user"
     },
     {
       "path": "/messages",
       "page": "messages",
-      "layout": "main"
+      "layout": "main",
+      "exec": "/api/security/user"
     },
     {
       "path": "/proofs",
       "page": "proofs",
-      "layout": "main"
+      "layout": "main",
+      "exec": "/api/security/user"
     },
     {
       "path": "/schemas",
       "page": "schemas",
-      "layout": "main"
+      "layout": "main",
+      "exec": "/api/security/user"
     },
     {
       "path": "/server",
       "page": "server",
-      "layout": "main"
+      "layout": "main",
+      "exec": "/api/security/user"
     },
     {
       "path": "/users",
       "page": "users",
-      "layout": "main"
-    },
-    {
-      "path": "/teste",
-      "page": "teste",
-      "layout": "main"
+      "layout": "main",
+      "exec": "/api/security/user"
     },
     {
       "path": "/login-tmp",
@@ -88,11 +95,18 @@
       "path": "/login",
       "page": "login",
       "layout": "main",
-      "routeType": "page"
+      "routeType": "page",
+      "exec": ""
     },
     {
       "path": "/fail",
       "page": "fail",
+      "layout": "main",
+      "exec": "/api/security/user"
+    },
+    {
+      "path": "/register",
+      "page": "register",
       "layout": "main"
     }
   ]

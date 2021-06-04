@@ -1,0 +1,43 @@
+<!-- Wappler include head-page="layouts/main" is="dmx-app" id="register" appConnect="local" jquery_slim_35="cdn" fontawesome_4="cdn" bootstrap4="cdn" bootstrap_icons="cdn" components="{dmxValidator:{},dmxBrowser:{},dmxNotifications:{}}" -->
+<div is="dmx-browser" id="browser1"></div>
+<meta name="ac:route" content="/register">
+<div class="container">
+    <form id="register1" method="post" is="dmx-serverconnect-form" action="/api/security/registration" dmx-on:success="browser1.goto('home',true)">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-8 col-xl-6">
+                <div class="row">
+                    <div class="col text-center">
+                        <h1>Register</h1>
+                        <p class="text-h3">Enter your registration details below.</p>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col mt-4">
+                        <input type="text" id="inp_first_name" name="first_name" class="form-control" placeholder="First Name" data-msg-required="">
+                    </div>
+                    <div class="col mt-4">
+                        <input type="text" id="inp_last_name" name="last_name" class="form-control" placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="row align-items-center mt-4">
+                    <div class="col">
+                        <input type="email" id="inp_email" name="email" class="form-control" placeholder="Email" required="">
+                    </div>
+                </div>
+                <div class="row align-items-center mt-4">
+                    <div class="col">
+                        <input type="password" id="inp_password" name="password" class="form-control" placeholder="Password" required="">
+                    </div>
+                    <div class="col">
+                        <input type="password" id="inp_pass_confirm" name="pass_confirm" class="form-control" placeholder="Confirm Password" required="">
+                    </div>
+                </div>
+                <div class="row justify-content-start mt-4">
+                    <div class="col">
+                        <button id="register1_submit" class="btn mt-4 btn-primary" type="submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

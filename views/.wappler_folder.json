@@ -94,5 +94,13 @@
   "fail.ejs": {
     "layoutPage": "main",
     "description": ""
+  },
+  "register.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "registration.ejs": {
+    "layoutPage": "main",
+    "description": ""
   }
 }

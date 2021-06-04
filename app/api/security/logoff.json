@@ -1,0 +1,32 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "",
+        "module": "auth",
+        "action": "logout",
+        "options": {
+          "provider": "siteSecurity"
+        }
+      },
+      {
+        "name": "token",
+        "module": "core",
+        "action": "removecookie",
+        "options": {}
+      }
+    ]
+  }
+}

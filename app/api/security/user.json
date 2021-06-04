@@ -1,1 +1,9 @@
-"SecurityProviders/security"
+{
+  "name": "",
+  "module": "auth",
+  "action": "restrict",
+  "options": {
+    "provider": "siteSecurity",
+    "loginUrl": "login"
+  }
+}

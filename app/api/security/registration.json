@@ -1,0 +1,205 @@
+{
+  "meta": {
+    "$_POST": [
+      {
+        "type": "text",
+        "options": {
+          "rules": {
+            "core:required": {},
+            "core:email": {}
+          }
+        },
+        "name": "email"
+      },
+      {
+        "type": "text",
+        "options": {
+          "rules": {
+            "core:required": {},
+            "core:pattern": {
+              "param": "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,15}$",
+              "message": "Senha deve ter um caracter em maiuscula, um especial, numeros e minuscúlas."
+            }
+          }
+        },
+        "name": "password"
+      },
+      {
+        "type": "text",
+        "options": {
+          "rules": {
+            "core:required": {},
+            "core:equalTo": {
+              "param": "password"
+            }
+          }
+        },
+        "name": "pass_confirm"
+      },
+      {
+        "type": "text",
+        "name": "first_name"
+      },
+      {
+        "type": "text",
+        "name": "last_name"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "email",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_POST.email.lowercase()}}"
+        }
+      },
+      {
+        "name": "validate_email",
+        "module": "validator",
+        "action": "validate",
+        "options": {
+          "data": [
+            {
+              "name": "validate_1",
+              "value": "{{email}}",
+              "rules": {
+                "db:notexists": {
+                  "param": {
+                    "connection": "ssi",
+                    "table": "users",
+                    "column": "email"
+                  },
+                  "message": "Email já existe!"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "salt",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{TIMESTAMP.md5(TIMESTAMP).substr(0, 15)}}"
+        }
+      },
+      {
+        "name": "insert_user",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "ssi",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "users",
+                "column": "first_name",
+                "type": "text",
+                "value": "{{$_POST.first_name}}"
+              },
+              {
+                "table": "users",
+                "column": "last_name",
+                "type": "text",
+                "value": "{{$_POST.last_name}}"
+              },
+              {
+                "table": "users",
+                "column": "email",
+                "type": "text",
+                "value": "{{email}}"
+              },
+              {
+                "table": "users",
+                "column": "role",
+                "type": "text",
+                "value": "user"
+              },
+              {
+                "table": "users",
+                "column": "pass_hash",
+                "type": "text",
+                "value": "{{$_POST.password.sha512(salt)}}"
+              },
+              {
+                "table": "users",
+                "column": "pass_salt",
+                "type": "text",
+                "value": "{{salt}}"
+              },
+              {
+                "table": "users",
+                "column": "last_login",
+                "type": "text",
+                "value": "{{NOW_UTC}}"
+              }
+            ],
+            "table": "users",
+            "returning": "id",
+            "query": "INSERT INTO users\n(first_name, last_name, email, role, pass_hash, pass_salt, last_login) VALUES (:P1 /* {{$_POST.first_name}} */, :P2 /* {{$_POST.last_name}} */, :P3 /* {{email}} */, 'user', :P4 /* {{$_POST.password.sha512(salt)}} */, :P5 /* {{salt}} */, :P6 /* {{NOW_UTC}} */)",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.first_name}}"
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{$_POST.last_name}}"
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{email}}"
+              },
+              {
+                "name": ":P4",
+                "type": "expression",
+                "value": "{{$_POST.password.sha512(salt)}}"
+              },
+              {
+                "name": ":P5",
+                "type": "expression",
+                "value": "{{salt}}"
+              },
+              {
+                "name": ":P6",
+                "type": "expression",
+                "value": "{{NOW_UTC}}"
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "name": "identity",
+        "module": "auth",
+        "action": "login",
+        "options": {
+          "provider": "siteSecurity",
+          "username": "{{email}}",
+          "remember": 1,
+          "password": "{{$_POST.password.sha512(salt)}}"
+        },
+        "output": true,
+        "meta": []
+      }
+    ]
+  }
+}

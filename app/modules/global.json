@@ -34,14 +34,6 @@
         "options": {
           "value": "{{$_ENV.REST_PORT}}"
         }
-      },
-      {
-        "name": "_SESSION_TOKEN",
-        "module": "core",
-        "action": "setvalue",
-        "options": {
-          "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ3YWxsZXRfaWQiOiJkZmM5OWYwNC05OWNmLTQ4ZTItYWU1Yi0zMmQ3NmE2MzhkZDMifQ.omNO_eHIemAxOZAjNTQzw0fMRYgSuOecMemWV1N-Zy4"
-        }
       }
     ]
   }

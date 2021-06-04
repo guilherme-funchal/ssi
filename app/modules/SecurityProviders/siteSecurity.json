@@ -1,0 +1,49 @@
+{
+  "name": "siteSecurity",
+  "module": "auth",
+  "action": "provider",
+  "options": {
+    "connection": "ssi",
+    "provider": "Database",
+    "secret": "gfs@2109",
+    "users": {
+      "table": "users",
+      "identity": "id",
+      "username": "email",
+      "password": "pass_hash"
+    },
+    "permissions": {
+      "view": {
+        "table": "users",
+        "identity": "id",
+        "conditions": [
+          {
+            "column": "role",
+            "operator": "in",
+            "value": [
+              "user",
+              "admin"
+            ]
+          }
+        ]
+      },
+      "restricted": {
+        "table": "users",
+        "identity": "id",
+        "conditions": [
+          {
+            "column": "role",
+            "operator": "=",
+            "value": "admin"
+          }
+        ]
+      }
+    }
+  },
+  "meta": [
+    {
+      "name": "identity",
+      "type": "text"
+    }
+  ]
+}
