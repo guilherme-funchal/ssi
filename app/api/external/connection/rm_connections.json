@@ -1,0 +1,147 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ],
+    "$_POST": [
+      {
+        "type": "text",
+        "name": "connection_id"
+      }
+    ],
+    "$_COOKIE": [
+      {
+        "type": "text",
+        "name": "token"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "token",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_COOKIE.token}}",
+          "key": "token"
+        },
+        "output": true
+      },
+      {
+        "name": "api",
+        "module": "api",
+        "action": "send",
+        "options": {
+          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections/{{$_POST.connection_id}}",
+          "schema": [],
+          "headers": {
+            "authorization": "{{'Bearer '+token}}"
+          },
+          "method": "DELETE"
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "object",
+            "name": "data",
+            "sub": [
+              {
+                "type": "array",
+                "name": "results",
+                "sub": [
+                  {
+                    "type": "text",
+                    "name": "state"
+                  },
+                  {
+                    "type": "text",
+                    "name": "request_id"
+                  },
+                  {
+                    "type": "text",
+                    "name": "my_did"
+                  },
+                  {
+                    "type": "text",
+                    "name": "connection_id"
+                  },
+                  {
+                    "type": "text",
+                    "name": "created_at"
+                  },
+                  {
+                    "type": "text",
+                    "name": "updated_at"
+                  },
+                  {
+                    "type": "text",
+                    "name": "their_role"
+                  },
+                  {
+                    "type": "text",
+                    "name": "rfc23_state"
+                  },
+                  {
+                    "type": "text",
+                    "name": "invitation_key"
+                  },
+                  {
+                    "type": "text",
+                    "name": "invitation_mode"
+                  },
+                  {
+                    "type": "text",
+                    "name": "routing_state"
+                  },
+                  {
+                    "type": "text",
+                    "name": "their_label"
+                  },
+                  {
+                    "type": "text",
+                    "name": "accept"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "name": "headers",
+            "sub": [
+              {
+                "type": "text",
+                "name": "connection"
+              },
+              {
+                "type": "text",
+                "name": "content-length"
+              },
+              {
+                "type": "text",
+                "name": "content-type"
+              },
+              {
+                "type": "text",
+                "name": "date"
+              },
+              {
+                "type": "text",
+                "name": "server"
+              }
+            ]
+          }
+        ],
+        "outputType": "object"
+      }
+    ]
+  }
+}

@@ -23,12 +23,6 @@
       "exec": "/api/security/user"
     },
     {
-      "path": "/connections",
-      "page": "connections",
-      "layout": "main",
-      "exec": "/api/security/user"
-    },
-    {
       "path": "/credentials",
       "page": "credentials",
       "layout": "main",
@@ -108,6 +102,12 @@
       "path": "/register",
       "page": "register",
       "layout": "main"
+    },
+    {
+      "path": "/connections",
+      "page": "connections",
+      "layout": "main",
+      "exec": "/api/security/user"
     }
   ]
 }

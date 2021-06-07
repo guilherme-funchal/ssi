@@ -1,0 +1,16 @@
+{
+  "name": "ssi",
+  "module": "dbconnector",
+  "action": "connect",
+  "options": {
+    "client": "postgres",
+    "connection": {
+      "host": "127.0.0.1",
+      "port": 5432,
+      "user": "postgres",
+      "password": "gfs@2109",
+      "database": "ssi"
+    }
+  },
+  "fileName": "ssi.json"
+}

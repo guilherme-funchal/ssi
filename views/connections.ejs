@@ -1,37 +1,6 @@
-<!-- Wappler include head-page="layouts/main" is="dmx-app" id="connections" appConnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cerulean" bootstrap_icons="cdn" -->
-<meta name="ac:route" content="/connections">
-
-<div class="mt-5 container-fluid">
-    <h5 class="font-weight-bolder text-center text-black-50">
-        <p wappler-empty="undefined" wappler-command="editContent"><br></p>Conexões
-    </h5>
-    <header>
-        <button id="btn1" class="btn font-weight-bold btn-sm btn-primary" dmx-on:click="data_detail1.select(0);modal1.show()">
-            <font face="FontAwesome">Adicionar&nbsp;</font>&nbsp;<i class="fa fa-plus-circle fa-lg"></i>
-        </button>
-    </header>
-    <table class="table table-striped table-bordered table-borderless table-hover table-sm">
-        <thead>
-            <tr>
-                <th class="text-center">
-                    Conexão</th>
-                <th>Nome parceiro</th>
-                <th>Estado</th>
-            </tr>
-        </thead>
-        <tbody is="dmx-repeat" dmx-generator="bs4table" dmx-bind:repeat="serverconnect1.data.query" id="tableRepeat1">
-            <tr dmx-on:click="data_detail1.select(id);modal2.show()" style="cursor: pointer;">
-                <td dmx-text="connection_id" dmx-on:click=""></td>
-                <td dmx-text="partner_name"></td>
-                <td dmx-text="status"></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<dmx-serverconnect id="serverconnect1" url="api/connections/getConnections"></dmx-serverconnect>
-<dmx-data-detail id="data_detail1" dmx-bind:data="serverconnect1.data.query" key="id"></dmx-data-detail>
-<div class="modal mt-5" id="modal1" is="dmx-bs4-modal" tabindex="-1" role="dialog" dmx-on:click="">
-    <div class="modal-dialog" role="document">
+<!-- Wappler include head-page="layouts/main" is="dmx-app" id="home" appConnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cerulean" bootstrap_icons="cdn" components="{dmxBootstrap4TableGenerator:{},dmxDataTraversal:{},dmxBootstrap4Modal:{},dmxFormatter:{}}" -->
+<div class="modal mt-5" id="modal1" is="dmx-bs4-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Conexão</h5>
@@ -40,76 +9,125 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="api/connections/modConnections" dmx-generator="bootstrap4" dmx-form-type="horizontal" dmx-populate="data_detail1.data"
-                    dmx-on:success="modal1.hide();serverconnect1.load(true)">
-                    <input type="hidden" name="connection_id" id="inp_connection_id" dmx-bind:value="data_detail1.data.connection_id">
+                <form is="dmx-api-form" id="serverconnectform1" method="post" action="/api/external/connection/rm_connections" dmx-generator="bootstrap4" dmx-form-type="horizontal" dmx-populate="data_detail1.data"
+                    dmx-on:success="modal1.hide();serverconnect1.load({},true)">
                     <div class="form-group row">
-                        <label for="inp_partner_name" class="col-sm-2 col-form-label">Nome</label>
+                        <label for="inp_state" class="col-sm-2 col-form-label col-form-label-sm">Estado</label>
                         <div class="col-sm-10">
-                            <select id="inp_partner_name" class="form-control" name="partner_name" dmx-bind:value="data_detail1.data.partner_name" multiple="true" readonly="true">
-                                <option value="serpro">Serpro</option>
-                                <option value="receita">Receita</option>
-                                <option value="bb">BB</option>
-                            </select>
+                            <input type="text" class="form-control form-control-sm" id="inp_state" name="state" dmx-bind:value="data_detail1.data.state" aria-describedby="inp_state_help" placeholder="Enter State" readonly="true">
                         </div>
                     </div>
-                    <input type="hidden" name="invitation" id="inp_invitation" dmx-bind:value="data_detail1.data.invitation"><input type="hidden" name="status" id="inp_status" dmx-bind:value="data_detail1.data.status"><input type="hidden" name="id"
-                        id="inp_id" dmx-bind:value="data_detail1.data.id"><input type="hidden" name="operator" id="inp_operator" dmx-bind:value="data_detail1.data.operator">
+                    <div class="form-group row">
+                        <label for="inp_my_did" class="col-sm-2 col-form-label col-form-label-sm">DID</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="inp_my_did" name="my_did" dmx-bind:value="data_detail1.data.my_did" aria-describedby="inp_my_did_help" placeholder="Enter My did" readonly="true">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_connection_id" class="col-sm-2 col-form-label col-form-label-sm">Conexão</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="inp_connection_id" name="connection_id" dmx-bind:value="data_detail1.data.connection_id" aria-describedby="inp_connection_id_help" placeholder="Enter Connection"
+                                readonly="true">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_created_at" class="col-sm-2 col-form-label col-form-label-sm">Criação</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="inp_created_at" name="created_at" dmx-bind:value="data_detail1.data.created_at" aria-describedby="inp_created_at_help" placeholder="Enter Created at"
+                                readonly="true">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_updated_at" class="col-sm-2 col-form-label col-form-label-sm">Atualização</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="inp_updated_at" name="updated_at" dmx-bind:value="data_detail1.data.updated_at" aria-describedby="inp_updated_at_help" placeholder="Enter Updated at"
+                                readonly="true">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_their_role" class="col-sm-2 col-form-label col-form-label-sm">Role</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="inp_their_role" name="their_role" dmx-bind:value="data_detail1.data.their_role" aria-describedby="inp_their_role_help" placeholder="Enter Their role"
+                                readonly="true">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_rfc23_state" class="col-sm-2 col-form-label col-form-label-sm">Estado</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="inp_rfc23_state" name="rfc23_state" dmx-bind:value="data_detail1.data.rfc23_state" aria-describedby="inp_rfc23_state_help" placeholder="Enter Rfc23 state"
+                                readonly="true">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_invitation_key" class="col-sm-2 col-form-label-sm col offset-0 col-form-label">Chave</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="inp_invitation_key" name="invitation_key" dmx-bind:value="data_detail1.data.invitation_key" aria-describedby="inp_invitation_key_help"
+                                placeholder="Enter Invitation key" readonly="true">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_invitation_mode" class="col-sm-2 col-form-label col-form-label-sm">Invitation</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="inp_invitation_mode" name="invitation_mode" dmx-bind:value="data_detail1.data.invitation_mode" aria-describedby="inp_invitation_mode_help"
+                                placeholder="Enter Invitation mode" readonly="true">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_routing_state" class="col-sm-2 col-form-label col-form-label-sm">Routing&nbsp;</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="inp_routing_state" name="routing_state" dmx-bind:value="data_detail1.data.routing_state" aria-describedby="inp_routing_state_help"
+                                placeholder="Enter Routing state" readonly="true">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inp_their_label" class="col-sm-2 col-form-label col-form-label-sm">Legenda</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control form-control-sm" id="inp_their_label" name="their_label" dmx-bind:value="data_detail1.data.their_label" aria-describedby="inp_their_label_help" placeholder="Enter Their label"
+                                readonly="true">
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" dmx-on:click="run([{run:{action:`modal1.serverconnectform1.inp_operator.setValue(\'delete\')`}},{run:{action:`modal1.serverconnectform1.submit()`}}])">Excluir</button>
-                <button type="button" class="btn btn-primary"
-                    dmx-on:click="run([{condition:{if:`(data_detail1.data.id != null)`,then:{steps:{run:{action:`modal1.serverconnectform1.inp_operator.setValue(\'update\')`}}},else:{steps:{run:{action:`modal1.serverconnectform1.inp_operator.setValue(\'add\')`}}}}},{run:{action:`modal1.serverconnectform1.submit()`}}])">Salvar</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal mt-5" id="modal2" is="dmx-bs4-modal" tabindex="-1" role="dialog" dmx-on:click="">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Conexão</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
+                <button type="button" class="btn btn-sm btn-primary font-weight-bold" data-dismiss="modal">Fechar&nbsp;<i class="fa fa-times"></i>
+                </button>
+                <button id="btn1" class="btn btn-danger font-weight-bold btn-sm" dmx-on:click="serverconnectform1.submit()">Excluir&nbsp;<i class="fa fa-trash"></i>
                 </button>
             </div>
-            <div class="modal-body">
-                <form is="dmx-serverconnect-form" id="serverconnectform2" method="post" action="api/connections/modConnections" dmx-generator="bootstrap4" dmx-form-type="horizontal" dmx-populate="data_detail1.data"
-                    dmx-on:success="modal2.hide();serverconnect1.load({},true)">
-                    <div class="form-group row">
-                        <label for="inp_connection_id" class="col-sm-2 col-form-label">DID</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inp_connection_id" name="connection_id" dmx-bind:value="data_detail1.data.connection_id" aria-describedby="inp_connection_id_help" placeholder="Enter Connection"
-                                dmx-bind:readonly="data_detail1.data.connection_id">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inp_partner_name" class="col-sm-2 col-form-label">Org</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inp_partner_name" name="partner_name" dmx-bind:value="data_detail1.data.partner_name" aria-describedby="inp_partner_name_help" placeholder="Enter Partner name"
-                                dmx-bind:readonly="data_detail1.data.partner_name">
-                        </div>
-                    </div>
-                    <input type="hidden" name="invitation" id="inp_invitation" dmx-bind:value="data_detail1.data.invitation">
-                    <div class="form-group row">
-                        <label for="inp_status" class="col-sm-2 col-form-label">Estado</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inp_status" name="status" dmx-bind:value="data_detail1.data.status" aria-describedby="inp_status_help" placeholder="Enter Status" dmx-bind:readonly="data_detail1.data.status">
-                        </div>
-                    </div>
-                    <input type="hidden" name="id" id="inp_id" dmx-bind:value="data_detail1.data.id"><input type="hidden" name="operator" id="inp_operator" dmx-bind:value="data_detail1.data.operator">
-                </form>
-                <p dmx-text="">Enter your content here</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" dmx-on:click="run([{run:{action:`modal2.serverconnectform2.inp_operator.setValue(\'delete\')`}},{run:{action:`modal2.serverconnectform2.submit()`}}])">Excluir</button>
-                <button type="button" class="btn btn-primary">Estado</button>
+        </div>
+    </div>
+</div>
+<dmx-data-detail id="data_detail1" dmx-bind:data="content.serverconnect1.data.api.data.results" key="connection_id"></dmx-data-detail>
+<dmx-serverconnect id="serverconnect1" url="/api/external/connection/get_connections"></dmx-serverconnect>
+<meta name="ac:route" content="/connections">
+<div class="wappler-block mt-4 mb-0 pt-5 pb-0 container-fluid">
+
+    <div class="row">
+        <div class="text-center col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
+            <h4>Conexões<p wappler-command="editContent" wappler-empty="undefined"><br></p>
+            </h4>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th>Estado</th>
+                            <th>ID Conexão&nbsp;</th>
+                            <th>Criação</th>
+                            <th>Organização</th>
+                        </tr>
+                    </thead>
+                    <tbody is="dmx-repeat" dmx-generator="bs4table" dmx-bind:repeat="content.serverconnect1.data.api.data.results" id="tableRepeat1">
+                        <tr dmx-on:click="data_detail1.select(connection_id);modal1.show()">
+                            <td dmx-text="state">
+                                <div id="conditional1" is="dmx-if" dmx-bind:condition="(state == 'active')"></div>
+                            </td>
+                            <td dmx-text="connection_id"></td>
+                            <td dmx-text="created_at"></td>
+                            <td dmx-text="their_label"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
-
-
-<script src="bootstrap/4/js/popper.min.js"></script>
-<script src="bootstrap/4/js/bootstrap.min.js"></script>

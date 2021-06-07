@@ -117,5 +117,64 @@ dmx.config({
       ],
       "outputType": "array"
     }
+  },
+  "home": {
+    "data_detail1": {
+      "meta": [
+        {
+          "type": "text",
+          "name": "state"
+        },
+        {
+          "type": "text",
+          "name": "request_id"
+        },
+        {
+          "type": "text",
+          "name": "my_did"
+        },
+        {
+          "type": "text",
+          "name": "connection_id"
+        },
+        {
+          "type": "text",
+          "name": "created_at"
+        },
+        {
+          "type": "text",
+          "name": "updated_at"
+        },
+        {
+          "type": "text",
+          "name": "their_role"
+        },
+        {
+          "type": "text",
+          "name": "rfc23_state"
+        },
+        {
+          "type": "text",
+          "name": "invitation_key"
+        },
+        {
+          "type": "text",
+          "name": "invitation_mode"
+        },
+        {
+          "type": "text",
+          "name": "routing_state"
+        },
+        {
+          "type": "text",
+          "name": "their_label"
+        },
+        {
+          "type": "text",
+          "name": "accept"
+        }
+      ],
+      "outputType": "array"
+    }
   }
 });
