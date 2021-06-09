@@ -22,7 +22,8 @@
             "operator": "in",
             "value": [
               "user",
-              "admin"
+              "admin",
+              "org"
             ]
           }
         ]
@@ -33,8 +34,11 @@
         "conditions": [
           {
             "column": "role",
-            "operator": "=",
-            "value": "admin"
+            "operator": "in",
+            "value": [
+              "admin",
+              "org"
+            ]
           }
         ]
       }
