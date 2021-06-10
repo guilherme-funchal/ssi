@@ -8,7 +8,6 @@
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/fontawesome4/css/font-awesome.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="/bootstrap/4/cerulean/bootstrap.min.css" />
   <script src="/dmxAppConnect/dmxDataTraversal/dmxDataTraversal.js" defer=""></script>
   <script src="/dmxAppConnect/dmxBootstrap4Modal/dmxBootstrap4Modal.js" defer=""></script>
   <script src="/dmxAppConnect/dmxBootstrap4Navigation/dmxBootstrap4Navigation.js" defer=""></script>
@@ -19,6 +18,11 @@
   <script src="/dmxAppConnect/dmxStateManagement/dmxStateManagement.js" defer=""></script>
   <script src="/dmxAppConnect/dmxBrowser/dmxBrowser.js" defer=""></script>
   <script src="/dmxAppConnect/dmxFormatter/dmxFormatter.js" defer=""></script>
+  <link rel="stylesheet" href="/dmxAppConnect/dmxNotifications/dmxNotifications.css" />
+  <script src="/dmxAppConnect/dmxNotifications/dmxNotifications.js" defer=""></script>
+  <link rel="stylesheet" href="/dmxAppConnect/dmxPreloader/dmxPreloader.css" />
+  <script src="/dmxAppConnect/dmxPreloader/dmxPreloader.js" defer=""></script>
+  <link rel="stylesheet" href="/bootstrap/4/cerulean/bootstrap.min.css" />
 </head>
 
 <body is="dmx-app" id="main">
@@ -89,13 +93,13 @@
       <!-- Page Content -->
       <div class="d-block w-100" id="page-content-wrapper">
 
-        <nav class="navbar navbar-expand-lg border-bottom fixed-top bg-info navbar-light w-auto h-auto small">
+        <nav class="navbar navbar-expand-lg border-bottom fixed-top h-auto small navbar-light w-auto bg-info">
 
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topnav1" aria-controls="topnav1" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="topnav1">
-            <h5 wappler-command="editContent">Serpro</h5>
+          <div class="collapse navbar-collapse bg-info" id="topnav1">
+            <h5 wappler-command="editContent" class="text-light font-weight-bold">Serpro</h5>
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
               <li class="nav-item active" wappler-empty="undefined" wappler-command="editContent">
               </li>

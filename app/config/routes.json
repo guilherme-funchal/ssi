@@ -107,7 +107,7 @@
       "path": "/connections",
       "page": "connections",
       "layout": "main",
-      "exec": "/api/security/user"
+      "exec": ""
     }
   ]
 }
