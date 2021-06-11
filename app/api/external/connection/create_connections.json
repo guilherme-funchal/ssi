@@ -102,117 +102,7 @@
         "outputType": "array"
       },
       {
-        "name": "api_create_invitation",
-        "module": "api",
-        "action": "send",
-        "options": {
-          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections/create-invitation",
-          "schema": [],
-          "headers": {
-            "authorization": "{{'Bearer '+token}}"
-          },
-          "method": "POST",
-          "params": {
-            "alias": "serpro"
-          }
-        },
-        "output": true,
-        "meta": [
-          {
-            "type": "object",
-            "name": "data",
-            "sub": [
-              {
-                "type": "array",
-                "name": "results",
-                "sub": [
-                  {
-                    "type": "text",
-                    "name": "state"
-                  },
-                  {
-                    "type": "text",
-                    "name": "request_id"
-                  },
-                  {
-                    "type": "text",
-                    "name": "my_did"
-                  },
-                  {
-                    "type": "text",
-                    "name": "connection_id"
-                  },
-                  {
-                    "type": "text",
-                    "name": "created_at"
-                  },
-                  {
-                    "type": "text",
-                    "name": "updated_at"
-                  },
-                  {
-                    "type": "text",
-                    "name": "their_role"
-                  },
-                  {
-                    "type": "text",
-                    "name": "rfc23_state"
-                  },
-                  {
-                    "type": "text",
-                    "name": "invitation_key"
-                  },
-                  {
-                    "type": "text",
-                    "name": "invitation_mode"
-                  },
-                  {
-                    "type": "text",
-                    "name": "routing_state"
-                  },
-                  {
-                    "type": "text",
-                    "name": "their_label"
-                  },
-                  {
-                    "type": "text",
-                    "name": "accept"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "type": "object",
-            "name": "headers",
-            "sub": [
-              {
-                "type": "text",
-                "name": "connection"
-              },
-              {
-                "type": "text",
-                "name": "content-length"
-              },
-              {
-                "type": "text",
-                "name": "content-type"
-              },
-              {
-                "type": "text",
-                "name": "date"
-              },
-              {
-                "type": "text",
-                "name": "server"
-              }
-            ]
-          }
-        ],
-        "outputType": "object"
-      },
-      {
-        "name": "api_get_connections",
+        "name": "api_get_connections_teste",
         "module": "api",
         "action": "send",
         "options": {
@@ -222,7 +112,8 @@
             "authorization": "{{'Bearer '+token}}"
           },
           "params": {
-            "state": "invitation"
+            "state": "active",
+            "alias": "{{email_org}}"
           }
         },
         "output": true,
@@ -321,298 +212,546 @@
         "outputType": "object"
       },
       {
-        "name": "repeat",
+        "name": "count",
         "module": "core",
-        "action": "repeat",
+        "action": "setcookie",
         "options": {
-          "repeat": "{{api_get_connections.data.results}}",
-          "outputFields": [],
-          "exec": {
-            "steps": {
-              "name": "api_accept_invitation",
-              "module": "api",
-              "action": "send",
-              "options": {
-                "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections/receive-invitation",
-                "schema": [],
-                "headers": {
-                  "authorization": "{{'Bearer '+query[0].token}}"
-                },
-                "method": "POST",
-                "data": {
-                  "label": "{{$_POST.email}}",
-                  "recipientKeys": [
-                    "{{$value.invitation_key}}"
-                  ],
-                  "serviceEndpoint": "{{$_ENV.SERVICEENDPOINT}}"
-                },
-                "dataType": "json"
-              },
-              "output": true,
-              "meta": [
-                {
-                  "type": "object",
-                  "name": "data",
-                  "sub": [
-                    {
-                      "type": "array",
-                      "name": "results",
-                      "sub": [
-                        {
-                          "type": "text",
-                          "name": "state"
-                        },
-                        {
-                          "type": "text",
-                          "name": "request_id"
-                        },
-                        {
-                          "type": "text",
-                          "name": "my_did"
-                        },
-                        {
-                          "type": "text",
-                          "name": "connection_id"
-                        },
-                        {
-                          "type": "text",
-                          "name": "created_at"
-                        },
-                        {
-                          "type": "text",
-                          "name": "updated_at"
-                        },
-                        {
-                          "type": "text",
-                          "name": "their_role"
-                        },
-                        {
-                          "type": "text",
-                          "name": "rfc23_state"
-                        },
-                        {
-                          "type": "text",
-                          "name": "invitation_key"
-                        },
-                        {
-                          "type": "text",
-                          "name": "invitation_mode"
-                        },
-                        {
-                          "type": "text",
-                          "name": "routing_state"
-                        },
-                        {
-                          "type": "text",
-                          "name": "their_label"
-                        },
-                        {
-                          "type": "text",
-                          "name": "accept"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "object",
-                  "name": "headers",
-                  "sub": [
-                    {
-                      "type": "text",
-                      "name": "connection"
-                    },
-                    {
-                      "type": "text",
-                      "name": "content-length"
-                    },
-                    {
-                      "type": "text",
-                      "name": "content-type"
-                    },
-                    {
-                      "type": "text",
-                      "name": "date"
-                    },
-                    {
-                      "type": "text",
-                      "name": "server"
-                    }
-                  ]
-                }
-              ],
-              "outputType": "object"
-            }
-          }
-        },
-        "output": true,
-        "meta": [
-          {
-            "name": "$index",
-            "type": "number"
-          },
-          {
-            "name": "$number",
-            "type": "number"
-          },
-          {
-            "name": "$name",
-            "type": "text"
-          },
-          {
-            "name": "$value",
-            "type": "object"
-          },
-          {
-            "name": "state",
-            "type": "text"
-          },
-          {
-            "name": "request_id",
-            "type": "text"
-          },
-          {
-            "name": "my_did",
-            "type": "text"
-          },
-          {
-            "name": "connection_id",
-            "type": "text"
-          },
-          {
-            "name": "created_at",
-            "type": "text"
-          },
-          {
-            "name": "updated_at",
-            "type": "text"
-          },
-          {
-            "name": "their_role",
-            "type": "text"
-          },
-          {
-            "name": "rfc23_state",
-            "type": "text"
-          },
-          {
-            "name": "invitation_key",
-            "type": "text"
-          },
-          {
-            "name": "invitation_mode",
-            "type": "text"
-          },
-          {
-            "name": "routing_state",
-            "type": "text"
-          },
-          {
-            "name": "their_label",
-            "type": "text"
-          },
-          {
-            "name": "accept",
-            "type": "text"
-          },
-          {
-            "name": "api_accept_invitation",
-            "type": "object",
-            "sub": [
+          "value": "{{api_get_connections_teste.data.results.count()}}"
+        }
+      },
+      {
+        "name": "count",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{api_get_connections_teste.data.results.count()}}"
+        }
+      },
+      {
+        "name": "",
+        "module": "core",
+        "action": "condition",
+        "options": {
+          "if": "{{count == 0}}",
+          "then": {
+            "steps": [
               {
-                "type": "object",
-                "name": "data",
-                "sub": [
+                "name": "api_create_invitation",
+                "module": "api",
+                "action": "send",
+                "options": {
+                  "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections/create-invitation",
+                  "schema": [],
+                  "headers": {
+                    "authorization": "{{'Bearer '+token}}"
+                  },
+                  "method": "POST",
+                  "params": {
+                    "alias": "{{email_org}}"
+                  }
+                },
+                "output": true,
+                "meta": [
                   {
-                    "type": "array",
-                    "name": "results",
+                    "type": "object",
+                    "name": "data",
+                    "sub": [
+                      {
+                        "type": "array",
+                        "name": "results",
+                        "sub": [
+                          {
+                            "type": "text",
+                            "name": "state"
+                          },
+                          {
+                            "type": "text",
+                            "name": "request_id"
+                          },
+                          {
+                            "type": "text",
+                            "name": "my_did"
+                          },
+                          {
+                            "type": "text",
+                            "name": "connection_id"
+                          },
+                          {
+                            "type": "text",
+                            "name": "created_at"
+                          },
+                          {
+                            "type": "text",
+                            "name": "updated_at"
+                          },
+                          {
+                            "type": "text",
+                            "name": "their_role"
+                          },
+                          {
+                            "type": "text",
+                            "name": "rfc23_state"
+                          },
+                          {
+                            "type": "text",
+                            "name": "invitation_key"
+                          },
+                          {
+                            "type": "text",
+                            "name": "invitation_mode"
+                          },
+                          {
+                            "type": "text",
+                            "name": "routing_state"
+                          },
+                          {
+                            "type": "text",
+                            "name": "their_label"
+                          },
+                          {
+                            "type": "text",
+                            "name": "accept"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "name": "headers",
                     "sub": [
                       {
                         "type": "text",
-                        "name": "state"
+                        "name": "connection"
                       },
                       {
                         "type": "text",
-                        "name": "request_id"
+                        "name": "content-length"
                       },
                       {
                         "type": "text",
-                        "name": "my_did"
+                        "name": "content-type"
                       },
                       {
                         "type": "text",
-                        "name": "connection_id"
+                        "name": "date"
                       },
                       {
                         "type": "text",
-                        "name": "created_at"
-                      },
-                      {
-                        "type": "text",
-                        "name": "updated_at"
-                      },
-                      {
-                        "type": "text",
-                        "name": "their_role"
-                      },
-                      {
-                        "type": "text",
-                        "name": "rfc23_state"
-                      },
-                      {
-                        "type": "text",
-                        "name": "invitation_key"
-                      },
-                      {
-                        "type": "text",
-                        "name": "invitation_mode"
-                      },
-                      {
-                        "type": "text",
-                        "name": "routing_state"
-                      },
-                      {
-                        "type": "text",
-                        "name": "their_label"
-                      },
-                      {
-                        "type": "text",
-                        "name": "accept"
+                        "name": "server"
                       }
                     ]
                   }
-                ]
+                ],
+                "outputType": "object"
               },
               {
-                "type": "object",
-                "name": "headers",
-                "sub": [
-                  {
-                    "type": "text",
-                    "name": "connection"
+                "name": "api_get_connections",
+                "module": "api",
+                "action": "send",
+                "options": {
+                  "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections",
+                  "schema": [],
+                  "headers": {
+                    "authorization": "{{'Bearer '+token}}"
                   },
-                  {
-                    "type": "text",
-                    "name": "content-length"
-                  },
-                  {
-                    "type": "text",
-                    "name": "content-type"
-                  },
-                  {
-                    "type": "text",
-                    "name": "date"
-                  },
-                  {
-                    "type": "text",
-                    "name": "server"
+                  "params": {
+                    "state": "invitation"
                   }
-                ]
+                },
+                "output": true,
+                "meta": [
+                  {
+                    "type": "object",
+                    "name": "data",
+                    "sub": [
+                      {
+                        "type": "array",
+                        "name": "results",
+                        "sub": [
+                          {
+                            "type": "text",
+                            "name": "state"
+                          },
+                          {
+                            "type": "text",
+                            "name": "request_id"
+                          },
+                          {
+                            "type": "text",
+                            "name": "my_did"
+                          },
+                          {
+                            "type": "text",
+                            "name": "connection_id"
+                          },
+                          {
+                            "type": "text",
+                            "name": "created_at"
+                          },
+                          {
+                            "type": "text",
+                            "name": "updated_at"
+                          },
+                          {
+                            "type": "text",
+                            "name": "their_role"
+                          },
+                          {
+                            "type": "text",
+                            "name": "rfc23_state"
+                          },
+                          {
+                            "type": "text",
+                            "name": "invitation_key"
+                          },
+                          {
+                            "type": "text",
+                            "name": "invitation_mode"
+                          },
+                          {
+                            "type": "text",
+                            "name": "routing_state"
+                          },
+                          {
+                            "type": "text",
+                            "name": "their_label"
+                          },
+                          {
+                            "type": "text",
+                            "name": "accept"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "name": "headers",
+                    "sub": [
+                      {
+                        "type": "text",
+                        "name": "connection"
+                      },
+                      {
+                        "type": "text",
+                        "name": "content-length"
+                      },
+                      {
+                        "type": "text",
+                        "name": "content-type"
+                      },
+                      {
+                        "type": "text",
+                        "name": "date"
+                      },
+                      {
+                        "type": "text",
+                        "name": "server"
+                      }
+                    ]
+                  }
+                ],
+                "outputType": "object"
+              },
+              {
+                "name": "repeat",
+                "module": "core",
+                "action": "repeat",
+                "options": {
+                  "repeat": "{{api_get_connections.data.results}}",
+                  "outputFields": [],
+                  "exec": {
+                    "steps": {
+                      "name": "api_accept_invitation",
+                      "module": "api",
+                      "action": "send",
+                      "options": {
+                        "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections/receive-invitation",
+                        "schema": [],
+                        "headers": {
+                          "authorization": "{{'Bearer '+query[0].token}}"
+                        },
+                        "method": "POST",
+                        "data": {
+                          "label": "{{$_POST.email}}",
+                          "recipientKeys": [
+                            "{{$value.invitation_key}}"
+                          ],
+                          "serviceEndpoint": "{{$_ENV.SERVICEENDPOINT}}"
+                        },
+                        "dataType": "json"
+                      },
+                      "output": true,
+                      "meta": [
+                        {
+                          "type": "object",
+                          "name": "data",
+                          "sub": [
+                            {
+                              "type": "array",
+                              "name": "results",
+                              "sub": [
+                                {
+                                  "type": "text",
+                                  "name": "state"
+                                },
+                                {
+                                  "type": "text",
+                                  "name": "request_id"
+                                },
+                                {
+                                  "type": "text",
+                                  "name": "my_did"
+                                },
+                                {
+                                  "type": "text",
+                                  "name": "connection_id"
+                                },
+                                {
+                                  "type": "text",
+                                  "name": "created_at"
+                                },
+                                {
+                                  "type": "text",
+                                  "name": "updated_at"
+                                },
+                                {
+                                  "type": "text",
+                                  "name": "their_role"
+                                },
+                                {
+                                  "type": "text",
+                                  "name": "rfc23_state"
+                                },
+                                {
+                                  "type": "text",
+                                  "name": "invitation_key"
+                                },
+                                {
+                                  "type": "text",
+                                  "name": "invitation_mode"
+                                },
+                                {
+                                  "type": "text",
+                                  "name": "routing_state"
+                                },
+                                {
+                                  "type": "text",
+                                  "name": "their_label"
+                                },
+                                {
+                                  "type": "text",
+                                  "name": "accept"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "name": "headers",
+                          "sub": [
+                            {
+                              "type": "text",
+                              "name": "connection"
+                            },
+                            {
+                              "type": "text",
+                              "name": "content-length"
+                            },
+                            {
+                              "type": "text",
+                              "name": "content-type"
+                            },
+                            {
+                              "type": "text",
+                              "name": "date"
+                            },
+                            {
+                              "type": "text",
+                              "name": "server"
+                            }
+                          ]
+                        }
+                      ],
+                      "outputType": "object"
+                    }
+                  }
+                },
+                "output": true,
+                "meta": [
+                  {
+                    "name": "$index",
+                    "type": "number"
+                  },
+                  {
+                    "name": "$number",
+                    "type": "number"
+                  },
+                  {
+                    "name": "$name",
+                    "type": "text"
+                  },
+                  {
+                    "name": "$value",
+                    "type": "object"
+                  },
+                  {
+                    "name": "state",
+                    "type": "text"
+                  },
+                  {
+                    "name": "request_id",
+                    "type": "text"
+                  },
+                  {
+                    "name": "my_did",
+                    "type": "text"
+                  },
+                  {
+                    "name": "connection_id",
+                    "type": "text"
+                  },
+                  {
+                    "name": "created_at",
+                    "type": "text"
+                  },
+                  {
+                    "name": "updated_at",
+                    "type": "text"
+                  },
+                  {
+                    "name": "their_role",
+                    "type": "text"
+                  },
+                  {
+                    "name": "rfc23_state",
+                    "type": "text"
+                  },
+                  {
+                    "name": "invitation_key",
+                    "type": "text"
+                  },
+                  {
+                    "name": "invitation_mode",
+                    "type": "text"
+                  },
+                  {
+                    "name": "routing_state",
+                    "type": "text"
+                  },
+                  {
+                    "name": "their_label",
+                    "type": "text"
+                  },
+                  {
+                    "name": "accept",
+                    "type": "text"
+                  },
+                  {
+                    "name": "api_accept_invitation",
+                    "type": "object",
+                    "sub": [
+                      {
+                        "type": "object",
+                        "name": "data",
+                        "sub": [
+                          {
+                            "type": "array",
+                            "name": "results",
+                            "sub": [
+                              {
+                                "type": "text",
+                                "name": "state"
+                              },
+                              {
+                                "type": "text",
+                                "name": "request_id"
+                              },
+                              {
+                                "type": "text",
+                                "name": "my_did"
+                              },
+                              {
+                                "type": "text",
+                                "name": "connection_id"
+                              },
+                              {
+                                "type": "text",
+                                "name": "created_at"
+                              },
+                              {
+                                "type": "text",
+                                "name": "updated_at"
+                              },
+                              {
+                                "type": "text",
+                                "name": "their_role"
+                              },
+                              {
+                                "type": "text",
+                                "name": "rfc23_state"
+                              },
+                              {
+                                "type": "text",
+                                "name": "invitation_key"
+                              },
+                              {
+                                "type": "text",
+                                "name": "invitation_mode"
+                              },
+                              {
+                                "type": "text",
+                                "name": "routing_state"
+                              },
+                              {
+                                "type": "text",
+                                "name": "their_label"
+                              },
+                              {
+                                "type": "text",
+                                "name": "accept"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "name": "headers",
+                        "sub": [
+                          {
+                            "type": "text",
+                            "name": "connection"
+                          },
+                          {
+                            "type": "text",
+                            "name": "content-length"
+                          },
+                          {
+                            "type": "text",
+                            "name": "content-type"
+                          },
+                          {
+                            "type": "text",
+                            "name": "date"
+                          },
+                          {
+                            "type": "text",
+                            "name": "server"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "outputType": "array"
               }
             ]
           }
-        ],
-        "outputType": "array"
+        },
+        "outputType": "boolean"
       }
     ]
   }
