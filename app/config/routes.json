@@ -23,10 +23,10 @@
       "exec": "/api/security/user"
     },
     {
-      "path": "/credentials",
-      "page": "credentials",
+      "path": "/credential_id",
+      "page": "credential_id",
       "layout": "main",
-      "exec": "/api/security/user"
+      "exec": ""
     },
     {
       "path": "/dashboard",
@@ -108,6 +108,11 @@
       "page": "connections",
       "layout": "main",
       "exec": ""
+    },
+    {
+      "path": "/credentials",
+      "page": "credentials",
+      "layout": "main"
     }
   ]
 }
