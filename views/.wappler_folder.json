@@ -19,10 +19,6 @@
     "layoutPage": "main",
     "description": ""
   },
-  "credentials.ejs": {
-    "layoutPage": "main",
-    "description": ""
-  },
   "dashboard.ejs": {
     "layoutPage": "main",
     "description": ""
@@ -100,6 +96,14 @@
     "description": ""
   },
   "registration.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "credentials_old.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "credentials.ejs": {
     "layoutPage": "main",
     "description": ""
   }

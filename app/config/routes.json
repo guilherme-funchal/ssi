@@ -110,6 +110,11 @@
       "exec": ""
     },
     {
+      "path": "/credentials_old",
+      "page": "credentials_old",
+      "layout": "main"
+    },
+    {
       "path": "/credentials",
       "page": "credentials",
       "layout": "main"
