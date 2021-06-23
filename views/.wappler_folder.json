@@ -103,6 +103,10 @@
     "layoutPage": "main",
     "description": ""
   },
+  "credential_id.ejs": {
+    "layoutPage": "",
+    "description": ""
+  },
   "credentials.ejs": {
     "layoutPage": "main",
     "description": ""
