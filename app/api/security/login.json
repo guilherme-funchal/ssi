@@ -346,6 +346,14 @@
         "options": {
           "value": "{{query[0].token}}"
         }
+      },
+      {
+        "name": "email",
+        "module": "core",
+        "action": "setcookie",
+        "options": {
+          "value": "{{email}}"
+        }
       }
     ]
   }

@@ -1,9 +1,9 @@
 {
   "meta": {
-    "$_POST": [
+    "$_GET": [
       {
         "type": "text",
-        "name": "referent"
+        "name": "schema_id"
       }
     ],
     "$_COOKIE": [
@@ -16,11 +16,11 @@
   "exec": {
     "steps": [
       {
-        "name": "teste",
+        "name": "schema_id",
         "module": "core",
         "action": "setcookie",
         "options": {
-          "value": "{{$_POST.referent}}"
+          "value": "{{$_GET.schema_id}}"
         }
       },
       {
@@ -28,8 +28,16 @@
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{$_COOKIE.token}}",
+          "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ3YWxsZXRfaWQiOiIzNTRjYmM3OC0wZTgxLTQ4NTQtYmM1Zi1lYWMyNjg3ZmY3NWQifQ.kpt4aNdxKmB_wQl9O9nvDNRuVLgVsw1KLkdPLPHq-4c",
           "key": "token"
+        }
+      },
+      {
+        "name": "schema_id",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_GET.schema_id}}"
         }
       },
       {
@@ -37,12 +45,17 @@
         "module": "api",
         "action": "send",
         "options": {
-          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/credential/{{$_POST.referent}}",
+          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/credential-definitions/created",
           "schema": [],
           "headers": {
-            "Authorization": "{{'Bearer '+token}}"
+            "Authorization": "{{'Bearer '+token}}",
+            "Accept": "application/json"
           },
-          "method": "DELETE"
+          "dataType": "json",
+          "passErrors": false,
+          "params": {
+            "schema_id": "{{schema_id}}"
+          }
         },
         "output": true,
         "outputType": "object",
@@ -53,37 +66,11 @@
             "sub": [
               {
                 "type": "array",
-                "name": "results",
+                "name": "credential_definition_ids",
                 "sub": [
                   {
                     "type": "text",
-                    "name": "referent"
-                  },
-                  {
-                    "type": "object",
-                    "name": "attrs",
-                    "sub": [
-                      {
-                        "type": "text",
-                        "name": "rg"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "text",
-                    "name": "schema_id"
-                  },
-                  {
-                    "type": "text",
-                    "name": "cred_def_id"
-                  },
-                  {
-                    "type": "text",
-                    "name": "rev_reg_id"
-                  },
-                  {
-                    "type": "text",
-                    "name": "cred_rev_id"
+                    "name": "$value"
                   }
                 ]
               }
@@ -93,10 +80,6 @@
             "type": "object",
             "name": "headers",
             "sub": [
-              {
-                "type": "text",
-                "name": "connection"
-              },
               {
                 "type": "text",
                 "name": "content-length"

@@ -25,7 +25,7 @@
     {
       "path": "/credential_id",
       "page": "credential_id",
-      "layout": "main",
+      "layout": "",
       "exec": ""
     },
     {
@@ -107,12 +107,18 @@
       "path": "/connections",
       "page": "connections",
       "layout": "main",
-      "exec": ""
+      "exec": "/api/security/user"
+    },
+    {
+      "path": "/credentials_old",
+      "page": "credentials_old",
+      "layout": "main"
     },
     {
       "path": "/credentials",
       "page": "credentials",
-      "layout": "main"
+      "layout": "main",
+      "exec": "/api/security/user"
     }
   ]
 }

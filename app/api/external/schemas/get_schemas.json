@@ -1,9 +1,15 @@
 {
   "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "cred_id"
+      }
+    ],
     "$_POST": [
       {
         "type": "text",
-        "name": "referent"
+        "name": "credential_id"
       }
     ],
     "$_COOKIE": [
@@ -15,14 +21,6 @@
   },
   "exec": {
     "steps": [
-      {
-        "name": "teste",
-        "module": "core",
-        "action": "setcookie",
-        "options": {
-          "value": "{{$_POST.referent}}"
-        }
-      },
       {
         "name": "token",
         "module": "core",
@@ -37,12 +35,14 @@
         "module": "api",
         "action": "send",
         "options": {
-          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/credential/{{$_POST.referent}}",
+          "url": "http://161.148.151.16:8021/schemas/created",
           "schema": [],
           "headers": {
-            "Authorization": "{{'Bearer '+token}}"
+            "Authorization": "{{'Bearer '+token}}",
+            "Accept": "application/json"
           },
-          "method": "DELETE"
+          "dataType": "json",
+          "passErrors": false
         },
         "output": true,
         "outputType": "object",
@@ -53,37 +53,11 @@
             "sub": [
               {
                 "type": "array",
-                "name": "results",
+                "name": "schema_ids",
                 "sub": [
                   {
                     "type": "text",
-                    "name": "referent"
-                  },
-                  {
-                    "type": "object",
-                    "name": "attrs",
-                    "sub": [
-                      {
-                        "type": "text",
-                        "name": "rg"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "text",
-                    "name": "schema_id"
-                  },
-                  {
-                    "type": "text",
-                    "name": "cred_def_id"
-                  },
-                  {
-                    "type": "text",
-                    "name": "rev_reg_id"
-                  },
-                  {
-                    "type": "text",
-                    "name": "cred_rev_id"
+                    "name": "$value"
                   }
                 ]
               }
@@ -93,10 +67,6 @@
             "type": "object",
             "name": "headers",
             "sub": [
-              {
-                "type": "text",
-                "name": "connection"
-              },
               {
                 "type": "text",
                 "name": "content-length"
@@ -116,6 +86,50 @@
             ]
           }
         ]
+      },
+      {
+        "name": "repeat",
+        "module": "core",
+        "action": "repeat",
+        "options": {
+          "repeat": "{{api_credentials.data.schema_ids}}",
+          "outputFields": [],
+          "exec": {
+            "steps": {
+              "name": "id",
+              "module": "core",
+              "action": "setvalue",
+              "options": {
+                "value": "{{$value}}"
+              },
+              "output": true
+            }
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "name": "$index",
+            "type": "number"
+          },
+          {
+            "name": "$number",
+            "type": "number"
+          },
+          {
+            "name": "$name",
+            "type": "text"
+          },
+          {
+            "name": "$value",
+            "type": "text"
+          },
+          {
+            "name": "id",
+            "type": "text"
+          }
+        ],
+        "outputType": "array"
       }
     ]
   }

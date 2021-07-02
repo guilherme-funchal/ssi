@@ -14,6 +14,10 @@
       {
         "type": "text",
         "name": "connection_id"
+      },
+      {
+        "type": "text",
+        "name": "their_label"
       }
     ],
     "$_COOKIE": [
@@ -36,7 +40,73 @@
         "output": true
       },
       {
-        "name": "api",
+        "name": "query",
+        "module": "dbconnector",
+        "action": "select",
+        "options": {
+          "connection": "ssi",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "users",
+                "column": "token"
+              }
+            ],
+            "table": {
+              "name": "users"
+            },
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "users.first_name",
+                  "field": "users.first_name",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "{{$_POST.their_label.lowercase()}}",
+                  "data": {
+                    "table": "users",
+                    "column": "first_name",
+                    "type": "text"
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "SELECT token\nFROM users\nWHERE first_name = :P1 /* {{$_POST.their_label.lowercase()}} */",
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_POST.their_label.lowercase()}}"
+              }
+            ]
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "name": "token",
+            "type": "text"
+          }
+        ],
+        "outputType": "array"
+      },
+      {
+        "name": "token_org",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{query[0].token}}"
+        }
+      },
+      {
+        "name": "api_connection_rm",
         "module": "api",
         "action": "send",
         "options": {
@@ -44,6 +114,238 @@
           "schema": [],
           "headers": {
             "authorization": "{{'Bearer '+token}}"
+          },
+          "method": "DELETE"
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "object",
+            "name": "data",
+            "sub": [
+              {
+                "type": "array",
+                "name": "results",
+                "sub": [
+                  {
+                    "type": "text",
+                    "name": "state"
+                  },
+                  {
+                    "type": "text",
+                    "name": "request_id"
+                  },
+                  {
+                    "type": "text",
+                    "name": "my_did"
+                  },
+                  {
+                    "type": "text",
+                    "name": "connection_id"
+                  },
+                  {
+                    "type": "text",
+                    "name": "created_at"
+                  },
+                  {
+                    "type": "text",
+                    "name": "updated_at"
+                  },
+                  {
+                    "type": "text",
+                    "name": "their_role"
+                  },
+                  {
+                    "type": "text",
+                    "name": "rfc23_state"
+                  },
+                  {
+                    "type": "text",
+                    "name": "invitation_key"
+                  },
+                  {
+                    "type": "text",
+                    "name": "invitation_mode"
+                  },
+                  {
+                    "type": "text",
+                    "name": "routing_state"
+                  },
+                  {
+                    "type": "text",
+                    "name": "their_label"
+                  },
+                  {
+                    "type": "text",
+                    "name": "accept"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "name": "headers",
+            "sub": [
+              {
+                "type": "text",
+                "name": "connection"
+              },
+              {
+                "type": "text",
+                "name": "content-length"
+              },
+              {
+                "type": "text",
+                "name": "content-type"
+              },
+              {
+                "type": "text",
+                "name": "date"
+              },
+              {
+                "type": "text",
+                "name": "server"
+              }
+            ]
+          }
+        ],
+        "outputType": "object"
+      },
+      {
+        "name": "their_label",
+        "module": "core",
+        "action": "setcookie",
+        "options": {
+          "value": "{{$_POST.their_label}}"
+        }
+      },
+      {
+        "name": "api_get_org",
+        "module": "api",
+        "action": "send",
+        "options": {
+          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections",
+          "schema": [],
+          "headers": {
+            "authorization": "{{'Bearer '+token_org}}"
+          },
+          "params": {
+            "their_label": "guilherme.funchal@gmail.com"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "object",
+            "name": "data",
+            "sub": [
+              {
+                "type": "array",
+                "name": "results",
+                "sub": [
+                  {
+                    "type": "text",
+                    "name": "state"
+                  },
+                  {
+                    "type": "text",
+                    "name": "request_id"
+                  },
+                  {
+                    "type": "text",
+                    "name": "my_did"
+                  },
+                  {
+                    "type": "text",
+                    "name": "connection_id"
+                  },
+                  {
+                    "type": "text",
+                    "name": "created_at"
+                  },
+                  {
+                    "type": "text",
+                    "name": "updated_at"
+                  },
+                  {
+                    "type": "text",
+                    "name": "their_role"
+                  },
+                  {
+                    "type": "text",
+                    "name": "rfc23_state"
+                  },
+                  {
+                    "type": "text",
+                    "name": "invitation_key"
+                  },
+                  {
+                    "type": "text",
+                    "name": "invitation_mode"
+                  },
+                  {
+                    "type": "text",
+                    "name": "routing_state"
+                  },
+                  {
+                    "type": "text",
+                    "name": "their_label"
+                  },
+                  {
+                    "type": "text",
+                    "name": "accept"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "name": "headers",
+            "sub": [
+              {
+                "type": "text",
+                "name": "connection"
+              },
+              {
+                "type": "text",
+                "name": "content-length"
+              },
+              {
+                "type": "text",
+                "name": "content-type"
+              },
+              {
+                "type": "text",
+                "name": "date"
+              },
+              {
+                "type": "text",
+                "name": "server"
+              }
+            ]
+          }
+        ],
+        "outputType": "object"
+      },
+      {
+        "name": "connection_id",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{api_get_org.data.results[0].connection_id}}"
+        }
+      },
+      {
+        "name": "api_connection_rm_org",
+        "module": "api",
+        "action": "send",
+        "options": {
+          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections/{{connection_id}}",
+          "schema": [],
+          "headers": {
+            "authorization": "{{'Bearer '+token_org}}"
           },
           "method": "DELETE"
         },

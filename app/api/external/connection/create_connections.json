@@ -26,6 +26,14 @@
   "exec": {
     "steps": [
       {
+        "name": "email",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_COOKIE.email}}"
+        }
+      },
+      {
         "name": "email_org",
         "module": "core",
         "action": "setvalue",
@@ -113,7 +121,7 @@
           },
           "params": {
             "state": "active",
-            "alias": "{{email_org}}"
+            "alias": "{{email}}"
           }
         },
         "output": true,
@@ -214,14 +222,6 @@
       {
         "name": "count",
         "module": "core",
-        "action": "setcookie",
-        "options": {
-          "value": "{{api_get_connections_teste.data.results.count()}}"
-        }
-      },
-      {
-        "name": "count",
-        "module": "core",
         "action": "setvalue",
         "options": {
           "value": "{{api_get_connections_teste.data.results.count()}}"
@@ -247,7 +247,7 @@
                   },
                   "method": "POST",
                   "params": {
-                    "alias": "{{email_org}}"
+                    "alias": "{{email}}"
                   }
                 },
                 "output": true,
@@ -474,7 +474,7 @@
                         },
                         "method": "POST",
                         "data": {
-                          "label": "{{$_POST.email}}",
+                          "label": "{{$_COOKIE.email}}",
                           "recipientKeys": [
                             "{{$value.invitation_key}}"
                           ],
@@ -651,6 +651,102 @@
                   },
                   {
                     "name": "api_accept_invitation",
+                    "type": "object",
+                    "sub": [
+                      {
+                        "type": "object",
+                        "name": "data",
+                        "sub": [
+                          {
+                            "type": "array",
+                            "name": "results",
+                            "sub": [
+                              {
+                                "type": "text",
+                                "name": "state"
+                              },
+                              {
+                                "type": "text",
+                                "name": "request_id"
+                              },
+                              {
+                                "type": "text",
+                                "name": "my_did"
+                              },
+                              {
+                                "type": "text",
+                                "name": "connection_id"
+                              },
+                              {
+                                "type": "text",
+                                "name": "created_at"
+                              },
+                              {
+                                "type": "text",
+                                "name": "updated_at"
+                              },
+                              {
+                                "type": "text",
+                                "name": "their_role"
+                              },
+                              {
+                                "type": "text",
+                                "name": "rfc23_state"
+                              },
+                              {
+                                "type": "text",
+                                "name": "invitation_key"
+                              },
+                              {
+                                "type": "text",
+                                "name": "invitation_mode"
+                              },
+                              {
+                                "type": "text",
+                                "name": "routing_state"
+                              },
+                              {
+                                "type": "text",
+                                "name": "their_label"
+                              },
+                              {
+                                "type": "text",
+                                "name": "accept"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "name": "headers",
+                        "sub": [
+                          {
+                            "type": "text",
+                            "name": "connection"
+                          },
+                          {
+                            "type": "text",
+                            "name": "content-length"
+                          },
+                          {
+                            "type": "text",
+                            "name": "content-type"
+                          },
+                          {
+                            "type": "text",
+                            "name": "date"
+                          },
+                          {
+                            "type": "text",
+                            "name": "server"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "api_accept_invitation_copy",
                     "type": "object",
                     "sub": [
                       {
