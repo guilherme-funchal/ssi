@@ -397,71 +397,9 @@ dmx.config({
       "outputType": "object"
     }
   },
-  "credentials": {
-    "repeat1": {
-      "meta": [
-        {
-          "type": "text",
-          "name": "cpf"
-        }
-      ],
-      "outputType": "object"
-    },
-    "var1": {
-      "meta": null,
-      "outputType": "text"
-    },
-    "arr1": {
-      "meta": [
-        {
-          "type": "text",
-          "name": "rg"
-        }
-      ],
-      "outputType": "object"
-    },
+  "config": {
     "data_detail1": {
-      "meta": [
-        {
-          "type": "text",
-          "name": "referent"
-        },
-        {
-          "type": "object",
-          "name": "attrs",
-          "sub": [
-            {
-              "type": "text",
-              "name": "cpf"
-            }
-          ]
-        },
-        {
-          "type": "text",
-          "name": "schema_id"
-        },
-        {
-          "type": "text",
-          "name": "cred_def_id"
-        },
-        {
-          "type": "text",
-          "name": "rev_reg_id"
-        },
-        {
-          "type": "text",
-          "name": "cred_rev_id"
-        }
-      ],
-      "outputType": "array"
-    },
-    "repeat2": {
-      "meta": [
-        {
-          "type": "text",
-          "name": "rg"
-        }
-      ],
+      "meta": [],
       "outputType": "object"
     }
   }

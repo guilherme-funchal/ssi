@@ -1,4 +1,4 @@
-<!-- Wappler include head-page="layouts/main" is="dmx-app" id="home" appConnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cdn" bootstrap_icons="cdn" components="{dmxBootstrap4TableGenerator:{},dmxDataTraversal:{},dmxBootstrap4Modal:{},dmxFormatter:{},dmxPreloader:{},dmxNotifications:{},dmxStateManagement:{},dmxValidator:{}}" -->
+<!-- Wappler include head-page="layouts/main" is="dmx-app" id="home" appConnect="local" fontawesome_4="local" bootstrap4="cdn" bootstrap_icons="cdn" components="{dmxBootstrap4TableGenerator:{},dmxDataTraversal:{},dmxBootstrap4Modal:{},dmxFormatter:{},dmxPreloader:{},dmxNotifications:{},dmxStateManagement:{},dmxValidator:{}}" jquery_slim_34="cdn" -->
 <dmx-serverconnect id="sc_get_schema_id" url="/api/external/schemas/get_schemas_id" dmx-param:cred_id="session1.data.id" dmx-param:schema_id="session1.data.id"></dmx-serverconnect>
 <dmx-session-manager id="session1"></dmx-session-manager>
 
@@ -69,9 +69,9 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="btn1" class="btn font-weight-bold btn-sm btn-primary" dmx-on:click="session1.set('connection_id',data_detail1.data.connection_id);modal1.hide();modal2.show()">&nbsp;Enviar&nbsp;<i class="fa fa-address-card"></i><span
-                        style="font-family: inherit; font-size: 0.875rem;">&nbsp;</span></button>
-                <button id="btn4" class="btn btn-danger font-weight-bold btn-sm" dmx-on:click="serverconnectform1.submit()">&nbsp; Excluir&nbsp;<i class="fa fa-trash fa-large"></i></button>
+                <button id="btn1" class="btn btn-sm btn-primary small font-weight-bold" dmx-on:click="session1.set('connection_id',data_detail1.data.connection_id);modal1.hide();modal2.show()">&nbsp;Credencial&nbsp;<i
+                        class="fa fa-address-card"></i><span style="font-family: inherit; font-size: 0.875rem;">&nbsp;</span></button>
+                <button id="btn4" class="btn btn-danger font-weight-bold btn-sm" dmx-on:click="serverconnectform1.submit()">Conexão&nbsp;<i class="fa fa-trash fa-large"></i></button>
             </div>
         </div>
     </div>
@@ -117,7 +117,7 @@
                 <p dmx-text="'Creddef :'+sc_get_schema_id.data.api_creddef.data.credential_definition_ids">Enter your content here</p>
 
 
-                <form id="credencial-form" method="post" is="dmx-api-form" post-data="json" action="/api/external/credentials/send_credential">
+                <form enctype="application/json" id="credencial-form" method="post" is="dmx-api-form" action="/api/external/credentials/send_credential" onreset="">
                     <input id="connection_id" name="connection_id" type="hidden" class="form-control" dmx-bind:value="session1.data.connection_id">
 
 
@@ -125,7 +125,7 @@
                     <div class="row" is="dmx-repeat" id="repeat1" dmx-bind:repeat="content.sc_get_schema_id.data.api_credentials.data.schema.attrNames">
                         <div class="col">
 
-                            <p dmx-text="$value" class="font-weight-bold small text-monospace mb-n1"></p><input id="attributes" name="attributes" type="text" class="form-control" dmx-bind:name="attributes[{{$index}}][{{$value}}]">
+                            <p dmx-text="$value" class="font-weight-bold small text-monospace mb-n1"></p><input id="attributes" class="form-control" onfocus="this.value=''" dmx-bind:name="attributes[{{$index}}][{{$value}}]">
 
 
                         </div>
@@ -136,7 +136,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" dmx-on:click="credencialform.submit()">Criar</button>
+                <button type="button" class="btn btn-primary" dmx-on:click="credencialform.submit();notifies1.success('Credencial enviada');modal3.hide();serverconnect1.load({},true);credencialform.reset()">Criar</button>
             </div>
         </div>
     </div>

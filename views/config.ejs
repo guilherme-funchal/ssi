@@ -1,18 +1,117 @@
-<!-- Wappler include head-page="layouts/main" is="dmx-app" id="config" appConnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cerulean" bootstrap_icons="cdn" -->
+<!-- Wappler include head-page="layouts/main" is="dmx-app" id="config" appConnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cerulean" bootstrap_icons="cdn" components="{dmxNotifications:{},dmxBootstrap4Modal:{},dmxDataTraversal:{},dmxBrowser:{}}" -->
+<div is="dmx-browser" id="browser1"></div>
+
+<dmx-notifications id="notifies1" position="bottom"></dmx-notifications>
+<dmx-serverconnect id="serverconnect3" url="/api/users/mod"></dmx-serverconnect>
+<dmx-serverconnect id="serverconnect2" url="/api/security/update_password" noload></dmx-serverconnect>
+<dmx-serverconnect id="serverconnect1" url="/api/users/get_id"></dmx-serverconnect>
 
 
 <meta name="ac:route" content="/config">
 
 
 <div class="container wappler-block mt-4 mb-0 pt-5 pb-0">
+    <div class="modal mt-5" id="modal1" is="dmx-bs4-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Atualização de senha</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form1" method="post" is="dmx-serverconnect-form" action="/api/security/update_password" dmx-on:success="modal1.hide()">
+                        <div class="form-group row">
+                            <label for="inp_password" class="col-sm-2 col-form-label col-form-label-sm">Senha</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="inp_password" name="password" aria-describedby="input1_help" placeholder="digite senha">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inp_pass_confirm" class="col-sm-2 col-form-label col-form-label-sm">Confirmação</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="inp_pass_confirm" name="pass_confirm" aria-describedby="input1_help" placeholder="digite a senha">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-sm" dmx-on:click="run({run:{action:`modal1.form1.submit();modal1.hide();browser1.goto(\'/login\')`}})">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="text-center col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
             <h4>Página configurações<p wappler-command="editContent" wappler-empty="undefined"><br></p>
-                <p wappler-command="editContent"><br>
-                    <font color="#868e96"><span style="font-size: 19.2px;">Texto texto texto Texto texto textoTexto texto textoTexto texto texto Texto texto textoTexto texto textoTexto texto textoTexto texto textoTexto texto textoTexto texto
-                            textoTexto texto textoTexto texto textoTexto texto textoTexto texto textoTexto texto textoTexto texto textoTexto texto textoTexto texto texto</span></font>
-                </p>
             </h4>
         </div>
     </div>
+    <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/users/mod" dmx-generator="bootstrap4" dmx-form-type="horizontal" dmx-populate="content.serverconnect1.data.query"
+        dmx-on:success="run([{run:{action:`notifies1.success(\'Usuário atualizado\')`}},{run:{action:`serverconnect1.load(true)`}}])">
+        <div class="form-group row">
+            <input type="hidden" class="form-control" id="inp_pass_hash" name="pass_hash" dmx-bind:value="content.serverconnect1.data.query[0].pass_hash" aria-describedby="inp_pass_hash_help" placeholder="Enter Pass hash">
+            <input type="hidden" class="form-control" id="inp_operation" name="operation" aria-describedby="inp_pass_hash_help"><input type="hidden" class="form-control" id="inp_id" name="id" dmx-bind:value="content.serverconnect1.data.query[0].id"
+                aria-describedby="inp_id_help" placeholder="Enter Id">
+            <input type="hidden" class="form-control" id="inp_pass_salt" name="pass_salt" dmx-bind:value="content.serverconnect1.data.query[0].pass_salt" aria-describedby="inp_pass_salt_help" placeholder="Enter Pass salt"></div>
+        <div class="form-group row">
+            <label for="inp_first_name" class="col-sm-2 col-form-label col-form-label-sm">First name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inp_first_name" name="first_name" dmx-bind:value="content.serverconnect1.data.query[0].first_name" aria-describedby="inp_first_name_help" placeholder="Primeiro nome">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inp_last_name" class="col-sm-2 col-form-label col-form-label-sm">Last name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inp_last_name" name="last_name" dmx-bind:value="content.serverconnect1.data.query[0].last_name" aria-describedby="inp_last_name_help" placeholder="Último nome">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inp_email" class="col-sm-2 col-form-label col-form-label-sm">Email</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inp_email" name="email" dmx-bind:value="content.serverconnect1.data.query[0].email" aria-describedby="inp_email_help" placeholder="Email" readonly="true">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inp_document" class="col-sm-2 col-form-label col-form-label-sm">Document</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inp_document" name="document" dmx-bind:value="content.serverconnect1.data.query[0].document" aria-describedby="inp_document_help" placeholder="Insira um documento de identificação">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inp_role" class="col-sm-2 col-form-label col-form-label-sm">Role</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inp_role" name="role" dmx-bind:value="content.serverconnect1.data.query[0].role" aria-describedby="inp_role_help" placeholder="Grupo" readonly="true">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inp_did" class="col-sm-2 col-form-label col-form-label-sm">Did</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inp_did" name="did" dmx-bind:value="content.serverconnect1.data.query[0].did" aria-describedby="inp_did_help" placeholder="DID" readonly="true">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inp_verkey" class="col-sm-2 col-form-label col-form-label-sm">Verkey</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inp_verkey" name="verkey" dmx-bind:value="content.serverconnect1.data.query[0].verkey" aria-describedby="inp_verkey_help" placeholder="Verkey" readonly="true">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inp_token" class="col-sm-2 col-form-label col-form-label-sm">Token</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inp_token" name="token" dmx-bind:value="content.serverconnect1.data.query[0].token" aria-describedby="inp_token_help" placeholder="Token" readonly="true">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12 text-right">
+                <button class="btn text-right btn-sm btn-success" dmx-on:click="modal1.show()">Senha<i class="fa fa-key"></i></button>
+                <button type="submit" class="btn btn-primary text-right btn-sm" dmx-on:click="run([{run:{action:`serverconnectform1.inp_operation.setValue(\'update\')`}},{run:{action:`serverconnectform1.submit()`}}])">Salvar<i
+                        class="fa fa-check"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+
+
 </div>
