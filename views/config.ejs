@@ -21,7 +21,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="form1" method="post" is="dmx-serverconnect-form" action="/api/security/update_password" dmx-on:success="modal1.hide()">
+                    <form id="form1" method="post" is="dmx-serverconnect-form" action="/api/security/update_password" dmx-on:success="modal1.hide();form1.reset()">
                         <div class="form-group row">
                             <label for="inp_password" class="col-sm-2 col-form-label col-form-label-sm">Senha</label>
                             <div class="col-sm-10">
@@ -100,12 +100,24 @@
         <div class="form-group row">
             <label for="inp_token" class="col-sm-2 col-form-label col-form-label-sm">Token</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="inp_token" name="token" dmx-bind:value="content.serverconnect1.data.query[0].token" aria-describedby="inp_token_help" placeholder="Token" readonly="true">
+                <textarea id="inp_token" class="form-control" name="token" dmx-bind:value="content.serverconnect1.data.query[0].token" readonly="true"></textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inp_wallet_id" class="col-sm-2 col-form-label col-form-label-sm">Wallet_id</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inp_wallet_id" name="wallet_id" dmx-bind:value="content.serverconnect1.data.query[0].wallet_id" aria-describedby="inp_token_help" placeholder="Wallet_id" readonly="true">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inp_last_login" class="col-sm-2 col-form-label col-form-label-sm">Login</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inp_last_login" name="last_login" dmx-bind:value="content.serverconnect1.data.query[0].last_login" aria-describedby="inp_token_help" placeholder="Last_login" readonly="true">
             </div>
         </div>
         <div class="form-group row">
             <div class="col-sm-12 text-right">
-                <button class="btn text-right btn-sm btn-success" dmx-on:click="modal1.show()">Senha<i class="fa fa-key"></i></button>
+                <button class="btn text-right btn-sm btn-success" dmx-on:click="modal1.form1.reset();modal1.show()">Senha<i class="fa fa-key"></i></button>
                 <button type="submit" class="btn btn-primary text-right btn-sm" dmx-on:click="run([{run:{action:`serverconnectform1.inp_operation.setValue(\'update\')`}},{run:{action:`serverconnectform1.submit()`}}])">Salvar<i
                         class="fa fa-check"></i>
                 </button>

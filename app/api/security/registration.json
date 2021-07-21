@@ -4,35 +4,21 @@
       {
         "type": "text",
         "options": {
-          "rules": {
-            "core:required": {},
-            "core:email": {}
-          }
+          "rules": {}
         },
         "name": "email"
       },
       {
         "type": "text",
         "options": {
-          "rules": {
-            "core:required": {},
-            "core:pattern": {
-              "param": "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,15}$",
-              "message": "Senha deve ter um caracter em maiuscula, um especial, numeros e minuscúlas."
-            }
-          }
+          "rules": {}
         },
         "name": "password"
       },
       {
         "type": "text",
         "options": {
-          "rules": {
-            "core:required": {},
-            "core:equalTo": {
-              "param": "password"
-            }
-          }
+          "rules": {}
         },
         "name": "pass_confirm"
       },
@@ -43,6 +29,18 @@
       {
         "type": "text",
         "name": "last_name"
+      },
+      {
+        "type": "text",
+        "name": "document"
+      },
+      {
+        "type": "text",
+        "name": "role"
+      },
+      {
+        "type": "text",
+        "name": "last_login"
       }
     ]
   },
@@ -88,6 +86,175 @@
         }
       },
       {
+        "name": "label",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{email}}"
+        }
+      },
+      {
+        "name": "webhook",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_ENV.WEBHOOK}}"
+        }
+      },
+      {
+        "name": "wallet_name",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_ENV.SERVERNAME}}.{{email}}"
+        }
+      },
+      {
+        "name": "api",
+        "module": "api",
+        "action": "send",
+        "options": {
+          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/multitenancy/wallet",
+          "method": "POST",
+          "data": {
+            "key_management_mode": "managed",
+            "label": "{{label}}",
+            "wallet_dispatch_type": "default",
+            "wallet_name": "{{wallet_name}}",
+            "wallet_type": "indy",
+            "wallet_webhook_urls": [
+              "{{webhook}}"
+            ],
+            "wallet_key": "MySecretKey123"
+          },
+          "schema": [],
+          "dataType": "json"
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "array",
+            "name": "data"
+          },
+          {
+            "type": "object",
+            "name": "headers"
+          }
+        ],
+        "outputType": "object"
+      },
+      {
+        "name": "token",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{api.data.token}}"
+        }
+      },
+      {
+        "name": "wallet_id",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{api.data.wallet_id}}"
+        }
+      },
+      {
+        "name": "api_cria_did",
+        "module": "api",
+        "action": "send",
+        "options": {
+          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/wallet/did/create",
+          "method": "POST",
+          "schema": [],
+          "dataType": "json",
+          "headers": {
+            "Authorization": "{{'Bearer '+token}}"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "array",
+            "name": "data"
+          },
+          {
+            "type": "object",
+            "name": "headers"
+          }
+        ],
+        "outputType": "object"
+      },
+      {
+        "name": "did",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{api_cria_did.data.result.did}}"
+        }
+      },
+      {
+        "name": "verkey",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{api_cria_did.data.result.verkey}}"
+        }
+      },
+      {
+        "name": "api_registra_ledger",
+        "module": "api",
+        "action": "send",
+        "options": {
+          "url": "https://{{$_ENV.LEDGER_BROWSER}}/register",
+          "method": "POST",
+          "schema": [],
+          "dataType": "json",
+          "data": {
+            "did": "{{did}}",
+            "verkey": "{{verkey}}"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "array",
+            "name": "data"
+          },
+          {
+            "type": "object",
+            "name": "headers"
+          }
+        ],
+        "outputType": "object"
+      },
+      {
+        "name": "api_atribui_did",
+        "module": "api",
+        "action": "send",
+        "options": {
+          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/wallet/did/public?did={{did}}",
+          "method": "POST",
+          "schema": [],
+          "dataType": "json",
+          "headers": {
+            "Authorization": "{{'Bearer '+token}}"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "array",
+            "name": "data"
+          },
+          {
+            "type": "object",
+            "name": "headers"
+          }
+        ],
+        "outputType": "object"
+      },
+      {
         "name": "insert_user",
         "module": "dbupdater",
         "action": "insert",
@@ -112,7 +279,13 @@
                 "table": "users",
                 "column": "email",
                 "type": "text",
-                "value": "{{email}}"
+                "value": "{{$_POST.email}}"
+              },
+              {
+                "table": "users",
+                "column": "document",
+                "type": "text",
+                "value": "{{$_POST.document}}"
               },
               {
                 "table": "users",
@@ -122,9 +295,27 @@
               },
               {
                 "table": "users",
-                "column": "pass_hash",
+                "column": "token",
                 "type": "text",
-                "value": "{{$_POST.password.sha512(salt)}}"
+                "value": "{{token}}"
+              },
+              {
+                "table": "users",
+                "column": "last_login",
+                "type": "text",
+                "value": "{{NOW_UTC}}"
+              },
+              {
+                "table": "users",
+                "column": "verkey",
+                "type": "text",
+                "value": "{{verkey}}"
+              },
+              {
+                "table": "users",
+                "column": "did",
+                "type": "text",
+                "value": "{{did}}"
               },
               {
                 "table": "users",
@@ -134,14 +325,20 @@
               },
               {
                 "table": "users",
-                "column": "last_login",
+                "column": "pass_hash",
                 "type": "text",
-                "value": "{{NOW_UTC}}"
+                "value": "{{$_POST.password.sha512(salt)}}"
+              },
+              {
+                "table": "users",
+                "column": "wallet_id",
+                "type": "text",
+                "value": "{{wallet_id}}"
               }
             ],
             "table": "users",
             "returning": "id",
-            "query": "INSERT INTO users\n(first_name, last_name, email, role, pass_hash, pass_salt, last_login) VALUES (:P1 /* {{$_POST.first_name}} */, :P2 /* {{$_POST.last_name}} */, :P3 /* {{email}} */, 'user', :P4 /* {{$_POST.password.sha512(salt)}} */, :P5 /* {{salt}} */, :P6 /* {{NOW_UTC}} */)",
+            "query": "INSERT INTO users\n(first_name, last_name, email, document, role, token, last_login, verkey, did, pass_salt, pass_hash, wallet_id) VALUES (:P1 /* {{$_POST.first_name}} */, :P2 /* {{$_POST.last_name}} */, :P3 /* {{$_POST.email}} */, :P4 /* {{$_POST.document}} */, 'user', :P5 /* {{token}} */, :P6 /* {{NOW_UTC}} */, :P7 /* {{verkey}} */, :P8 /* {{did}} */, :P9 /* {{salt}} */, :P10 /* {{$_POST.password.sha512(salt)}} */, :P11 /* {{wallet_id}} */)",
             "params": [
               {
                 "name": ":P1",
@@ -156,22 +353,47 @@
               {
                 "name": ":P3",
                 "type": "expression",
-                "value": "{{email}}"
+                "value": "{{$_POST.email}}"
               },
               {
                 "name": ":P4",
                 "type": "expression",
-                "value": "{{$_POST.password.sha512(salt)}}"
+                "value": "{{$_POST.document}}"
               },
               {
                 "name": ":P5",
                 "type": "expression",
-                "value": "{{salt}}"
+                "value": "{{token}}"
               },
               {
                 "name": ":P6",
                 "type": "expression",
                 "value": "{{NOW_UTC}}"
+              },
+              {
+                "name": ":P7",
+                "type": "expression",
+                "value": "{{verkey}}"
+              },
+              {
+                "name": ":P8",
+                "type": "expression",
+                "value": "{{did}}"
+              },
+              {
+                "name": ":P9",
+                "type": "expression",
+                "value": "{{salt}}"
+              },
+              {
+                "name": ":P10",
+                "type": "expression",
+                "value": "{{$_POST.password.sha512(salt)}}"
+              },
+              {
+                "name": ":P11",
+                "type": "expression",
+                "value": "{{wallet_id}}"
               }
             ]
           }
@@ -186,19 +408,6 @@
             "type": "number"
           }
         ]
-      },
-      {
-        "name": "identity",
-        "module": "auth",
-        "action": "login",
-        "options": {
-          "provider": "siteSecurity",
-          "username": "{{email}}",
-          "remember": 1,
-          "password": "{{$_POST.password.sha512(salt)}}"
-        },
-        "output": true,
-        "meta": []
       }
     ]
   }

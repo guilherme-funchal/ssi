@@ -7,74 +7,74 @@
 <dmx-serverconnect id="serverconnect2" url="/api/organizations/get"></dmx-serverconnect>
 <dmx-serverconnect id="sc_get_schemas" url="/api/external/schemas/get_schemas"></dmx-serverconnect>
 <div class="modal mt-5" id="modal1" is="dmx-bs4-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Conexão</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Conexão</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form is="dmx-api-form" id="serverconnectform1" method="post" action="/api/external/connection/rm_connections" dmx-generator="bootstrap4" dmx-form-type="horizontal" dmx-populate="data_detail1.data"
+          dmx-on:success="modal1.hide();serverconnect1.load({},true);notifies1.info('Conexão excluida')">
+          <div class="form-group row">
+            <label for="inp_state" class="col-sm-2 col-form-label col-form-label-sm">Estado</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control form-control-sm" id="inp_state" name="state" dmx-bind:value="data_detail1.data.state" aria-describedby="inp_state_help" readonly="true">
             </div>
-            <div class="modal-body">
-                <form is="dmx-api-form" id="serverconnectform1" method="post" action="/api/external/connection/rm_connections" dmx-generator="bootstrap4" dmx-form-type="horizontal" dmx-populate="data_detail1.data"
-                    dmx-on:success="modal1.hide();serverconnect1.load({},true);notifies1.info('Conexão excluida')">
-                    <div class="form-group row">
-                        <label for="inp_state" class="col-sm-2 col-form-label col-form-label-sm">Estado</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control form-control-sm" id="inp_state" name="state" dmx-bind:value="data_detail1.data.state" aria-describedby="inp_state_help" readonly="true">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inp_my_did" class="col-sm-2 col-form-label col-form-label-sm">DID</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control form-control-sm" id="inp_my_did" name="my_did" dmx-bind:value="data_detail1.data.my_did" aria-describedby="inp_my_did_help" readonly="true">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inp_connection_id" class="col-sm-2 col-form-label col-form-label-sm">Conexão</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control form-control-sm" id="inp_connection_id" name="connection_id" dmx-bind:value="data_detail1.data.connection_id" aria-describedby="inp_connection_id_help" readonly="true">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inp_created_at" class="col-sm-2 col-form-label col-form-label-sm">Criação</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control form-control-sm" id="inp_created_at" name="created_at" dmx-bind:value="data_detail1.data.created_at" aria-describedby="inp_created_at_help" readonly="true">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inp_updated_at" class="col-sm-2 col-form-label col-form-label-sm">Atualização</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control form-control-sm" id="inp_updated_at" name="updated_at" dmx-bind:value="data_detail1.data.updated_at" aria-describedby="inp_updated_at_help" readonly="true">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inp_rfc23_state" class="col-sm-2 col-form-label col-form-label-sm">Estado</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control form-control-sm" id="inp_rfc23_state" name="rfc23_state" dmx-bind:value="data_detail1.data.rfc23_state" aria-describedby="inp_rfc23_state_help" readonly="true">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inp_invitation_key" class="col-sm-2 col-form-label-sm col offset-0 col-form-label">Chave</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control form-control-sm" id="inp_invitation_key" name="invitation_key" dmx-bind:value="data_detail1.data.invitation_key" aria-describedby="inp_invitation_key_help" readonly="true">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inp_their_label" class="col-sm-2 col-form-label col-form-label-sm">Legenda</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control form-control-sm" id="inp_their_label" name="their_label" dmx-bind:value="data_detail1.data.their_label" aria-describedby="inp_their_label_help" readonly="true">
-                        </div>
-                    </div>
-                </form>
+          </div>
+          <div class="form-group row">
+            <label for="inp_my_did" class="col-sm-2 col-form-label col-form-label-sm">DID</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control form-control-sm" id="inp_my_did" name="my_did" dmx-bind:value="data_detail1.data.my_did" aria-describedby="inp_my_did_help" readonly="true">
             </div>
-            <div class="modal-footer">
-                <button id="btn1" class="btn btn-sm btn-primary small font-weight-bold" dmx-on:click="session1.set('connection_id',data_detail1.data.connection_id);modal1.hide();modal2.show()">&nbsp;Credencial&nbsp;<i
-                        class="fa fa-address-card"></i><span style="font-family: inherit; font-size: 0.875rem;">&nbsp;</span></button>
-                <button id="btn4" class="btn btn-danger font-weight-bold btn-sm" dmx-on:click="serverconnectform1.submit()">Conexão&nbsp;<i class="fa fa-trash fa-large"></i></button>
+          </div>
+          <div class="form-group row">
+            <label for="inp_connection_id" class="col-sm-2 col-form-label col-form-label-sm">Conexão</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control form-control-sm" id="inp_connection_id" name="connection_id" dmx-bind:value="data_detail1.data.connection_id" aria-describedby="inp_connection_id_help" readonly="true">
             </div>
-        </div>
+          </div>
+          <div class="form-group row">
+            <label for="inp_created_at" class="col-sm-2 col-form-label col-form-label-sm">Criação</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control form-control-sm" id="inp_created_at" name="created_at" dmx-bind:value="data_detail1.data.created_at" aria-describedby="inp_created_at_help" readonly="true">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inp_updated_at" class="col-sm-2 col-form-label col-form-label-sm">Atualização</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control form-control-sm" id="inp_updated_at" name="updated_at" dmx-bind:value="data_detail1.data.updated_at" aria-describedby="inp_updated_at_help" readonly="true">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inp_rfc23_state" class="col-sm-2 col-form-label col-form-label-sm">Estado</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control form-control-sm" id="inp_rfc23_state" name="rfc23_state" dmx-bind:value="data_detail1.data.rfc23_state" aria-describedby="inp_rfc23_state_help" readonly="true">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inp_invitation_key" class="col-sm-2 col-form-label-sm col offset-0 col-form-label">Chave</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control form-control-sm" id="inp_invitation_key" name="invitation_key" dmx-bind:value="data_detail1.data.invitation_key" aria-describedby="inp_invitation_key_help" readonly="true">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inp_their_label" class="col-sm-2 col-form-label col-form-label-sm">Legenda</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control form-control-sm" id="inp_their_label" name="their_label" dmx-bind:value="data_detail1.data.their_label" aria-describedby="inp_their_label_help" readonly="true">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id="btn1" class="btn btn-sm btn-primary small font-weight-bold" dmx-on:click="session1.set('connection_id',data_detail1.data.connection_id);modal1.hide();modal2.show()">&nbsp;Credencial&nbsp;<i class="fa fa-address-card"></i><span
+            style="font-family: inherit; font-size: 0.875rem;">&nbsp;</span></button>
+        <button id="btn4" class="btn btn-danger font-weight-bold btn-sm" dmx-on:click="serverconnectform1.submit()">Conexão&nbsp;<i class="fa fa-trash fa-large"></i></button>
+      </div>
     </div>
+  </div>
 </div>
 
 
@@ -83,111 +83,107 @@
 
 
 <div class="modal" id="modal2" is="dmx-bs4-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Esquema de dados</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="id_form"><select id="select1" class="custom-select" name="schema" optiontext="$value.split(':')[2].capitalize()" dmx-bind:options="sc_get_schemas.data.api_credentials.data.schema_ids" optionvalue="$value">
-                    </select></form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" dmx-on:click="session1.set('id',id_form.select1.value);session1.set('creddef_id',sc_get_schema_id.data.api_creddef.data.credential_definition_ids);modal2.hide();modal3.show()"><i
-                        class="bi-check2"></i></button>
-            </div>
-        </div>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Esquema de dados</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="id_form"><select id="select1" class="custom-select" name="schema" optiontext="$value.split(':')[2].capitalize()" dmx-bind:options="sc_get_schemas.data.api_credentials.data.schema_ids" optionvalue="$value">
+          </select></form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" dmx-on:click="session1.set('id',id_form.select1.value);session1.set('creddef_id',sc_get_schema_id.data.api_creddef.data.credential_definition_ids);modal2.hide();modal3.show()"><i
+            class="bi-check2"></i></button>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="modal" id="modal3" is="dmx-bs4-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
 
-            <div class="modal-header">
-                <h5 class="modal-title">Enviar credencial</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p dmx-text="'Creddef :'+sc_get_schema_id.data.api_creddef.data.credential_definition_ids">Enter your content here</p>
-
-
-                <form enctype="application/json" id="credencial-form" method="post" is="dmx-api-form" action="/api/external/credentials/send_credential" onreset="">
-                    <input id="connection_id" name="connection_id" type="hidden" class="form-control" dmx-bind:value="session1.data.connection_id">
+      <div class="modal-header">
+        <h5 class="modal-title">Enviar credencial</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p dmx-text="'Creddef :'+sc_get_schema_id.data.api_creddef.data.credential_definition_ids">Enter your content here</p>
 
 
-                    <input id="credential_definition_id" name="credential_definition_id" type="hidden" class="form-control" dmx-bind:value="sc_get_schema_id.data.api_creddef.data.credential_definition_ids">
-                    <div class="row" is="dmx-repeat" id="repeat1" dmx-bind:repeat="content.sc_get_schema_id.data.api_credentials.data.schema.attrNames">
-                        <div class="col">
-
-                            <p dmx-text="$value" class="font-weight-bold small text-monospace mb-n1"></p><input id="attributes" class="form-control" onfocus="this.value=''" dmx-bind:name="attributes[{{$index}}][{{$value}}]">
+        <form enctype="application/json" id="credencial-form" method="post" is="dmx-api-form" action="/api/external/credentials/send_credential" onreset="">
+          <input id="connection_id" name="connection_id" type="hidden" class="form-control" dmx-bind:value="session1.data.connection_id">
 
 
-                        </div>
-                        <div class="col-break w-100 small mb-n5"></div>
-                    </div>
-                </form>
+          <input id="credential_definition_id" name="credential_definition_id" type="hidden" class="form-control" dmx-bind:value="sc_get_schema_id.data.api_creddef.data.credential_definition_ids">
+          <div class="row" is="dmx-repeat" id="repeat1" dmx-bind:repeat="content.sc_get_schema_id.data.api_credentials.data.schema.attrNames">
+            <div class="col">
+
+              <p dmx-text="$value" class="font-weight-bold small text-monospace mb-n1"></p><input id="attributes" class="form-control" onfocus="this.value=''" dmx-bind:name="attributes[{{$index}}][{{$value}}]">
 
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" dmx-on:click="credencialform.submit();notifies1.success('Credencial enviada');modal3.hide();serverconnect1.load({},true);credencialform.reset()">Criar</button>
-            </div>
-        </div>
+            <div class="col-break w-100 small mb-n5"></div>
+          </div>
+        </form>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" dmx-on:click="credencialform.submit();notifies1.success('Credencial enviada');modal3.hide();serverconnect1.load({},true);credencialform.reset()">Criar</button>
+      </div>
     </div>
+  </div>
 </div>
 
 
 <dmx-notifications id="notifies1" position="bottom" timeout="1000"></dmx-notifications>
 
 <div class="wappler-block mt-4 mb-0 pt-5 pb-0 container">
-    <h4>Conexões<p wappler-command="editContent" wappler-empty="undefined"><br></p>
-    </h4>
-    <form id="form1" method="post" is="dmx-serverconnect-form" action="/api/external/connection/create_connections" dmx-on:success="serverconnect1.load(true);notifies1.success('Conexão adicionada')">
+  <h5 class="text-center h-auto mb-5"><i class="bi-link-45deg"></i>&nbsp;Conexões</h5>
+  </h4>
+  <form id="form1" method="post" is="dmx-serverconnect-form" action="/api/external/connection/create_connections" dmx-on:success="serverconnect1.load(true);notifies1.success('Conexão adicionada')">
 
-        <select id="email" class="custom-select custom-select-sm" style="width:100px;" dmx-bind:value="serverconnect2.data.query" dmx-bind:options="serverconnect2.data.query" optiontext="first_name" optionvalue="email" name="email"></select>
-        <button id="btn2" class="btn btn-primary btn-sm" type="submit">Conectar&nbsp;<i class="fa fa-user-plus"></i></button>
-        <button id="btn3" class="btn btn-sm btn-success" type="reset" dmx-on:click="serverconnect1.load(true);notifies1.info('Atualizado')">&nbsp;<i class="fa fa-refresh"></i></button></form>
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover table-sm">
-            <thead>
-                <tr>
-                    <th class="text-center font-weight-bold">Estado</th>
-                    <th class="text-center font-weight-bold">ID Conexão&nbsp;</th>
-                    <th class="text-center font-weight-bold">Criação</th>
-                    <th class="text-center font-weight-bold">Destino</th>
-                </tr>
-            </thead>
-            <tbody is="dmx-repeat" dmx-generator="bs4table" dmx-bind:repeat="content.serverconnect1.data.api.data.results" id="tableRepeat1">
-                <tr dmx-on:click="serverconnect1.load({});data_detail1.select(connection_id);modal1.show()">
-                    <td class="text-center text-danger">
-                        <div id="conditional1" is="dmx-if" dmx-bind:condition="(state == 'active')">
-                            <i class="bi-link"></i>
-                        </div>
-                        <div id="conditional2" is="dmx-if" dmx-bind:condition="(state == 'response')">
-                            <i class="bi-clock-history"></i>
-                        </div>
-                    </td>
-                    <td dmx-text="connection_id"></td>
-                    <td dmx-text="created_at.formatDate('dd/MM/yyyy HH:mm')" class="text-center"></td>
-                    <td dmx-text="their_label"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <select id="email" class="custom-select custom-select-sm" style="width:100px;" dmx-bind:value="serverconnect2.data.query" dmx-bind:options="serverconnect2.data.query" optiontext="first_name" optionvalue="email" name="email"></select>
+    <button id="btn2" class="btn btn-primary btn-sm" type="submit">Conectar&nbsp;<i class="fa fa-user-plus"></i></button>
+    <button id="btn3" class="btn btn-sm btn-success" type="reset" dmx-on:click="serverconnect1.load(true);notifies1.info('Atualizado')">&nbsp;<i class="fa fa-refresh"></i></button>
+  </form>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover table-sm">
+      <thead>
+        <tr>
+          <th class="text-center font-weight-bold">Estado</th>
+          <th class="text-center font-weight-bold">ID Conexão&nbsp;</th>
+          <th class="text-center font-weight-bold">Criação</th>
+          <th class="text-center font-weight-bold">Destino</th>
+        </tr>
+      </thead>
+      <tbody is="dmx-repeat" dmx-generator="bs4table" dmx-bind:repeat="content.serverconnect1.data.api.data.results" id="tableRepeat1">
+        <tr dmx-on:click="serverconnect1.load({});data_detail1.select(connection_id);modal1.show()">
+          <td class="text-center text-danger">
+            <div id="conditional1" is="dmx-if" dmx-bind:condition="(state == 'active')">
+              <i class="bi-link"></i>
+            </div>
+            <div id="conditional2" is="dmx-if" dmx-bind:condition="(state == 'response')">
+              <i class="bi-clock-history"></i>
+            </div>
+          </td>
+          <td dmx-text="connection_id"></td>
+          <td dmx-text="created_at.formatDate('dd/MM/yyyy HH:mm')" class="text-center"></td>
+          <td dmx-text="their_label"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
 
 
 
 
 </div>
-
-
-
-
-<meta name="ac:route" content="/connections">

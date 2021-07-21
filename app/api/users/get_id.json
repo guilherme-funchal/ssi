@@ -64,13 +64,21 @@
             {
               "table": "users",
               "column": "token"
+            },
+            {
+              "table": "users",
+              "column": "last_login"
+            },
+            {
+              "table": "users",
+              "column": "wallet_id"
             }
           ],
           "table": {
             "name": "users"
           },
           "joins": [],
-          "query": "SELECT id, first_name, last_name, email, document, role, did, verkey, pass_hash, pass_salt, token\nFROM users\nWHERE email = :P1 /* {{$_COOKIE.email}} */",
+          "query": "SELECT id, first_name, last_name, email, document, role, did, verkey, pass_hash, pass_salt, token, last_login, wallet_id\nFROM users\nWHERE email = :P1 /* {{$_COOKIE.email}} */",
           "params": [
             {
               "operator": "equal",
@@ -145,6 +153,14 @@
         },
         {
           "name": "token",
+          "type": "text"
+        },
+        {
+          "name": "last_login",
+          "type": "text"
+        },
+        {
+          "name": "wallet_id",
           "type": "text"
         }
       ],

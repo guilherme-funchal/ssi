@@ -48,6 +48,14 @@
       {
         "type": "number",
         "name": "id"
+      },
+      {
+        "type": "text",
+        "name": "wallet_id"
+      },
+      {
+        "type": "text",
+        "name": "last_login"
       }
     ]
   },
@@ -277,6 +285,18 @@
                       "column": "token",
                       "type": "text",
                       "value": "{{$_POST.token}}"
+                    },
+                    {
+                      "table": "users",
+                      "column": "wallet_id",
+                      "type": "text",
+                      "value": "{{$_POST.wallet_id}}"
+                    },
+                    {
+                      "table": "users",
+                      "column": "last_login",
+                      "type": "text",
+                      "value": "{{$_POST.last_login}}"
                     }
                   ],
                   "table": "users",
@@ -295,7 +315,7 @@
                       }
                     ]
                   },
-                  "query": "UPDATE users\nSET first_name = :P1 /* {{$_POST.first_name}} */, last_name = :P2 /* {{$_POST.last_name}} */, email = :P3 /* {{$_POST.email}} */, document = :P4 /* {{$_POST.document}} */, role = :P5 /* {{$_POST.role}} */, did = :P6 /* {{$_POST.did}} */, verkey = :P7 /* {{$_POST.verkey}} */, pass_hash = :P8 /* {{$_POST.pass_hash}} */, pass_salt = :P9 /* {{$_POST.pass_salt}} */, token = :P10 /* {{$_POST.token}} */\nWHERE id = :P11 /* {{$_POST.id}} */",
+                  "query": "UPDATE users\nSET first_name = :P1 /* {{$_POST.first_name}} */, last_name = :P2 /* {{$_POST.last_name}} */, email = :P3 /* {{$_POST.email}} */, document = :P4 /* {{$_POST.document}} */, role = :P5 /* {{$_POST.role}} */, did = :P6 /* {{$_POST.did}} */, verkey = :P7 /* {{$_POST.verkey}} */, pass_hash = :P8 /* {{$_POST.pass_hash}} */, pass_salt = :P9 /* {{$_POST.pass_salt}} */, token = :P10 /* {{$_POST.token}} */, wallet_id = :P11 /* {{$_POST.wallet_id}} */, last_login = :P12 /* {{$_POST.last_login}} */\nWHERE id = :P13 /* {{$_POST.id}} */",
                   "params": [
                     {
                       "name": ":P1",
@@ -348,9 +368,19 @@
                       "value": "{{$_POST.token}}"
                     },
                     {
+                      "name": ":P11",
+                      "type": "expression",
+                      "value": "{{$_POST.wallet_id}}"
+                    },
+                    {
+                      "name": ":P12",
+                      "type": "expression",
+                      "value": "{{$_POST.last_login}}"
+                    },
+                    {
                       "operator": "equal",
                       "type": "expression",
-                      "name": ":P11",
+                      "name": ":P13",
                       "value": "{{$_POST.id}}"
                     }
                   ]
@@ -374,48 +404,68 @@
         "options": {
           "if": "{{$_POST.operation == 'delete'}}",
           "then": {
-            "steps": {
-              "name": "delete",
-              "module": "dbupdater",
-              "action": "delete",
-              "options": {
-                "connection": "ssi",
-                "sql": {
-                  "type": "delete",
-                  "table": "users",
-                  "wheres": {
-                    "condition": "AND",
-                    "rules": [
-                      {
-                        "id": "id",
-                        "type": "double",
-                        "operator": "equal",
-                        "value": "{{$_POST.id}}",
-                        "data": {
-                          "column": "id"
-                        },
-                        "operation": "="
-                      }
-                    ]
-                  },
-                  "query": "DELETE\nFROM users\nWHERE id = :P1 /* {{$_POST.id}} */",
-                  "params": [
-                    {
-                      "operator": "equal",
-                      "type": "expression",
-                      "name": ":P1",
-                      "value": "{{$_POST.id}}"
-                    }
-                  ]
+            "steps": [
+              {
+                "name": "wallet_id",
+                "module": "core",
+                "action": "setvalue",
+                "options": {
+                  "value": "{{$_POST.wallet_id}}"
                 }
               },
-              "meta": [
-                {
-                  "name": "affected",
-                  "type": "number"
-                }
-              ]
-            }
+              {
+                "name": "api",
+                "module": "api",
+                "action": "send",
+                "options": {
+                  "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/multitenancy/wallet/{{wallet_id}}/remove",
+                  "method": "POST"
+                },
+                "output": true
+              },
+              {
+                "name": "delete",
+                "module": "dbupdater",
+                "action": "delete",
+                "options": {
+                  "connection": "ssi",
+                  "sql": {
+                    "type": "delete",
+                    "table": "users",
+                    "wheres": {
+                      "condition": "AND",
+                      "rules": [
+                        {
+                          "id": "id",
+                          "type": "double",
+                          "operator": "equal",
+                          "value": "{{$_POST.id}}",
+                          "data": {
+                            "column": "id"
+                          },
+                          "operation": "="
+                        }
+                      ]
+                    },
+                    "query": "DELETE\nFROM users\nWHERE id = :P1 /* {{$_POST.id}} */",
+                    "params": [
+                      {
+                        "operator": "equal",
+                        "type": "expression",
+                        "name": ":P1",
+                        "value": "{{$_POST.id}}"
+                      }
+                    ]
+                  }
+                },
+                "meta": [
+                  {
+                    "name": "affected",
+                    "type": "number"
+                  }
+                ]
+              }
+            ]
           }
         },
         "outputType": "boolean"

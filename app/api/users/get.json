@@ -64,13 +64,17 @@
             {
               "table": "users",
               "column": "token"
+            },
+            {
+              "table": "users",
+              "column": "wallet_id"
             }
           ],
           "table": {
             "name": "users"
           },
           "joins": [],
-          "query": "SELECT id, first_name, last_name, email, document, role, did, verkey, pass_hash, pass_salt, token\nFROM users",
+          "query": "SELECT id, first_name, last_name, email, document, role, did, verkey, pass_hash, pass_salt, token, wallet_id\nFROM users",
           "params": []
         }
       },
@@ -118,6 +122,10 @@
         },
         {
           "name": "token",
+          "type": "text"
+        },
+        {
+          "name": "wallet_id",
           "type": "text"
         }
       ],
