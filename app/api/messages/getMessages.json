@@ -23,49 +23,52 @@
           "columns": [
             {
               "table": "messages",
-              "column": "id"
-            },
-            {
-              "table": "messages",
-              "column": "state"
-            },
-            {
-              "table": "messages",
-              "column": "messageID"
-            },
-            {
-              "table": "messages",
-              "column": "from"
-            },
-            {
-              "table": "messages",
-              "column": "msg"
-            },
-            {
-              "table": "messages",
-              "column": "date"
+              "column": "*"
             }
           ],
           "table": {
             "name": "messages"
           },
           "joins": [],
-          "query": "SELECT id, state, messageID, from, msg, date\nFROM messages",
-          "params": []
+          "query": "SELECT *\nFROM messages\nWHERE to = :P1 /* {{$_COOKIE.email}} */",
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_COOKIE.email}}"
+            }
+          ],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "messages.to",
+                "field": "messages.to",
+                "type": "string",
+                "operator": "equal",
+                "value": "{{$_COOKIE.email}}",
+                "data": {
+                  "table": "messages",
+                  "column": "to",
+                  "type": "text"
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          }
         }
       },
       "output": true,
       "meta": [
         {
-          "name": "id",
+          "name": "message_id",
           "type": "text"
         },
         {
-          "name": "state",
-          "type": "text"
-        },
-        {
-          "name": "messageID",
+          "name": "connection_id",
           "type": "text"
         },
         {
@@ -73,11 +76,23 @@
           "type": "text"
         },
         {
-          "name": "msg",
+          "name": "to",
+          "type": "text"
+        },
+        {
+          "name": "content",
           "type": "text"
         },
         {
           "name": "date",
+          "type": "date"
+        },
+        {
+          "name": "topic",
+          "type": "text"
+        },
+        {
+          "name": "state",
           "type": "text"
         }
       ],

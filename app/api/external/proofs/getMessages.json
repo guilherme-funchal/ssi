@@ -1,0 +1,22 @@
+[
+  {
+    "name": "token",
+    "module": "core",
+    "action": "setvalue",
+    "options": {
+      "value": "d045df8f-406e-423c-85f6-316484ea9f85"
+    }
+  },
+  {
+    "name": "api",
+    "module": "api",
+    "action": "send",
+    "options": {
+      "url": "http://161.148.151.16:8080/new_messages",
+      "headers": {
+        "Authorization": "{{'Bearer '+token}}"
+      }
+    },
+    "output": true
+  }
+]

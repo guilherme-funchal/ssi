@@ -1,0 +1,38 @@
+{
+  "name": "api",
+  "module": "api",
+  "action": "send",
+  "options": {
+    "method": "POST",
+    "dataType": "json",
+    "data": {
+      "connection_id": "359920c3-dc39-47a9-917d-ec548b354885",
+      "proof_request": {
+        "name": "Proof request",
+        "requested_attributes": {
+          "additionalProp1": {
+            "name": "dados"
+          }
+        },
+        "requested_predicates": {
+          "additionalProp1": {
+            "name": "cpf",
+            "p_type": ">=",
+            "p_value": 0,
+            "restrictions": [
+              {
+                "cred_def_id": "NDC1NBuWaTcNRn3MkxMUtm:3:CL:22:serpro",
+                "issuer_did": "NDC1NBuWaTcNRn3MkxMUtm",
+                "schema_id": "NDC1NBuWaTcNRn3MkxMUtm:2:identidade-serpro:1.0",
+                "schema_issuer_did": "NDC1NBuWaTcNRn3MkxMUtm",
+                "schema_name": "identidade-serpro"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "url": "/present-proof/send-request"
+  },
+  "output": true
+}

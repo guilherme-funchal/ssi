@@ -402,5 +402,44 @@ dmx.config({
       "meta": [],
       "outputType": "object"
     }
+  },
+  "messages": {
+    "data_detail1": {
+      "meta": [
+        {
+          "name": "message_id",
+          "type": "text"
+        },
+        {
+          "name": "connection_id",
+          "type": "text"
+        },
+        {
+          "name": "from",
+          "type": "text"
+        },
+        {
+          "name": "to",
+          "type": "text"
+        },
+        {
+          "name": "content",
+          "type": "text"
+        },
+        {
+          "name": "date",
+          "type": "date"
+        },
+        {
+          "name": "topic",
+          "type": "text"
+        },
+        {
+          "name": "state",
+          "type": "text"
+        }
+      ],
+      "outputType": "array"
+    }
   }
 });

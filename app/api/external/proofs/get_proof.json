@@ -1,0 +1,115 @@
+[
+  {
+    "name": "token",
+    "module": "core",
+    "action": "setvalue",
+    "options": {
+      "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ3YWxsZXRfaWQiOiI3NmY2YjI4MS00MjAyLTQ4YmMtOGM0Mi1mODE0NDA4NjZlOTgifQ.KyYkzVeRZNcsTdJbQ0qyfg6aGngKkEkMJtt7Oae7onc"
+    }
+  },
+  {
+    "name": "api_key",
+    "module": "core",
+    "action": "setvalue",
+    "options": {
+      "value": "cd000a4a-c349-4abf-a51c-360fd141f0e3"
+    }
+  },
+  {
+    "name": "connection_id",
+    "module": "core",
+    "action": "setvalue",
+    "options": {
+      "value": "359920c3-dc39-47a9-917d-ec548b354885"
+    }
+  },
+  {
+    "name": "cred_def_id",
+    "module": "core",
+    "action": "setvalue",
+    "options": {
+      "value": "NDC1NBuWaTcNRn3MkxMUtm:3:CL:22:serpro"
+    }
+  },
+  {
+    "name": "issuer_did",
+    "module": "core",
+    "action": "setvalue",
+    "options": {
+      "value": "NDC1NBuWaTcNRn3MkxMUtm"
+    }
+  },
+  {
+    "name": "schema_id",
+    "module": "core",
+    "action": "setvalue",
+    "options": {
+      "value": "NDC1NBuWaTcNRn3MkxMUtm:2:identidade-serpro:1.0"
+    }
+  },
+  {
+    "name": "schema_issuer_did",
+    "module": "core",
+    "action": "setvalue",
+    "options": {
+      "value": "NDC1NBuWaTcNRn3MkxMUtm"
+    }
+  },
+  {
+    "name": "schema_name",
+    "module": "core",
+    "action": "setvalue",
+    "options": {
+      "value": "identidade-serpro"
+    }
+  },
+  {
+    "name": "attributes",
+    "module": "core",
+    "action": "setvalue",
+    "options": {
+      "value": "\"name\": \"cpf\",\"name\": \"cpf\","
+    }
+  },
+  {
+    "name": "api",
+    "module": "api",
+    "action": "send",
+    "options": {
+      "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/present-proof/send-request",
+      "method": "POST",
+      "dataType": "json",
+      "data": {
+        "connection_id": "{{connection_id}}",
+        "proof_request": {
+          "name": "Proof request",
+          "requested_attributes": {
+            "additionalProp1": {
+              "name": "dados"
+            }
+          },
+          "requested_predicates": {
+            "additionalProp1": {
+              "name": "cpf",
+              "p_type": ">=",
+              "p_value": 0,
+              "restrictions": [
+                {
+                  "cred_def_id": "{{cred_def_id}}",
+                  "issuer_did": "{{issuer_did}}",
+                  "schema_id": "{{schema_id}}",
+                  "schema_issuer_did": "{{schema_issuer_did}}",
+                  "schema_name": "{{schema_name}}"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "headers": {
+        "Authorization": "{{'Bearer '+token}}"
+      }
+    },
+    "output": true
+  }
+]
