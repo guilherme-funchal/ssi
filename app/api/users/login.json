@@ -66,10 +66,6 @@
           {
             "name": "email",
             "type": "text"
-          },
-          {
-            "name": "password",
-            "type": "text"
           }
         ],
         "outputType": "array"

@@ -1,83 +1,203 @@
-<!-- Wappler include head-page="layouts/main" is="dmx-app" id="proofs" appConnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cerulean" bootstrap_icons="cdn" -->
-<meta name="ac:route" content="/proofs">
+<!-- Wappler include head-page="layouts/main" is="dmx-app" id="proofs" appConnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cerulean" bootstrap_icons="cdn" components="{dmxDataTraversal:{},dmxBootstrap4TableGenerator:{},dmxBootstrap4Modal:{},dmxFormatter:{},dmxStateManagement:{}}" -->
+<dmx-session-manager id="session1"></dmx-session-manager>
+<dmx-data-detail id="data_detail2" dmx-bind:data="serverconnect3.data.query" key="id"></dmx-data-detail>
+<dmx-serverconnect id="serverconnect3" url="/api/users/get_org"></dmx-serverconnect>
+<dmx-serverconnect id="serverconnect2" url="/api/external/schemas/get_schemas"></dmx-serverconnect>
 
-<div class="modal mt-5" id="modal1" is="dmx-bs4-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="api/proofs/modProva" dmx-generator="bootstrap4" dmx-form-type="horizontal" dmx-populate="data_detail1.data"
-                    dmx-on:success="modal1.hide();serverconnect1.load({},true)">
-                    <div class="form-group row">
-                        <label for="inp_name" class="col-sm-2 col-form-label">Name</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inp_name" name="name" dmx-bind:value="data_detail1.data.name" aria-describedby="inp_name_help" placeholder="Enter Name">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inp_description" class="col-sm-2 col-form-label">Description</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inp_description" name="description" dmx-bind:value="data_detail1.data.description" aria-describedby="inp_description_help" placeholder="Enter Description">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inp_req_attrs" class="col-sm-2 col-form-label">Req attrs</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inp_req_attrs" name="req_attrs" dmx-bind:value="data_detail1.data.req_attrs" aria-describedby="inp_req_attrs_help" placeholder="Enter Req attrs">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inp_precates" class="col-sm-2 col-form-label">Precates</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inp_precates" name="precates" dmx-bind:value="data_detail1.data.precates" aria-describedby="inp_precates_help" placeholder="Enter Precates">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inp_schema" class="col-sm-2 col-form-label">Schema</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inp_schema" name="schema" dmx-bind:value="data_detail1.data.schema" aria-describedby="inp_schema_help" placeholder="Enter Schema">
-                        </div>
-                    </div>
-                    <input type="hidden" name="id" id="inp_id" dmx-bind:value="data_detail1.data.id"><input type="hidden" name="operator" id="inp_operator" dmx-bind:value="data_detail1.data.operator">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" dmx-on:click="run([{run:{action:`modal1.serverconnectform1.inp_operator.setValue(\'delete\')`}},{run:{action:`modal1.serverconnectform1.submit()`}}])">Excluir</button>
-                <button type="button" class="btn btn-primary"
-                    dmx-on:click="run([{condition:{if:`(data_detail1.data != null)`,then:{steps:{run:{action:`modal1.serverconnectform1.inp_operator.setValue(\'update\')`}}},else:{steps:{run:{action:`modal1.serverconnectform1.inp_operator.setValue(\'add\')`}}}}},{run:{action:`modal1.serverconnectform1.submit()`}}])">Salvar</button>
-            </div>
-        </div>
-    </div>
-</div>
-<dmx-serverconnect id="serverconnect1" url="api/proofs/getProva"></dmx-serverconnect>
+<dmx-serverconnect id="serverconnect1" url="/api/proofs/getProva"></dmx-serverconnect>
 <dmx-data-detail id="data_detail1" dmx-bind:data="serverconnect1.data.query" key="id">
 
 </dmx-data-detail>
 
-<div class="container-fluid mt-5">
-    <h5 class="text-black-50 text-center font-weight-bold">
-        <p wappler-empty="undefined" wappler-command="editContent"><br></p>Provas
-    </h5>
-    <button id="btn1" class="btn btn-primary font-weight-bold btn-sm" dmx-on:click="data_detail1.select(0);modal1.show()" style="cursor: pointer;">Adicionar&nbsp;<i class="fa fa-plus-circle"></i></button>
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered table-hover table-sm">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                </tr>
-            </thead>
-            <tbody is="dmx-repeat" dmx-generator="bs4table" dmx-bind:repeat="serverconnect1.data.query" id="tableRepeat1">
-                <tr dmx-on:click="data_detail1.select(id);modal1.show()">
-                    <td dmx-text="id"></td>
-                    <td dmx-text="name"></td>
-                </tr>
-            </tbody>
-        </table>
+<div class="mt-5 container">
+
+  <div class="modal" id="modal1" is="dmx-bs4-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Novo consentimento</h5>
+          <h5 class="modal-title ml-1 pl-0" dmx-text="session1.data.org">Novo consentimento</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/proofs/modProva" dmx-generator="bootstrap4" dmx-form-type="horizontal" dmx-populate="data_detail1.data">
+            <input type="hidden" class="form-control" id="inp_operator" name="operator" dmx-bind:value="data_detail1.data.operator" aria-describedby="inp_operator_help" placeholder="Enter Operator">
+            <div class="form-group row">
+              <label for="inp_name" class="col-sm-2 col-form-label col-form-label-sm">Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="inp_name" name="name" dmx-bind:value="'Dados_pessoais-'+session1.data.org.capitalize()+'-'+session1.data.usuario" aria-describedby="inp_name_help"
+                  value="DadosPessoaisSerpro">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inp_description" class="col-sm-2 col-form-label col-form-label-sm">Description</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="inp_description" name="description" dmx-bind:value="'Dados pessoais '+session1.data.org.capitalize()" aria-describedby="inp_description_help" placeholder="Enter Description">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inp_req_attrs" class="col-sm-2 col-form-label col-form-label-sm">Req attrs</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="inp_req_attrs" name="req_attrs" dmx-bind:value="data_detail1.data.req_attrs" aria-describedby="inp_req_attrs_help" placeholder="Enter Req attrs">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inp_schema" class="col-sm-2 col-form-label col-form-label-sm">Schema</label>
+              <div class="col-sm-10">
+                <input class="form-control form-control-sm" id="inp_schema" name="schema" dmx-bind:value="org.value" aria-describedby="inp_schema_help" placeholder="Enter Schema" readonly="true">
+              </div>
+            </div>
+            <input type="hidden" name="id" id="inp_id" dmx-bind:value="data_detail1.data.id">
+            <div class="form-group row">
+              <label for="inp_predicates" class="col-sm-2 col-form-label col-form-label-sm">Predicates</label>
+              <div class="col-sm-10">
+
+                <input type="text" class="form-control form-control-sm" id="inp_predicates" name="predicates" dmx-bind:value="data_detail1.data.predicates" aria-describedby="inp_predicates_help" placeholder="Enter Predicates">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inp_state" class="col-sm-2 col-form-label col-form-label-sm">Estado</label>
+              <div class="col-sm-10">
+                <select id="inp_state" class="form-control form-control-sm" dmx-bind:value="data_detail1.data.state" name="state">
+                  <option selected="" value="1">Ativado</option>
+                  <option value="2">Desativado</option>
+                </select>
+              </div>
+            </div>
+            <input type="hidden" name="date" id="inp_date" dmx-bind:value="data_detail1.data.date">
+            <div class="form-group row">
+              <label for="inp_valid" class="col-sm-2 col-form-label col-form-label-sm">Validade</label>
+              <div class="col-sm-10">
+                <input type="date" class="form-control form-control-sm" id="inp_valid" name="valid" dmx-bind:value="data_detail1.data.valid" aria-describedby="inp_valid_help" placeholder="Enter Valid">
+              </div>
+            </div>
+            <input type="hidden" name="id_user" id="inp_id_user" dmx-bind:value="data_detail1.data.id_user">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-danger">Excluir</button>
+          <button type="button" class="btn btn-primary btn-sm">Salvar</button>
+        </div>
+      </div>
     </div>
+  </div>
+  <h5 class="text-black-50 text-center font-weight-bold">
+    <p wappler-empty="undefined" wappler-command="editContent"><br></p>
+    <h5 class="text-center h-auto mb-5"><i class="bi-table"></i>&nbsp;Organizações</h5>
+  </h5>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover table-sm">
+      <thead>
+        <tr>
+          <th class="text-center small font-weight-bold">Organização</th>
+          <th class="font-weight-bold small text-center">Ação</th>
+        </tr>
+      </thead>
+      <tbody is="dmx-repeat" dmx-generator="bs4table" dmx-bind:repeat="serverconnect3.data.query" id="tableRepeat1">
+        <tr>
+          <td dmx-text="first_name" class="small text-center"></td>
+          <td class="small text-center">
+            <button id="btn1" class="btn btn-sm text-center"><i class="bi-plus-circle-fill" dmx-on:click="data_detail1.select(0);org.setValue(data_detail2.data.first_name);session1.set('org',first_name);modal1.show()"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="container mt-0">
+  <div class="modal" id="modal2" is="dmx-bs4-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Consentimento</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form is="dmx-serverconnect-form" id="serverconnectform2" method="post" action="/api/proofs/modProva" dmx-generator="bootstrap4" dmx-form-type="horizontal" dmx-populate="data_detail1.data">
+            <input type="hidden" class="form-control" id="inp_operator1" name="operator1" dmx-bind:value="data_detail1.data.operator" aria-describedby="inp_operator_help" placeholder="Enter Operator">
+            <div class="form-group row">
+              <label for="inp_name1" class="col-sm-2 col-form-label col-form-label-sm">Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="inp_name1" name="name1" dmx-bind:value="data_detail1.data.name" aria-describedby="inp_name_help" placeholder="Enter Name">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inp_description1" class="col-sm-2 col-form-label col-form-label-sm">Description</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="inp_description1" name="description1" dmx-bind:value="data_detail1.data.description" aria-describedby="inp_description_help" placeholder="Enter Description">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inp_req_attrs1" class="col-sm-2 col-form-label col-form-label-sm">Req attrs</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="inp_req_attrs1" name="req_attrs1" dmx-bind:value="data_detail1.data.req_attrs" aria-describedby="inp_req_attrs_help" placeholder="Enter Req attrs">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inp_schema1" class="col-sm-2 col-form-label col-form-label-sm">Schema</label>
+              <div class="col-sm-10">
+                <input class="form-control form-control-sm" id="inp_schema1" name="schema1" dmx-bind:value="data_detail1.data.schema" aria-describedby="inp_schema_help" placeholder="Enter Schema" readonly="true">
+              </div>
+            </div>
+            <input type="hidden" name="id1" id="inp_id1" dmx-bind:value="data_detail1.data.id">
+            <div class="form-group row">
+              <label for="inp_predicates1" class="col-sm-2 col-form-label col-form-label-sm">Predicates</label>
+              <div class="col-sm-10">
+
+                <input type="text" class="form-control form-control-sm" id="inp_predicates1" name="predicates1" dmx-bind:value="data_detail1.data.predicates" aria-describedby="inp_predicates_help" placeholder="Enter Predicates">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inp_state1" class="col-sm-2 col-form-label col-form-label-sm">Estado</label>
+              <div class="col-sm-10">
+                <select id="inp_state1" class="form-control form-control-sm" dmx-bind:value="data_detail1.data.state" name="state1">
+                  <option selected="" value="1">Ativado</option>
+                  <option value="2">Desativado</option>
+                </select>
+              </div>
+            </div>
+            <input type="hidden" name="date1" id="inp_date1" dmx-bind:value="data_detail1.data.date">
+            <div class="form-group row">
+              <label for="inp_valid1" class="col-sm-2 col-form-label col-form-label-sm">Validade</label>
+              <div class="col-sm-10">
+                <input type="date" class="form-control form-control-sm" id="inp_valid1" name="valid1" dmx-bind:value="data_detail1.data.valid" aria-describedby="inp_valid_help" placeholder="Enter Valid">
+              </div>
+            </div>
+            <input type="hidden" name="id_user1" id="inp_id_user1" dmx-bind:value="data_detail1.data.id_user">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-danger">Excluir</button>
+          <button type="button" class="btn btn-primary btn-sm">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h5 class="text-black-50 text-center font-weight-bold">
+    <p wappler-empty="undefined" wappler-command="editContent"><br></p>
+  </h5>
+  <h5 class="text-center h-auto mb-5"><i class="bi-table"></i>&nbsp;Consentimento</h5>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover table-sm">
+      <thead>
+        <tr>
+          <th class="text-center small font-weight-bold">Nome</th>
+          <th class="text-center small font-weight-bold">Esquema</th>
+          <th class="text-center small font-weight-bold">Estado</th>
+        </tr>
+      </thead>
+      <tbody is="dmx-repeat" dmx-generator="bs4table" dmx-bind:repeat="serverconnect1.data.query" id="tableRepeat2">
+        <tr dmx-on:click="data_detail1.select(id);modal1.show()" class="small">
+          <td dmx-text="name" class="text-center"></td>
+          <td dmx-text="schema.split(':')[2]" class="text-center"></td>
+          <td dmx-text="state" class="text-center"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

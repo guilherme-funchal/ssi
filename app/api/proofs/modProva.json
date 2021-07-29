@@ -1,5 +1,15 @@
 {
   "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ],
     "$_POST": [
       {
         "type": "text",
@@ -28,11 +38,106 @@
       {
         "type": "text",
         "name": "operator"
+      },
+      {
+        "type": "text",
+        "name": "predicates"
+      },
+      {
+        "type": "text",
+        "name": "state"
+      },
+      {
+        "type": "datetime",
+        "name": "date"
+      },
+      {
+        "type": "date",
+        "name": "valid"
+      },
+      {
+        "type": "text",
+        "name": "id_user"
       }
     ]
   },
   "exec": {
     "steps": [
+      {
+        "name": "query",
+        "module": "dbconnector",
+        "action": "select",
+        "options": {
+          "connection": "ssi",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "users",
+                "column": "id"
+              },
+              {
+                "table": "users",
+                "column": "email"
+              }
+            ],
+            "table": {
+              "name": "users"
+            },
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "users.email",
+                  "field": "users.email",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "{{$_COOKIE.email}}",
+                  "data": {
+                    "table": "users",
+                    "column": "email",
+                    "type": "text"
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "SELECT id, email\nFROM users\nWHERE email = :P1 /* {{$_COOKIE.email}} */",
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_COOKIE.email}}"
+              }
+            ]
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "name": "id",
+            "type": "text"
+          },
+          {
+            "name": "email",
+            "type": "text"
+          }
+        ],
+        "outputType": "array"
+      },
+      {
+        "name": "user_id",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "key": "user_id",
+          "value": "{{query[0].id}}"
+        }
+      },
       {
         "name": "",
         "module": "core",
@@ -69,20 +174,50 @@
                     },
                     {
                       "table": "provas",
-                      "column": "precates",
-                      "type": "text",
-                      "value": "{{$_POST.precates}}"
-                    },
-                    {
-                      "table": "provas",
                       "column": "schema",
                       "type": "text",
                       "value": "{{$_POST.schema}}"
+                    },
+                    {
+                      "table": "proofs",
+                      "column": "id",
+                      "type": "number",
+                      "value": "{{$_POST.id}}"
+                    },
+                    {
+                      "table": "proofs",
+                      "column": "predicates",
+                      "type": "text",
+                      "value": "{{$_POST.predicates}}"
+                    },
+                    {
+                      "table": "proofs",
+                      "column": "state",
+                      "type": "text",
+                      "value": "{{$_POST.state}}"
+                    },
+                    {
+                      "table": "proofs",
+                      "column": "date",
+                      "type": "datetime",
+                      "value": "{{NOW_UTC}}"
+                    },
+                    {
+                      "table": "proofs",
+                      "column": "valid",
+                      "type": "date",
+                      "value": "{{$_POST.valid}}"
+                    },
+                    {
+                      "table": "proofs",
+                      "column": "id_user",
+                      "type": "text",
+                      "value": "{{user_id}}"
                     }
                   ],
                   "table": "proofs",
                   "returning": "id",
-                  "query": "INSERT INTO proofs\n(name, description, req_attrs, precates, schema) VALUES (:P1 /* {{$_POST.name}} */, :P2 /* {{$_POST.description}} */, :P3 /* {{$_POST.req_attrs}} */, :P4 /* {{$_POST.precates}} */, :P5 /* {{$_POST.schema}} */)",
+                  "query": "INSERT INTO proofs\n(name, description, req_attrs, schema, id, predicates, state, date, valid, id_user) VALUES (:P1 /* {{$_POST.name}} */, :P2 /* {{$_POST.description}} */, :P3 /* {{$_POST.req_attrs}} */, :P4 /* {{$_POST.schema}} */, :P5 /* {{$_POST.id}} */, :P6 /* {{$_POST.predicates}} */, :P7 /* {{$_POST.state}} */, :P8 /* {{NOW_UTC}} */, :P9 /* {{$_POST.valid}} */, :P10 /* {{user_id}} */)",
                   "params": [
                     {
                       "name": ":P1",
@@ -102,12 +237,37 @@
                     {
                       "name": ":P4",
                       "type": "expression",
-                      "value": "{{$_POST.precates}}"
+                      "value": "{{$_POST.schema}}"
                     },
                     {
                       "name": ":P5",
                       "type": "expression",
-                      "value": "{{$_POST.schema}}"
+                      "value": "{{$_POST.id}}"
+                    },
+                    {
+                      "name": ":P6",
+                      "type": "expression",
+                      "value": "{{$_POST.predicates}}"
+                    },
+                    {
+                      "name": ":P7",
+                      "type": "expression",
+                      "value": "{{$_POST.state}}"
+                    },
+                    {
+                      "name": ":P8",
+                      "type": "expression",
+                      "value": "{{NOW_UTC}}"
+                    },
+                    {
+                      "name": ":P9",
+                      "type": "expression",
+                      "value": "{{$_POST.valid}}"
+                    },
+                    {
+                      "name": ":P10",
+                      "type": "expression",
+                      "value": "{{user_id}}"
                     }
                   ]
                 }
@@ -163,15 +323,45 @@
                     },
                     {
                       "table": "provas",
-                      "column": "precates",
-                      "type": "text",
-                      "value": "{{$_POST.precates}}"
-                    },
-                    {
-                      "table": "provas",
                       "column": "schema",
                       "type": "text",
                       "value": "{{$_POST.schema}}"
+                    },
+                    {
+                      "table": "proofs",
+                      "column": "id",
+                      "type": "number",
+                      "value": "{{$_POST.id}}"
+                    },
+                    {
+                      "table": "proofs",
+                      "column": "predicates",
+                      "type": "text",
+                      "value": "{{$_POST.predicates}}"
+                    },
+                    {
+                      "table": "proofs",
+                      "column": "state",
+                      "type": "text",
+                      "value": "{{$_POST.state}}"
+                    },
+                    {
+                      "table": "proofs",
+                      "column": "date",
+                      "type": "datetime",
+                      "value": "{{NOW_UTC}}"
+                    },
+                    {
+                      "table": "proofs",
+                      "column": "valid",
+                      "type": "date",
+                      "value": "{{$_POST.valid}}"
+                    },
+                    {
+                      "table": "proofs",
+                      "column": "id_user",
+                      "type": "text",
+                      "value": "{{$_POST.id_user}}"
                     }
                   ],
                   "table": "proofs",
@@ -190,7 +380,7 @@
                       }
                     ]
                   },
-                  "query": "UPDATE proofs\nSET name = :P1 /* {{$_POST.name}} */, description = :P2 /* {{$_POST.description}} */, req_attrs = :P3 /* {{$_POST.req_attrs}} */, precates = :P4 /* {{$_POST.precates}} */, schema = :P5 /* {{$_POST.schema}} */\nWHERE id = :P6 /* {{$_POST.id}} */",
+                  "query": "UPDATE proofs\nSET name = :P1 /* {{$_POST.name}} */, description = :P2 /* {{$_POST.description}} */, req_attrs = :P3 /* {{$_POST.req_attrs}} */, schema = :P4 /* {{$_POST.schema}} */, id = :P5 /* {{$_POST.id}} */, predicates = :P6 /* {{$_POST.predicates}} */, state = :P7 /* {{$_POST.state}} */, date = :P8 /* {{NOW_UTC}} */, valid = :P9 /* {{$_POST.valid}} */, id_user = :P10 /* {{$_POST.id_user}} */\nWHERE id = :P11 /* {{$_POST.id}} */",
                   "params": [
                     {
                       "name": ":P1",
@@ -210,17 +400,42 @@
                     {
                       "name": ":P4",
                       "type": "expression",
-                      "value": "{{$_POST.precates}}"
+                      "value": "{{$_POST.schema}}"
                     },
                     {
                       "name": ":P5",
                       "type": "expression",
-                      "value": "{{$_POST.schema}}"
+                      "value": "{{$_POST.id}}"
+                    },
+                    {
+                      "name": ":P6",
+                      "type": "expression",
+                      "value": "{{$_POST.predicates}}"
+                    },
+                    {
+                      "name": ":P7",
+                      "type": "expression",
+                      "value": "{{$_POST.state}}"
+                    },
+                    {
+                      "name": ":P8",
+                      "type": "expression",
+                      "value": "{{NOW_UTC}}"
+                    },
+                    {
+                      "name": ":P9",
+                      "type": "expression",
+                      "value": "{{$_POST.valid}}"
+                    },
+                    {
+                      "name": ":P10",
+                      "type": "expression",
+                      "value": "{{$_POST.id_user}}"
                     },
                     {
                       "operator": "equal",
                       "type": "expression",
-                      "name": ":P6",
+                      "name": ":P11",
                       "value": "{{$_POST.id}}"
                     }
                   ]

@@ -103,6 +103,14 @@
               {
                 "table": "users",
                 "column": "token"
+              },
+              {
+                "table": "users",
+                "column": "first_name"
+              },
+              {
+                "table": "users",
+                "column": "role"
               }
             ],
             "table": {
@@ -129,7 +137,7 @@
               "conditional": null,
               "valid": true
             },
-            "query": "SELECT pass_salt, token\nFROM users\nWHERE email = :P1 /* {{email}} */",
+            "query": "SELECT pass_salt, token, first_name, role\nFROM users\nWHERE email = :P1 /* {{email}} */",
             "params": [
               {
                 "operator": "equal",
@@ -148,6 +156,14 @@
           },
           {
             "name": "token",
+            "type": "text"
+          },
+          {
+            "name": "first_name",
+            "type": "text"
+          },
+          {
+            "name": "role",
             "type": "text"
           }
         ],
@@ -354,6 +370,25 @@
         "options": {
           "value": "{{email}}"
         }
+      },
+      {
+        "name": "",
+        "module": "core",
+        "action": "condition",
+        "options": {
+          "if": "{{query[0].role == 'org'}}",
+          "then": {
+            "steps": {
+              "name": "org",
+              "module": "core",
+              "action": "setcookie",
+              "options": {
+                "value": "{{query[0].first_name}}"
+              }
+            }
+          }
+        },
+        "outputType": "boolean"
       }
     ]
   }

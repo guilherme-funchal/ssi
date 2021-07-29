@@ -1,4 +1,6 @@
-<!-- Wappler include head-page="layouts/main" is="dmx-app" id="login" appconnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cdn" components="{dmxNotifications:{},dmxBootstrap4Toasts:{},dmxValidator:{},dmxBootstrap4Modal:{}}" role="alert" -->
+<!-- Wappler include head-page="layouts/main" is="dmx-app" id="login" appconnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cdn" components="{dmxNotifications:{},dmxBootstrap4Toasts:{},dmxValidator:{},dmxBootstrap4Modal:{},dmxStateManagement:{}}" role="alert" -->
+<dmx-notifications id="notifies1" position="bottom"></dmx-notifications>
+<dmx-session-manager id="session1"></dmx-session-manager>
 <div class="modal" id="modal1" is="dmx-bs4-modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -19,7 +21,8 @@
 </div>
 <div is="dmx-browser" id="browser1"></div>
 <div class="container">
-  <form id="login1" method="post" is="dmx-serverconnect-form" action="/api/security/login" dmx-on:success="browser1.goto('dashboard',true)">
+  <form id="login1" method="post" is="dmx-serverconnect-form" action="/api/security/login" dmx-on:success="session1.set('usuario',login1.inp_email.value);login1.reset();notifies1.success('Você está conectado');browser1.goto('dashboard')"
+    dmx-on:error="notifies1.info('Verifique o suário e senha')">
     <div class="row">
       <div class="col-12 col-md-8 col-lg-7 col-xl-5 text-left">
         <div class="row">
@@ -40,7 +43,7 @@
         </div>
         <div class="row mt-4">
           <div class="col">
-            <button id="login1_submit" class="btn btn-primary" type="submit">Login</button>
+            <button id="login1_submit" class="btn btn-primary" type="submit" dmx-on:click="usuario.setValue(login1.inp_email.value)">Login</button>
           </div>
         </div>
       </div>

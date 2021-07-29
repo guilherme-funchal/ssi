@@ -30,17 +30,23 @@
             "name": "messages"
           },
           "joins": [],
-          "query": "SELECT *\nFROM messages\nWHERE to = :P1 /* {{$_COOKIE.email}} */",
+          "query": "SELECT *\nFROM messages\nWHERE to = :P1 /* {{$_COOKIE.email}} */ OR (to = :P2 /* {{$_COOKIE.org}} */)",
           "params": [
             {
               "operator": "equal",
               "type": "expression",
               "name": ":P1",
               "value": "{{$_COOKIE.email}}"
+            },
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P2",
+              "value": "{{$_COOKIE.org}}"
             }
           ],
           "wheres": {
-            "condition": "AND",
+            "condition": "OR",
             "rules": [
               {
                 "id": "messages.to",
@@ -54,6 +60,25 @@
                   "type": "text"
                 },
                 "operation": "="
+              },
+              {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "id": "messages.to",
+                    "field": "messages.to",
+                    "type": "string",
+                    "operator": "equal",
+                    "value": "{{$_COOKIE.org}}",
+                    "data": {
+                      "table": "messages",
+                      "column": "to",
+                      "type": "text"
+                    },
+                    "operation": "="
+                  }
+                ],
+                "conditional": null
               }
             ],
             "conditional": null,

@@ -26,6 +26,18 @@
         "module": "core",
         "action": "removecookie",
         "options": {}
+      },
+      {
+        "name": "email",
+        "module": "core",
+        "action": "removecookie",
+        "options": {}
+      },
+      {
+        "name": "org",
+        "module": "core",
+        "action": "removecookie",
+        "options": {}
       }
     ]
   }

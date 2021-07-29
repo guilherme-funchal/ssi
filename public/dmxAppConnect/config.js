@@ -122,56 +122,56 @@ dmx.config({
     "data_detail1": {
       "meta": [
         {
-          "type": "text",
-          "name": "state"
+          "name": "id",
+          "type": "text"
         },
         {
-          "type": "text",
-          "name": "request_id"
+          "name": "first_name",
+          "type": "text"
         },
         {
-          "type": "text",
-          "name": "my_did"
+          "name": "last_name",
+          "type": "text"
         },
         {
-          "type": "text",
-          "name": "connection_id"
+          "name": "email",
+          "type": "text"
         },
         {
-          "type": "text",
-          "name": "created_at"
+          "name": "document",
+          "type": "text"
         },
         {
-          "type": "text",
-          "name": "updated_at"
+          "name": "role",
+          "type": "text"
         },
         {
-          "type": "text",
-          "name": "their_role"
+          "name": "did",
+          "type": "text"
         },
         {
-          "type": "text",
-          "name": "rfc23_state"
+          "name": "verkey",
+          "type": "text"
         },
         {
-          "type": "text",
-          "name": "invitation_key"
+          "name": "pass_hash",
+          "type": "text"
         },
         {
-          "type": "text",
-          "name": "invitation_mode"
+          "name": "pass_salt",
+          "type": "text"
         },
         {
-          "type": "text",
-          "name": "routing_state"
+          "name": "token",
+          "type": "text"
         },
         {
-          "type": "text",
-          "name": "their_label"
+          "name": "last_login",
+          "type": "text"
         },
         {
-          "type": "text",
-          "name": "accept"
+          "name": "wallet_id",
+          "type": "text"
         }
       ],
       "outputType": "array"
@@ -246,6 +246,14 @@ dmx.config({
       {
         "type": "text",
         "name": "creddef_id"
+      },
+      {
+        "type": "text",
+        "name": "user"
+      },
+      {
+        "type": "text",
+        "name": "usuario"
       }
     ],
     "repeat1": {
@@ -441,5 +449,112 @@ dmx.config({
       ],
       "outputType": "array"
     }
+  },
+  "login": {},
+  "main": {
+    "sessionStorage": [
+      {
+        "type": "text",
+        "name": "usuario"
+      },
+      {
+        "type": "text",
+        "name": "org"
+      }
+    ]
+  },
+  "proofs": {
+    "data_detail1": {
+      "meta": [
+        {
+          "name": "id",
+          "type": "text"
+        },
+        {
+          "name": "name",
+          "type": "text"
+        },
+        {
+          "name": "description",
+          "type": "text"
+        },
+        {
+          "name": "req_attrs",
+          "type": "text"
+        },
+        {
+          "name": "precates",
+          "type": "text"
+        },
+        {
+          "name": "schema",
+          "type": "text"
+        }
+      ],
+      "outputType": "array"
+    },
+    "data_detail2": {
+      "meta": [
+        {
+          "name": "id",
+          "type": "text"
+        },
+        {
+          "name": "first_name",
+          "type": "text"
+        },
+        {
+          "name": "last_name",
+          "type": "text"
+        },
+        {
+          "name": "email",
+          "type": "text"
+        },
+        {
+          "name": "document",
+          "type": "text"
+        },
+        {
+          "name": "role",
+          "type": "text"
+        },
+        {
+          "name": "did",
+          "type": "text"
+        },
+        {
+          "name": "verkey",
+          "type": "text"
+        },
+        {
+          "name": "pass_hash",
+          "type": "text"
+        },
+        {
+          "name": "pass_salt",
+          "type": "text"
+        },
+        {
+          "name": "token",
+          "type": "text"
+        },
+        {
+          "name": "last_login",
+          "type": "text"
+        },
+        {
+          "name": "wallet_id",
+          "type": "text"
+        }
+      ],
+      "outputType": "array"
+    },
+    "sessionStorage": [
+      {
+        "type": "text",
+        "name": "org"
+      }
+    ]
   }
 });

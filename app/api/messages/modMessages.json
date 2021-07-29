@@ -7,7 +7,7 @@
       },
       {
         "type": "text",
-        "name": "messageID"
+        "name": "message_id"
       },
       {
         "type": "text",
@@ -15,19 +15,27 @@
       },
       {
         "type": "text",
-        "name": "msg"
+        "name": "content"
       },
       {
         "type": "text",
         "name": "date"
       },
       {
-        "type": "number",
-        "name": "id"
+        "type": "text",
+        "name": "operator"
       },
       {
         "type": "text",
-        "name": "operator"
+        "name": "connection_id"
+      },
+      {
+        "type": "text",
+        "name": "topic"
+      },
+      {
+        "type": "text",
+        "name": "to"
       }
     ]
   },
@@ -257,24 +265,24 @@
                     "condition": "AND",
                     "rules": [
                       {
-                        "id": "id",
-                        "type": "double",
+                        "id": "message_id",
+                        "type": "string",
                         "operator": "equal",
-                        "value": "{{$_POST.id}}",
+                        "value": "{{$_POST.message_id}}",
                         "data": {
-                          "column": "id"
+                          "column": "message_id"
                         },
                         "operation": "="
                       }
                     ]
                   },
-                  "query": "DELETE\nFROM messages\nWHERE id = :P1 /* {{$_POST.id}} */",
+                  "query": "DELETE\nFROM messages\nWHERE message_id = :P1 /* {{$_POST.message_id}} */",
                   "params": [
                     {
                       "operator": "equal",
                       "type": "expression",
                       "name": ":P1",
-                      "value": "{{$_POST.id}}"
+                      "value": "{{$_POST.message_id}}"
                     }
                   ]
                 }

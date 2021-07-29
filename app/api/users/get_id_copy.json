@@ -1,0 +1,163 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "query",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "ssi",
+        "sql": {
+          "type": "SELECT",
+          "columns": [
+            {
+              "table": "users",
+              "column": "id"
+            },
+            {
+              "table": "users",
+              "column": "first_name"
+            },
+            {
+              "table": "users",
+              "column": "last_name"
+            },
+            {
+              "table": "users",
+              "column": "email"
+            },
+            {
+              "table": "users",
+              "column": "document"
+            },
+            {
+              "table": "users",
+              "column": "role"
+            },
+            {
+              "table": "users",
+              "column": "did"
+            },
+            {
+              "table": "users",
+              "column": "verkey"
+            },
+            {
+              "table": "users",
+              "column": "pass_hash"
+            },
+            {
+              "table": "users",
+              "column": "pass_salt"
+            },
+            {
+              "table": "users",
+              "column": "token"
+            },
+            {
+              "table": "users",
+              "column": "last_login"
+            },
+            {
+              "table": "users",
+              "column": "wallet_id"
+            }
+          ],
+          "table": {
+            "name": "users"
+          },
+          "joins": [],
+          "query": "SELECT id, first_name, last_name, email, document, role, did, verkey, pass_hash, pass_salt, token, last_login, wallet_id\nFROM users\nWHERE role = 'org'",
+          "params": [],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "users.role",
+                "field": "users.role",
+                "type": "string",
+                "operator": "equal",
+                "value": "org",
+                "data": {
+                  "table": "users",
+                  "column": "role",
+                  "type": "text"
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          }
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "name": "id",
+          "type": "text"
+        },
+        {
+          "name": "first_name",
+          "type": "text"
+        },
+        {
+          "name": "last_name",
+          "type": "text"
+        },
+        {
+          "name": "email",
+          "type": "text"
+        },
+        {
+          "name": "document",
+          "type": "text"
+        },
+        {
+          "name": "role",
+          "type": "text"
+        },
+        {
+          "name": "did",
+          "type": "text"
+        },
+        {
+          "name": "verkey",
+          "type": "text"
+        },
+        {
+          "name": "pass_hash",
+          "type": "text"
+        },
+        {
+          "name": "pass_salt",
+          "type": "text"
+        },
+        {
+          "name": "token",
+          "type": "text"
+        },
+        {
+          "name": "last_login",
+          "type": "text"
+        },
+        {
+          "name": "wallet_id",
+          "type": "text"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}

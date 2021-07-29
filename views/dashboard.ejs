@@ -1,10 +1,13 @@
 <dmx-serverconnect id="serverconnect1" url="/api/external/connection/get_connections"></dmx-serverconnect>
 <dmx-serverconnect id="serverconnect2" url="/api/external/credentials/get_credentials"></dmx-serverconnect>
-<!-- Wappler include head-page="layouts/main" is="dmx-app" id="home" appConnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cerulean" bootstrap_icons="cdn" components="{dmxDataTraversal:{},dmxBootstrap4TableGenerator:{},dmxBootstrap4Modal:{},dmxCharts:{},dmxFormatter:{}}" -->
+<!-- Wappler include head-page="layouts/main" is="dmx-app" id="home" appConnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cerulean" bootstrap_icons="cdn" components="{dmxDataTraversal:{},dmxBootstrap4TableGenerator:{},dmxBootstrap4Modal:{},dmxCharts:{},dmxFormatter:{},dmxStateManagement:{}}" -->
+<dmx-session-manager id="session1"></dmx-session-manager>
 
 
 
 <div class="wappler-block mt-4 mb-0 pt-5 pb-0 container-fluid">
+  <p dmx-text="email.value">Enter your content here</p>
+
   <h5 class="text-center h-auto mb-5"><i class="bi-file-bar-graph-fill"></i>&nbsp;Dashboard</h5>
   <div class="row">
     <div class="col-1"></div>

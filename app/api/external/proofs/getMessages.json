@@ -12,7 +12,7 @@
     "module": "api",
     "action": "send",
     "options": {
-      "url": "http://161.148.151.16:8080/new_messages",
+      "url": "http://161.148.151.16:8022/new_messages",
       "headers": {
         "Authorization": "{{'Bearer '+token}}"
       }
