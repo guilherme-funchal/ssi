@@ -37,29 +37,12 @@
         }
       },
       {
-        "name": "connection_id",
-        "module": "core",
-        "action": "setvalue",
-        "options": {
-          "value": "{{$_POST.connection_id}}"
-        }
-      },
-      {
         "name": "email",
         "module": "core",
         "action": "setvalue",
         "options": {
           "value": "{{$_POST.email}}"
         }
-      },
-      {
-        "name": "token",
-        "module": "core",
-        "action": "setvalue",
-        "options": {
-          "value": "{{$_COOKIE.token}}"
-        },
-        "outputType": "text"
       },
       {
         "name": "query",
@@ -192,29 +175,97 @@
         "outputType": "array"
       },
       {
-        "name": "proof_name",
-        "module": "core",
-        "action": "setvalue",
-        "options": {
-          "key": "proof_name",
-          "value": "{{query[0].name}}"
-        }
-      },
-      {
         "name": "atributos",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": ""
+          "value": "{{query[0].req_attrs}}"
         }
       },
       {
-        "name": "predicates",
+        "name": "schema_id",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{query[0].predicates}}",
-          "key": "predicates"
+          "value": "{{query[0].schema}}"
+        }
+      },
+      {
+        "name": "token",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_COOKIE.token}}"
+        },
+        "outputType": "text"
+      },
+      {
+        "name": "issuer_did",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{query[0].schema.split(':')[0]}}"
+        }
+      },
+      {
+        "name": "connection_id",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_POST.connection_id}}"
+        }
+      },
+      {
+        "name": "schema_name",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{query[0].schema.split(':')[2]}}"
+        }
+      },
+      {
+        "name": "api_cred_def",
+        "module": "api",
+        "action": "send",
+        "options": {
+          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/credential-definitions/created?schema_id={{schema_id}}",
+          "headers": {
+            "Authorization": "{{'Bearer '+token}}"
+          }
+        },
+        "output": true
+      },
+      {
+        "name": "cred_def_id",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{api_cred_def.data.credential_definition_ids}}"
+        }
+      },
+      {
+        "name": "cred_def_id",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{cred_def_id.toJSON()}}"
+        },
+        "disabled": true
+      },
+      {
+        "name": "cred_def_id",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{cred_def_id[0]}}"
+        }
+      },
+      {
+        "name": "schema_issuer_did",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{issuer_did}}"
         }
       },
       {
@@ -225,72 +276,52 @@
           "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/present-proof/send-request",
           "method": "POST",
           "dataType": "json",
-          "data": "{\"connection_id\": \"{{connection_id}}\", \n\"proof_request\": \n{\"name\": \"{{proof_name}}\", \n\"version\": \"1.0\", \n\"requested_attributes\": \n{\"email_referent\": {\"name\": \"email\", \"non_revoked\": {\"to\": 1628013141, \"from\": 1628013141}}, \n\"first_name_referent\": {\"name\": \"first_name\", \"non_revoked\": {\"to\": 1628013141, \"from\": 1628013141}}}, \n\"requested_predicates\": {}}}",
+          "data": {
+            "comment": "string",
+            "connection_id": "{{connection_id}}",
+            "proof_request": {
+              "name": "Proof request",
+              "non_revoked": {
+                "to": 1619697667
+              },
+              "nonce": "1234567890",
+              "requested_attributes": {
+                "additionalProp1": {
+                  "name": "dados",
+                  "non_revoked": {
+                    "to": 1619697667
+                  }
+                }
+              },
+              "requested_predicates": {
+                "additionalProp1": {
+                  "name": "{{atributos}}",
+                  "non_revoked": {
+                    "to": 1619697667
+                  },
+                  "p_type": ">=",
+                  "p_value": 0,
+                  "restrictions": [
+                    {
+                      "cred_def_id": "{{cred_def_id}}",
+                      "issuer_did": "{{issuer_did}}",
+                      "schema_id": "{{schema_id}}",
+                      "schema_issuer_did": "{{schema_issuer_did}}",
+                      "schema_name": "{{schema_name}}",
+                      "schema_version": "1.0"
+                    }
+                  ]
+                }
+              },
+              "version": "1.0"
+            },
+            "trace": false
+          },
           "headers": {
             "Authorization": "{{'Bearer '+token}}"
           }
         },
-        "output": true,
-        "disabled": true
-      },
-      {
-        "name": "repeat",
-        "module": "core",
-        "action": "repeat",
-        "options": {
-          "repeat": "{{query[0].req_attrs}}",
-          "outputFields": [],
-          "exec": {
-            "steps": [
-              {
-                "name": "atributos_tmp",
-                "module": "core",
-                "action": "setvalue",
-                "options": {
-                  "key": "atributos_tmp",
-                  "value": "{{$value}}_referent"
-                }
-              },
-              {
-                "name": "atributos",
-                "module": "core",
-                "action": "setvalue",
-                "options": {
-                  "key": "atributos",
-                  "value": "{{atributos+atributos_tmp}}"
-                }
-              }
-            ]
-          }
-        },
-        "output": true,
-        "meta": [
-          {
-            "name": "$index",
-            "type": "number"
-          },
-          {
-            "name": "$number",
-            "type": "number"
-          },
-          {
-            "name": "$name",
-            "type": "text"
-          },
-          {
-            "name": "$value",
-            "type": "object"
-          }
-        ],
-        "outputType": "array"
-      },
-      {
-        "name": "tst_atrib",
-        "module": "core",
-        "action": "setcookie",
-        "options": {
-          "value": "{{atributos}}"
-        }
+        "output": true
       },
       {
         "name": "api_messages",

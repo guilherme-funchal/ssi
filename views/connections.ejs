@@ -1,4 +1,6 @@
 <!-- Wappler include head-page="layouts/main" is="dmx-app" id="home" appConnect="local" fontawesome_4="local" bootstrap4="cdn" bootstrap_icons="cdn" components="{dmxBootstrap4TableGenerator:{},dmxDataTraversal:{},dmxBootstrap4Modal:{},dmxFormatter:{},dmxPreloader:{},dmxNotifications:{},dmxStateManagement:{},dmxValidator:{}}" jquery_slim_34="cdn" -->
+<dmx-serverconnect id="sc_send_proof" url="/api/external/proofs/send_proof"></dmx-serverconnect>
+<dmx-serverconnect id="serverconnect3" url="/api/proofs/getProva_email" noload></dmx-serverconnect>
 <dmx-serverconnect id="sc_get_schema_id" url="/api/external/schemas/get_schemas_id" dmx-param:cred_id="session1.data.id" dmx-param:schema_id="session1.data.id"></dmx-serverconnect>
 <dmx-session-manager id="session1"></dmx-session-manager>
 
@@ -6,6 +8,11 @@
 <dmx-serverconnect id="serverconnect1" url="/api/external/connection/get_connections"></dmx-serverconnect>
 <dmx-serverconnect id="serverconnect2" url="/api/organizations/get"></dmx-serverconnect>
 <dmx-serverconnect id="sc_get_schemas" url="/api/external/schemas/get_schemas"></dmx-serverconnect>
+
+
+
+<dmx-data-detail id="data_detail_schema_id" key="id" dmx-bind:data="content.sc_get_schema_id.data.api_credentials.data"></dmx-data-detail>
+<dmx-data-detail id="data_detail1" dmx-bind:data="content.serverconnect1.data.api.data.results" key="connection_id"></dmx-data-detail>
 <div class="modal mt-5" id="modal1" is="dmx-bs4-modal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -69,39 +76,16 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button id="btn1" class="btn btn-sm btn-primary small font-weight-bold" dmx-on:click="session1.set('connection_id',data_detail1.data.connection_id);modal1.hide();modal2.show()">&nbsp;Credencial&nbsp;<i class="fa fa-address-card"></i><span
-            style="font-family: inherit; font-size: 0.875rem;">&nbsp;</span></button>
-        <button id="btn4" class="btn btn-danger font-weight-bold btn-sm" dmx-on:click="serverconnectform1.submit()">Conexão&nbsp;<i class="fa fa-trash fa-large"></i></button>
+        <button id="btn1" dmx-bs-tooltip="'Enviar credencial'" class="btn btn-sm small font-weight-bold btn-success" dmx-on:click="serverconnect3.load({email: data_detail1.data.their_label});modal1.hide();modal4.show()" data-html="true">Solicitar
+          prova<i class="bi-arrow-down-up"></i></button>
+        <button id="btn4" dmx-bs-tooltip="'Enviar credencial'" class="btn btn-sm btn-primary small font-weight-bold" dmx-on:click="session1.set('connection_id',data_detail1.data.connection_id);modal1.hide();modal2.show()" data-html="true">Enviar
+          credencial&nbsp;<i class="bi-credit-card-2-back"></i></button>
+        <button id="btn5" dmx-bs-tooltip="'Enviar credencial'" class="btn btn-sm small font-weight-bold btn-danger" dmx-on:click="modal1.serverconnectform1.submit()" data-html="true">Excluir conexão&nbsp;<i class="bi-trash"></i></button>
       </div>
     </div>
   </div>
 </div>
 
-
-<dmx-data-detail id="data_detail1" dmx-bind:data="content.serverconnect1.data.api.data.results" key="connection_id"></dmx-data-detail>
-<dmx-data-detail id="data_detail_schema_id" key="id" dmx-bind:data="content.sc_get_schema_id.data.api_credentials.data"></dmx-data-detail>
-
-
-<div class="modal" id="modal2" is="dmx-bs4-modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Esquema de dados</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="id_form"><select id="select1" class="custom-select" name="schema" optiontext="$value.split(':')[2].capitalize()" dmx-bind:options="sc_get_schemas.data.api_credentials.data.schema_ids" optionvalue="$value">
-          </select></form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" dmx-on:click="session1.set('id',id_form.select1.value);session1.set('creddef_id',sc_get_schema_id.data.api_creddef.data.credential_definition_ids);modal2.hide();modal3.show()"><i
-            class="bi-check2"></i></button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <div class="modal" id="modal3" is="dmx-bs4-modal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -118,10 +102,10 @@
 
 
         <form enctype="application/json" id="credencial-form" method="post" is="dmx-api-form" action="/api/external/credentials/send_credential" onreset="">
-          <input id="connection_id" name="connection_id" type="hidden" class="form-control" dmx-bind:value="session1.data.connection_id">
+          <input id="connection_id" name="connection_id" type="hidden" class="form-control form-control-sm" dmx-bind:value="session1.data.connection_id">
 
 
-          <input id="credential_definition_id" name="credential_definition_id" type="hidden" class="form-control" dmx-bind:value="sc_get_schema_id.data.api_creddef.data.credential_definition_ids">
+          <input id="credential_definition_id" name="credential_definition_id" type="hidden" class="form-control form-control-sm" dmx-bind:value="sc_get_schema_id.data.api_creddef.data.credential_definition_ids">
           <div class="row" is="dmx-repeat" id="repeat1" dmx-bind:repeat="content.sc_get_schema_id.data.api_credentials.data.schema.attrNames">
             <div class="col">
 
@@ -141,6 +125,51 @@
     </div>
   </div>
 </div>
+<div class="modal" id="modal2" is="dmx-bs4-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Esquema de dados</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="id_form"><select id="select1" class="custom-select" name="schema" optiontext="$value.split(':')[2].capitalize()" dmx-bind:options="sc_get_schemas.data.api_schemas.data.schema_ids" optionvalue="$value">
+          </select></form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" dmx-on:click="session1.set('id',id_form.select1.value);session1.set('creddef_id',sc_get_schema_id.data.api_creddef.data.credential_definition_ids);modal2.hide();modal3.show()"><i
+            class="bi-check2"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal pt-5" id="modal4" is="dmx-bs4-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Provas disponíveis</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="form2" method="post" is="dmx-serverconnect-form" action="/api/external/proofs/get_proof">
+          <input id="connection_id" name="connection_id" type="hidden" class="form-control" dmx-bind:value="data_detail1.data.connection_id">
+          <input id="email" name="email" type="hidden" class="form-control" dmx-bind:value="data_detail1.data.their_label">
+          <select id="id" class="custom-select custom-select-sm" dmx-bind:options="serverconnect3.data.query" optiontext="schema.split(':')[2].capitalize()" name="id" optionvalue="id">
+          </select>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" dmx-on:click="modal4.form2.submit();modal4.hide()">Solicitar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 <dmx-notifications id="notifies1" position="bottom" timeout="1000"></dmx-notifications>
@@ -148,7 +177,8 @@
 <div class="wappler-block mt-4 mb-0 pt-5 pb-0 container">
   <h5 class="text-center h-auto mb-5"><i class="bi-link-45deg"></i>&nbsp;Conexões</h5>
   </h4>
-  <form id="form1" method="post" is="dmx-serverconnect-form" action="/api/external/connection/create_connections" dmx-on:success="serverconnect1.load(true);notifies1.success('Conexão adicionada')">
+  <form id="form1" method="post" is="dmx-serverconnect-form" action="/api/external/connection/create_connections" dmx-on:success="serverconnect1.load(true);notifies1.success('Conexão adicionada')"
+    dmx-on:error="notifies1.warning('Conexão já existe')">
 
     <select id="email" class="custom-select custom-select-sm" style="width:100px;" dmx-bind:value="serverconnect2.data.query" dmx-bind:options="serverconnect2.data.query" optiontext="first_name" optionvalue="email" name="email"></select>
     <button id="btn2" class="btn btn-primary btn-sm" type="submit">Conectar&nbsp;<i class="fa fa-user-plus"></i></button>

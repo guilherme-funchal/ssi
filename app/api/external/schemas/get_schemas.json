@@ -9,10 +9,6 @@
     "$_POST": [
       {
         "type": "text",
-        "name": "credential_id"
-      },
-      {
-        "type": "text",
         "name": "token"
       }
     ],
@@ -30,7 +26,7 @@
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ3YWxsZXRfaWQiOiIzNTRjYmM3OC0wZTgxLTQ4NTQtYmM1Zi1lYWMyNjg3ZmY3NWQifQ.kpt4aNdxKmB_wQl9O9nvDNRuVLgVsw1KLkdPLPHq-4c",
+          "value": "{{$_COOKIE.token}}",
           "key": "token"
         }
       },
@@ -143,7 +139,8 @@
             "type": "text"
           }
         ],
-        "outputType": "array"
+        "outputType": "array",
+        "disabled": true
       }
     ]
   }

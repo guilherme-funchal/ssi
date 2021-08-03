@@ -1,0 +1,228 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      },
+      {
+        "type": "text",
+        "name": "email"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "usuario",
+        "module": "dbconnector",
+        "action": "select",
+        "options": {
+          "connection": "ssi",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "users",
+                "column": "id"
+              },
+              {
+                "table": "users",
+                "column": "email"
+              }
+            ],
+            "table": {
+              "name": "users"
+            },
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "users.email",
+                  "field": "users.email",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "{{$_GET.email}}",
+                  "data": {
+                    "table": "users",
+                    "column": "email",
+                    "type": "text"
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "SELECT id, email\nFROM users\nWHERE email = :P1 /* {{$_GET.email}} */",
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_GET.email}}"
+              }
+            ]
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "name": "id",
+            "type": "text"
+          },
+          {
+            "name": "email",
+            "type": "text"
+          }
+        ],
+        "outputType": "array"
+      },
+      {
+        "name": "id_user",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{usuario[0].id}}",
+          "key": "id_user"
+        }
+      },
+      {
+        "name": "query",
+        "module": "dbconnector",
+        "action": "select",
+        "options": {
+          "connection": "ssi",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "provas",
+                "column": "id"
+              },
+              {
+                "table": "provas",
+                "column": "name"
+              },
+              {
+                "table": "provas",
+                "column": "description"
+              },
+              {
+                "table": "provas",
+                "column": "req_attrs"
+              },
+              {
+                "table": "provas",
+                "column": "predicates"
+              },
+              {
+                "table": "provas",
+                "column": "schema"
+              },
+              {
+                "table": "provas",
+                "column": "state"
+              },
+              {
+                "table": "provas",
+                "column": "date"
+              },
+              {
+                "table": "provas",
+                "column": "valid"
+              },
+              {
+                "table": "provas",
+                "column": "id_user"
+              }
+            ],
+            "table": {
+              "name": "proofs",
+              "alias": "provas"
+            },
+            "joins": [],
+            "query": "SELECT id, name, description, req_attrs, predicates, schema, state, date, valid, id_user\nFROM proofs AS provas\nWHERE id_user LIKE :P1 /* {{usuario[0].id}} */",
+            "params": [
+              {
+                "operator": "contains",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{usuario[0].id}}"
+              }
+            ],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "provas.id_user",
+                  "field": "provas.id_user",
+                  "type": "string",
+                  "operator": "contains",
+                  "value": "{{usuario[0].id}}",
+                  "data": {
+                    "table": "provas",
+                    "column": "id_user",
+                    "type": "text"
+                  },
+                  "operation": "LIKE"
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            }
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "name": "id",
+            "type": "text"
+          },
+          {
+            "name": "name",
+            "type": "text"
+          },
+          {
+            "name": "description",
+            "type": "text"
+          },
+          {
+            "name": "req_attrs",
+            "type": "text"
+          },
+          {
+            "name": "predicates",
+            "type": "text"
+          },
+          {
+            "name": "schema",
+            "type": "text"
+          },
+          {
+            "name": "state",
+            "type": "text"
+          },
+          {
+            "name": "date",
+            "type": "datetime"
+          },
+          {
+            "name": "valid",
+            "type": "date"
+          },
+          {
+            "name": "id_user",
+            "type": "text"
+          }
+        ],
+        "outputType": "array"
+      }
+    ]
+  }
+}

@@ -228,6 +228,14 @@
         }
       },
       {
+        "name": "test_conn",
+        "module": "core",
+        "action": "setcookie",
+        "options": {
+          "value": "{{count}}"
+        }
+      },
+      {
         "name": "",
         "module": "core",
         "action": "condition",

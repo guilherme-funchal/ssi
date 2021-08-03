@@ -1,0 +1,207 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      },
+      {
+        "type": "text",
+        "name": "org"
+      }
+    ],
+    "$_POST": [
+      {
+        "type": "text",
+        "name": "token"
+      }
+    ],
+    "$_SESSION": [
+      {
+        "type": "text",
+        "fieldName": "org",
+        "name": "org"
+      }
+    ],
+    "$_COOKIE": [
+      {
+        "type": "text",
+        "name": "token"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "teste1",
+        "module": "core",
+        "action": "setcookie",
+        "options": {
+          "value": "{{$_GET.org}}"
+        }
+      },
+      {
+        "name": "org",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "key": "org",
+          "value": "{{$_GET.org}}"
+        },
+        "outputType": "text"
+      },
+      {
+        "name": "query",
+        "module": "dbconnector",
+        "action": "select",
+        "options": {
+          "connection": "ssi",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "users",
+                "column": "id"
+              },
+              {
+                "table": "users",
+                "column": "first_name"
+              },
+              {
+                "table": "users",
+                "column": "token"
+              }
+            ],
+            "table": {
+              "name": "users"
+            },
+            "joins": [],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "users.first_name",
+                  "field": "users.first_name",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "{{org}}",
+                  "data": {
+                    "table": "users",
+                    "column": "first_name",
+                    "type": "text"
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "SELECT id, first_name, token\nFROM users\nWHERE first_name = :P1 /* {{org}} */",
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{org}}"
+              }
+            ]
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "name": "id",
+            "type": "text"
+          },
+          {
+            "name": "first_name",
+            "type": "text"
+          },
+          {
+            "name": "token",
+            "type": "text"
+          }
+        ],
+        "outputType": "array"
+      },
+      {
+        "name": "teste",
+        "module": "core",
+        "action": "setcookie",
+        "options": {
+          "value": "{{query[0].token}}"
+        }
+      },
+      {
+        "name": "token",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{query[0].token}}",
+          "key": "token"
+        }
+      },
+      {
+        "name": "api_schemas",
+        "module": "api",
+        "action": "send",
+        "options": {
+          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/schemas/created",
+          "schema": [],
+          "headers": {
+            "Authorization": "{{'Bearer '+token}}",
+            "Accept": "application/json"
+          },
+          "dataType": "json",
+          "passErrors": false
+        },
+        "output": true,
+        "outputType": "object",
+        "meta": [
+          {
+            "type": "object",
+            "name": "data",
+            "sub": [
+              {
+                "type": "array",
+                "name": "schema_ids",
+                "sub": [
+                  {
+                    "type": "text",
+                    "name": "$value"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "name": "headers",
+            "sub": [
+              {
+                "type": "text",
+                "name": "content-length"
+              },
+              {
+                "type": "text",
+                "name": "content-type"
+              },
+              {
+                "type": "text",
+                "name": "date"
+              },
+              {
+                "type": "text",
+                "name": "server"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
