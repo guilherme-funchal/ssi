@@ -215,7 +215,7 @@
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{",
+          "value": "",
           "key": "json_attributes"
         }
       },
@@ -255,6 +255,14 @@
         }
       },
       {
+        "name": "tst_size",
+        "module": "core",
+        "action": "setcookie",
+        "options": {
+          "value": "{{size}}"
+        }
+      },
+      {
         "name": "repeat",
         "module": "core",
         "action": "repeat",
@@ -269,59 +277,27 @@
               "options": {
                 "if": "{{size==1}}",
                 "then": {
-                  "steps": [
-                    {
-                      "name": "header",
-                      "module": "core",
-                      "action": "setvalue",
-                      "options": {
-                        "value": "{\"connection_id\": \"{{connection_id}}\", \"proof_request\": \n\t{\"name\": \"{{proof_name}}\", \n\t\t\"version\": \"1.0\", \n\t\t\"requested_attributes\":{",
-                        "key": "header"
-                      },
-                      "output": true
+                  "steps": {
+                    "name": "json_attributes",
+                    "module": "core",
+                    "action": "setvalue",
+                    "options": {
+                      "value": "\"email_referent\":{\"name\":\"email\",\"non_revoked\":{\"to\":1628013141,\"from\":1628013141}}",
+                      "key": "json_attributes"
                     },
-                    {
-                      "name": "json_attributes",
-                      "module": "core",
-                      "action": "setvalue",
-                      "options": {
-                        "value": "\"{{$value}}_referent\":{\"name\":\"{{$value}}\",\"non_revoked\":{\"to\":1628013141,\"from\":1628013141}}}",
-                        "key": "json_attributes"
-                      },
-                      "outputType": "text"
-                    },
-                    {
-                      "name": "basement",
-                      "module": "core",
-                      "action": "setvalue",
-                      "options": {
-                        "value": ",\"requested_predicates\":{}}}",
-                        "key": "basement"
-                      }
-                    }
-                  ]
+                    "outputType": "text"
+                  }
                 },
                 "else": {
                   "steps": [
-                    {
-                      "name": "header",
-                      "module": "core",
-                      "action": "setvalue",
-                      "options": {
-                        "value": "{\"connection_id\": \"{{connection_id}}\", \"proof_request\": \n\t{\"name\": \"{{proof_name}}\", \n\t\t\"version\": \"1.0\", \n\t\t\"requested_attributes\":",
-                        "key": "header"
-                      },
-                      "output": true
-                    },
                     {
                       "name": "json_attributes_tmp",
                       "module": "core",
                       "action": "setvalue",
                       "options": {
-                        "value": "\"{{$value}}_referent\":{\"name\":\"{{$value}}\",\"non_revoked\":{\"to\":1628013141,\"from\":1628013141}}",
+                        "value": "\"{{$value}}_referent\": {\"name\": \"{{$value}}\",\"non_revoked\": {\"to\": 1628013141, \"from\": 1628013141}}",
                         "key": "json_attributes_tmp"
-                      },
-                      "outputType": "text"
+                      }
                     },
                     {
                       "name": "json_attributes",
@@ -330,15 +306,6 @@
                       "options": {
                         "value": "{{json_attributes+json_attributes_tmp}}",
                         "key": "json_attributes"
-                      }
-                    },
-                    {
-                      "name": "basement",
-                      "module": "core",
-                      "action": "setvalue",
-                      "options": {
-                        "value": "},\"requested_predicates\":{}}}",
-                        "key": "basement"
                       }
                     }
                   ]
@@ -370,12 +337,43 @@
         "outputType": "array"
       },
       {
-        "name": "json_attributes",
+        "name": "header",
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{header+json_attributes+basement}}",
-          "key": "json_attributes"
+          "value": "{\"name\": \"{{proof_name}}\",\n    \"version\": \"1.0\",\"requested_attributes\":",
+          "key": "header"
+        },
+        "output": true,
+        "disabled": true
+      },
+      {
+        "name": "basement",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": ",\"requested_predicates\":{}}",
+          "key": "basement"
+        },
+        "disabled": true
+      },
+      {
+        "name": "header",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{",
+          "key": "header"
+        },
+        "output": true
+      },
+      {
+        "name": "basement",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "}",
+          "key": "basement"
         }
       },
       {
@@ -383,7 +381,7 @@
         "module": "core",
         "action": "setvalue",
         "options": {
-          "value": "{{json_attributes.replace('}}\"', '}},\"')}}",
+          "value": "{{header+json_attributes+basement}}",
           "key": "json_attributes"
         }
       },
@@ -432,12 +430,32 @@
           "dataType": "json",
           "method": "POST",
           "headers": {
+            "Authorization": "{{'Bearer '+token}}"
+          },
+          "passErrors": false,
+          "data": "{\"connection_id\": \"{{connection_id}}\", \n\"proof_request\": \n{\"name\": \"{{proof_name}}\", \n\"version\": \"1.0\", \n\"requested_attributes\": \n\"{{json_attributes}}\", \n\"requested_predicates\": {}}}"
+        },
+        "disabled": true
+      },
+      {
+        "name": "api",
+        "module": "api",
+        "action": "send",
+        "options": {
+          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/present-proof/send-request",
+          "dataType": "json",
+          "method": "POST",
+          "headers": {
             "Authorization": "{{'Bearer '+token}}",
             "Accept": "application/json"
           },
-          "data": "{{json_attributes}}"
+          "data": {
+            "connection_id": "{{connection_id}}",
+            "proof_request": "{{json_attributes}}"
+          }
         },
-        "output": true
+        "output": true,
+        "disabled": true
       }
     ]
   }

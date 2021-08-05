@@ -1,0 +1,151 @@
+<div is="dmx-browser" id="browser1"></div>
+<dmx-serverconnect id="serverconnect1" url="/api/pacientes/get"></dmx-serverconnect>
+<dmx-session-manager id="session1"></dmx-session-manager>
+<dmx-data-detail id="data_detail1" dmx-bind:data="content.serverconnect1.data.query" key="codigo"></dmx-data-detail>
+<!-- Wappler include head-page="layouts/main" is="dmx-app" id="pacientes" appConnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cerulean" bootstrap_icons="cdn" components="{dmxDataTraversal:{},dmxBootstrap4Modal:{},dmxBootstrap4TableGenerator:{},dmxFormatter:{},dmxDatePicker:{},dmxBrowser:{},dmxStateManagement:{}}" moment_2="cdn with locales" -->
+
+
+
+
+<div class="container">
+
+  <div class="modal" id="modal1" is="dmx-bs4-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Paciente</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" dmx-on:click="">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/pacientes/mod" dmx-generator="bootstrap4" dmx-form-type="horizontal" dmx-populate="data_detail1.data"
+            dmx-on:success="serverconnectform1.reset();inp_data_nasc.setValue(data_detail1.data.data_nasc);modal1.hide();serverconnect1.load({},true)">
+            <input type="hidden" name="operator" id="inp_operator" dmx-bind:value="data_detail1.data.operator">
+            <div class="form-group row">
+              <label for="inp_nome" class="col-sm-2 col-form-label col-form-label-sm">Nome</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="inp_nome" name="nome" dmx-bind:value="data_detail1.data.nome" aria-describedby="inp_nome_help" placeholder="Enter Nome">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inp_sexo" class="col-sm-2 col-form-label col-form-label-sm">Sexo</label>
+              <div class="col-sm-10">
+                <select id="inp_sexo" class="form-control" dmx-bind:value="data_detail1.data.sexo" name="sexo">
+                  <option value="Masculino">Masculino</option>
+                  <option value="Feminino">Feminino</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+
+              <label for="inp_data_nasc" class="col-sm-2 col-form-label col-form-label-sm">Nasc</label>
+              <div class="col-sm-10">
+                <input id="inp_data_nasc" name="data_nasc" is="dmx-date-picker" dmx-bind:value="data_detail1.data.data_nasc" mindate="1900-01-01" maxdate="2100-01-21" format="DD/MM/YYYY">
+
+
+
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inp_cpf" class="col-sm-2 col-form-label col-form-label-sm">Cpf</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="inp_cpf" name="cpf" dmx-bind:value="data_detail1.data.cpf" aria-describedby="inp_cpf_help" placeholder="Enter Cpf">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inp_documento" class="col-sm-2 col-form-label col-form-label-sm">Documento</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="inp_documento" name="documento" dmx-bind:value="data_detail1.data.documento" aria-describedby="inp_documento_help" placeholder="Enter Documento">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inp_endereco" class="col-sm-2 col-form-label col-form-label-sm">Endereco</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="inp_endereco" name="endereco" dmx-bind:value="data_detail1.data.endereco" aria-describedby="inp_endereco_help" placeholder="Enter Endereco">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inp_complemento" class="col-sm-2 col-form-label col-form-label-sm">Compl</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="inp_complemento" name="complemento" dmx-bind:value="data_detail1.data.complemento" aria-describedby="inp_complemento_help" placeholder="Enter Complemento">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inp_bairro" class="col-sm-2 col-form-label col-form-label-sm">Bairro</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="inp_bairro" name="bairro" dmx-bind:value="data_detail1.data.bairro" aria-describedby="inp_bairro_help" placeholder="Enter Bairro">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inp_cidade" class="col-sm-2 col-form-label col-form-label-sm">Cidade</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="inp_cidade" name="cidade" dmx-bind:value="data_detail1.data.cidade" aria-describedby="inp_cidade_help" placeholder="Enter Cidade">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inp_telefone1" class="col-sm-2 col-form-label col-form-label-sm">Telefone1</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="inp_telefone1" name="telefone1" dmx-bind:value="data_detail1.data.telefone1" aria-describedby="inp_telefone1_help" placeholder="Enter Telefone1">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inp_telefone2" class="col-sm-2 col-form-label col-form-label-sm">Telefone2</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="inp_telefone2" name="telefone2" dmx-bind:value="data_detail1.data.telefone2" aria-describedby="inp_telefone2_help" placeholder="Enter Telefone2">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inp_celular" class="col-sm-2 col-form-label col-form-label-sm">Celular</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="inp_celular" name="celular" dmx-bind:value="data_detail1.data.celular" aria-describedby="inp_celular_help" placeholder="Enter Celular">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inp_foto" class="col-sm-2 col-form-label col-form-label-sm">Foto</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" id="inp_foto" name="foto" dmx-bind:value="data_detail1.data.foto" aria-describedby="inp_foto_help" placeholder="Enter Foto">
+              </div>
+            </div>
+            <input type="hidden" name="codigo" id="inp_codigo" dmx-bind:value="data_detail1.data.codigo">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-dark btn-sm" id="orcamento" dmx-on:click="session1.set('cod_paciente',data_detail1.data.codigo);session1.set('paciente',data_detail1.data.nome);browser1.goto('/orcamentos')"><i
+              class="bi-calculator-fill"></i></button><button type="button" title="Tratamentos" class="btn btn-sm btn-success"
+            dmx-on:click="session1.set('cod_paciente',data_detail1.data.codigo);session1.set('paciente',data_detail1.data.nome);browser1.goto('/tratamentos')" id="tratamento"><i></i>
+            <i class="fas fa-tooth"></i>
+          </button>
+
+
+
+          <button type="button" title="Excluir" class="btn btn-sm btn-danger" dmx-on:click="run([{run:{action:`modal1.serverconnectform1.inp_operator.setValue(\'delete\')`}},{run:{action:`modal1.serverconnectform1.submit()`}}])" id="excluir"><i
+              class="fa fa-trash"></i></button><button type="button" title="Salvar" class="btn btn-primary btn-sm"
+            dmx-on:click="run([{condition:{if:`(content.data_detail1.data != null)`,then:{steps:{run:{action:`modal1.serverconnectform1.inp_operator.setValue(\'update\')`}}},else:{steps:{run:{action:`modal1.serverconnectform1.inp_operator.setValue(\'add\')`}}}}},{run:{action:`modal1.serverconnectform1.submit()`}}])"
+            id="salvar"><i class="bi-save"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h5 class="text-center mt-5">
+    <p wappler-empty="undefined" wappler-command="editContent"><br></p>Pacientes
+  </h5><button id="btn1" class="btn btn-sm btn-outline-primary" dmx-on:click="data_detail1.select(0);modal1.show()"><i class="fa fa-plus"></i></button>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover table-sm">
+      <thead>
+        <tr>
+          <th class="text-center small font-weight-bold">Nome</th>
+          <th class="text-center small font-weight-bold">Cpf</th>
+          <th class="text-center small font-weight-bold">Documento</th>
+        </tr>
+      </thead>
+      <tbody is="dmx-repeat" dmx-generator="bs4table" dmx-bind:repeat="content.serverconnect1.data.query" id="tableRepeat1">
+        <tr dmx-on:click="data_detail1.select(codigo);modal1.show();modal1.serverconnectform1.inp_data_nasc.setValue(data_detail1.data.data_nasc)">
+          <td dmx-text="nome" class="small text-center"></td>
+          <td dmx-text="cpf" class="small text-center"></td>
+          <td dmx-text="documento" class="small text-center"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

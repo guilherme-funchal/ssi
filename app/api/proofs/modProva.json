@@ -306,7 +306,7 @@
                               "table": "proofs",
                               "column": "req_attrs",
                               "type": "text",
-                              "value": "{{$_POST.req_attrs}}"
+                              "value": "{{$_POST.req_attrs.replace('{}', '')}}"
                             },
                             {
                               "table": "proofs",
@@ -347,7 +347,7 @@
                           ],
                           "table": "proofs",
                           "returning": "id",
-                          "query": "INSERT INTO proofs\n(name, description, req_attrs, predicates, schema, state, date, valid, id_user) VALUES (:P1 /* {{$_POST.name}} */, :P2 /* {{$_POST.description}} */, :P3 /* {{$_POST.req_attrs}} */, :P4 /* {{$_POST.predicates}} */, :P5 /* {{$_POST.schema}} */, :P6 /* {{$_POST.state}} */, :P7 /* {{NOW_UTC}} */, :P8 /* {{$_POST.valid}} */, :P9 /* {{id_user}} */)",
+                          "query": "INSERT INTO proofs\n(name, description, req_attrs, predicates, schema, state, date, valid, id_user) VALUES (:P1 /* {{$_POST.name}} */, :P2 /* {{$_POST.description}} */, :P3 /* {{$_POST.req_attrs.replace('{}', '')}} */, :P4 /* {{$_POST.predicates}} */, :P5 /* {{$_POST.schema}} */, :P6 /* {{$_POST.state}} */, :P7 /* {{NOW_UTC}} */, :P8 /* {{$_POST.valid}} */, :P9 /* {{id_user}} */)",
                           "params": [
                             {
                               "name": ":P1",
@@ -362,7 +362,7 @@
                             {
                               "name": ":P3",
                               "type": "expression",
-                              "value": "{{$_POST.req_attrs}}"
+                              "value": "{{$_POST.req_attrs.replace('{}', '')}}"
                             },
                             {
                               "name": ":P4",
@@ -460,7 +460,7 @@
                       "table": "provas",
                       "column": "req_attrs",
                       "type": "text",
-                      "value": "{{$_POST.req_attrs}}"
+                      "value": "{{$_POST.req_attrs.replace('{}', '')}}"
                     },
                     {
                       "table": "provas",
@@ -515,7 +515,7 @@
                       }
                     ]
                   },
-                  "query": "UPDATE proofs\nSET name = :P1 /* {{$_POST.name}} */, description = :P2 /* {{$_POST.description}} */, req_attrs = :P3 /* {{$_POST.req_attrs}} */, schema = :P4 /* {{$_POST.schema}} */, predicates = :P5 /* {{$_POST.predicates}} */, state = :P6 /* {{$_POST.state}} */, date = :P7 /* {{NOW_UTC}} */, valid = :P8 /* {{$_POST.valid}} */, id_user = :P9 /* {{id_user}} */\nWHERE id = :P10 /* {{$_POST.id}} */",
+                  "query": "UPDATE proofs\nSET name = :P1 /* {{$_POST.name}} */, description = :P2 /* {{$_POST.description}} */, req_attrs = :P3 /* {{$_POST.req_attrs.replace('{}', '')}} */, schema = :P4 /* {{$_POST.schema}} */, predicates = :P5 /* {{$_POST.predicates}} */, state = :P6 /* {{$_POST.state}} */, date = :P7 /* {{NOW_UTC}} */, valid = :P8 /* {{$_POST.valid}} */, id_user = :P9 /* {{id_user}} */\nWHERE id = :P10 /* {{$_POST.id}} */",
                   "params": [
                     {
                       "name": ":P1",
@@ -530,7 +530,7 @@
                     {
                       "name": ":P3",
                       "type": "expression",
-                      "value": "{{$_POST.req_attrs}}"
+                      "value": "{{$_POST.req_attrs.replace('{}', '')}}"
                     },
                     {
                       "name": ":P4",
