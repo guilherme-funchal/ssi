@@ -1,0 +1,326 @@
+{
+  "meta": {
+    "$_POST": [
+      {
+        "type": "text",
+        "name": "conn_id"
+      },
+      {
+        "type": "text",
+        "name": "message"
+      },
+      {
+        "type": "array",
+        "name": "record",
+        "sub": [
+          {
+            "type": "text",
+            "name": "connection_id"
+          },
+          {
+            "type": "text",
+            "name": "from"
+          },
+          {
+            "type": "text",
+            "name": "to"
+          },
+          {
+            "type": "text",
+            "name": "content"
+          },
+          {
+            "type": "date",
+            "name": "date"
+          },
+          {
+            "type": "text",
+            "name": "topic"
+          },
+          {
+            "type": "text",
+            "name": "state"
+          },
+          {
+            "type": "date",
+            "name": "NOW_UTC"
+          },
+          {
+            "type": "text",
+            "name": "message_id"
+          }
+        ]
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "api_key",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_ENV.API_KEY}}"
+        }
+      },
+      {
+        "name": "api_messages",
+        "module": "api",
+        "action": "send",
+        "options": {
+          "url": "http://161.148.151.16:8022/new_messages",
+          "headers": {
+            "Authorization": "{{'Bearer '+api_key}}"
+          },
+          "schema": []
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "array",
+            "name": "data",
+            "sub": [
+              {
+                "type": "text",
+                "name": "$value"
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "name": "headers",
+            "sub": [
+              {
+                "type": "text",
+                "name": "content-length"
+              },
+              {
+                "type": "text",
+                "name": "content-type"
+              },
+              {
+                "type": "text",
+                "name": "date"
+              },
+              {
+                "type": "text",
+                "name": "server"
+              }
+            ]
+          }
+        ],
+        "outputType": "object"
+      },
+      {
+        "name": "repeat",
+        "module": "core",
+        "action": "repeat",
+        "options": {
+          "repeat": "{{api_messages.data}}",
+          "outputFields": [],
+          "exec": {
+            "steps": [
+              {
+                "name": "msg",
+                "module": "core",
+                "action": "setvalue",
+                "options": {
+                  "value": "{{$value}}"
+                }
+              },
+              {
+                "name": "msg",
+                "module": "core",
+                "action": "setvalue",
+                "options": {
+                  "value": "{{msg.parseJSON()}}"
+                }
+              },
+              {
+                "name": "proof_attr",
+                "module": "core",
+                "action": "setvalue",
+                "options": {
+                  "value": "{{msg.body.presentation.requested_proof.self_attested_attrs}}",
+                  "key": "proof_attr"
+                }
+              },
+              {
+                "name": "teste_val",
+                "module": "core",
+                "action": "setcookie",
+                "options": {
+                  "value": "{{msg.body.thread_id}}"
+                }
+              },
+              {
+                "name": "insert",
+                "module": "dbupdater",
+                "action": "insert",
+                "options": {
+                  "connection": "ssi",
+                  "sql": {
+                    "type": "insert",
+                    "values": [
+                      {
+                        "table": "messages",
+                        "column": "connection_id",
+                        "type": "text",
+                        "value": "{{connection_id}}"
+                      },
+                      {
+                        "table": "messages",
+                        "column": "from",
+                        "type": "text",
+                        "value": "Mensagem automática"
+                      },
+                      {
+                        "table": "messages",
+                        "column": "to",
+                        "type": "text",
+                        "value": "{{to}}"
+                      },
+                      {
+                        "table": "messages",
+                        "column": "content",
+                        "type": "text",
+                        "value": "{{content}}"
+                      },
+                      {
+                        "table": "messages",
+                        "column": "date",
+                        "type": "date",
+                        "value": "{{NOW_UTC}}"
+                      },
+                      {
+                        "table": "messages",
+                        "column": "topic",
+                        "type": "text",
+                        "value": "{{topic}}"
+                      },
+                      {
+                        "table": "messages",
+                        "column": "state",
+                        "type": "text",
+                        "value": "{{state}}"
+                      },
+                      {
+                        "table": "messages",
+                        "column": "message_id",
+                        "type": "text",
+                        "value": "{{message_id}}"
+                      }
+                    ],
+                    "table": "messages",
+                    "returning": "message_id",
+                    "query": "INSERT INTO messages\n(connection_id, from, to, content, date, topic, state, message_id) VALUES (:P1 /* {{connection_id}} */, 'Mensagem automática', :P2 /* {{to}} */, :P3 /* {{content}} */, :P4 /* {{NOW_UTC}} */, :P5 /* {{topic}} */, :P6 /* {{state}} */, :P7 /* {{message_id}} */)",
+                    "params": [
+                      {
+                        "name": ":P1",
+                        "type": "expression",
+                        "value": "{{connection_id}}"
+                      },
+                      {
+                        "name": ":P2",
+                        "type": "expression",
+                        "value": "{{to}}"
+                      },
+                      {
+                        "name": ":P3",
+                        "type": "expression",
+                        "value": "{{content}}"
+                      },
+                      {
+                        "name": ":P4",
+                        "type": "expression",
+                        "value": "{{NOW_UTC}}"
+                      },
+                      {
+                        "name": ":P5",
+                        "type": "expression",
+                        "value": "{{topic}}"
+                      },
+                      {
+                        "name": ":P6",
+                        "type": "expression",
+                        "value": "{{state}}"
+                      },
+                      {
+                        "name": ":P7",
+                        "type": "expression",
+                        "value": "{{message_id}}"
+                      }
+                    ]
+                  }
+                },
+                "meta": [
+                  {
+                    "name": "identity",
+                    "type": "text"
+                  },
+                  {
+                    "name": "affected",
+                    "type": "number"
+                  }
+                ],
+                "disabled": true
+              }
+            ]
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "name": "$index",
+            "type": "number"
+          },
+          {
+            "name": "$number",
+            "type": "number"
+          },
+          {
+            "name": "$name",
+            "type": "text"
+          },
+          {
+            "name": "$value",
+            "type": "text"
+          },
+          {
+            "name": "api_conn",
+            "type": "object",
+            "sub": [
+              {
+                "type": "array",
+                "name": "data"
+              },
+              {
+                "type": "object",
+                "name": "headers",
+                "sub": [
+                  {
+                    "type": "text",
+                    "name": "content-length"
+                  },
+                  {
+                    "type": "text",
+                    "name": "content-type"
+                  },
+                  {
+                    "type": "text",
+                    "name": "date"
+                  },
+                  {
+                    "type": "text",
+                    "name": "server"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "outputType": "array"
+      }
+    ]
+  }
+}

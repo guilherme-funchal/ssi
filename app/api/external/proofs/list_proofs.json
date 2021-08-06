@@ -1,0 +1,253 @@
+[
+  {
+    "name": "token",
+    "module": "core",
+    "action": "setvalue",
+    "options": {
+      "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ3YWxsZXRfaWQiOiIyZjNiOWU3NC01MDBhLTQxNDctOTIyYi03Y2EzNzI5Y2UyZjIifQ.hvgHXXTY7O9_4blvZGxyyOrkB1JvEBG6an1pIkZPQ78",
+      "key": "token"
+    }
+  },
+  {
+    "name": "api",
+    "module": "api",
+    "action": "send",
+    "options": {
+      "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/present-proof/records?role=prover&state=presentation_acked",
+      "headers": {
+        "Authorization": "{{'Bearer '+token}}"
+      },
+      "schema": []
+    },
+    "output": true,
+    "meta": [
+      {
+        "type": "object",
+        "name": "data",
+        "sub": [
+          {
+            "type": "array",
+            "name": "results",
+            "sub": [
+              {
+                "type": "boolean",
+                "name": "auto_present"
+              },
+              {
+                "type": "object",
+                "name": "presentation",
+                "sub": [
+                  {
+                    "type": "object",
+                    "name": "proof",
+                    "sub": [
+                      {
+                        "type": "array",
+                        "name": "proofs"
+                      },
+                      {
+                        "type": "object",
+                        "name": "aggregated_proof",
+                        "sub": [
+                          {
+                            "type": "text",
+                            "name": "c_hash"
+                          },
+                          {
+                            "type": "array",
+                            "name": "c_list"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "name": "requested_proof",
+                    "sub": [
+                      {
+                        "type": "object",
+                        "name": "revealed_attrs"
+                      },
+                      {
+                        "type": "object",
+                        "name": "self_attested_attrs",
+                        "sub": [
+                          {
+                            "type": "text",
+                            "name": "email_referent"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "name": "unrevealed_attrs"
+                      },
+                      {
+                        "type": "object",
+                        "name": "predicates"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "array",
+                    "name": "identifiers"
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "name": "updated_at"
+              },
+              {
+                "type": "object",
+                "name": "presentation_request",
+                "sub": [
+                  {
+                    "type": "text",
+                    "name": "name"
+                  },
+                  {
+                    "type": "text",
+                    "name": "version"
+                  },
+                  {
+                    "type": "object",
+                    "name": "requested_attributes",
+                    "sub": [
+                      {
+                        "type": "object",
+                        "name": "email_referent",
+                        "sub": [
+                          {
+                            "type": "text",
+                            "name": "name"
+                          },
+                          {
+                            "type": "object",
+                            "name": "non_revoked",
+                            "sub": [
+                              {
+                                "type": "number",
+                                "name": "to"
+                              },
+                              {
+                                "type": "number",
+                                "name": "from"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "name": "requested_predicates"
+                  },
+                  {
+                    "type": "text",
+                    "name": "nonce"
+                  }
+                ]
+              },
+              {
+                "type": "object",
+                "name": "presentation_request_dict",
+                "sub": [
+                  {
+                    "type": "text",
+                    "name": "@type"
+                  },
+                  {
+                    "type": "text",
+                    "name": "@id"
+                  },
+                  {
+                    "type": "array",
+                    "name": "request_presentations~attach",
+                    "sub": [
+                      {
+                        "type": "text",
+                        "name": "@id"
+                      },
+                      {
+                        "type": "text",
+                        "name": "mime-type"
+                      },
+                      {
+                        "type": "object",
+                        "name": "data",
+                        "sub": [
+                          {
+                            "type": "text",
+                            "name": "base64"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "boolean",
+                "name": "trace"
+              },
+              {
+                "type": "text",
+                "name": "initiator"
+              },
+              {
+                "type": "text",
+                "name": "connection_id"
+              },
+              {
+                "type": "text",
+                "name": "created_at"
+              },
+              {
+                "type": "text",
+                "name": "thread_id"
+              },
+              {
+                "type": "text",
+                "name": "role"
+              },
+              {
+                "type": "text",
+                "name": "presentation_exchange_id"
+              },
+              {
+                "type": "text",
+                "name": "state"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "object",
+        "name": "headers",
+        "sub": [
+          {
+            "type": "text",
+            "name": "content-length"
+          },
+          {
+            "type": "text",
+            "name": "content-type"
+          },
+          {
+            "type": "text",
+            "name": "date"
+          },
+          {
+            "type": "text",
+            "name": "server"
+          }
+        ]
+      }
+    ],
+    "outputType": "object"
+  }
+]

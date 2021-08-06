@@ -1,6 +1,8 @@
 <dmx-serverconnect id="serverconnect1" url="/api/external/connection/get_connections"></dmx-serverconnect>
 <dmx-serverconnect id="serverconnect2" url="/api/external/credentials/get_credentials"></dmx-serverconnect>
 <!-- Wappler include head-page="layouts/main" is="dmx-app" id="home" appConnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cerulean" bootstrap_icons="cdn" components="{dmxDataTraversal:{},dmxBootstrap4TableGenerator:{},dmxBootstrap4Modal:{},dmxCharts:{},dmxFormatter:{},dmxStateManagement:{}}" -->
+<meta name="ac:route" content="/dashboard">
+<dmx-serverconnect id="serverconnect3" url="/api/external/proofs/list_proofs"></dmx-serverconnect>
 <dmx-session-manager id="session1"></dmx-session-manager>
 
 
@@ -38,7 +40,7 @@
     <div class="bg-danger rounded-lg w-10 col-3">
       <p class="text-light"><i class="fa fa-info fa-2x"></i></p>
       <p class="text-light text-right lead">Provas</p>
-      <p class="text-light text-right">0</p>
+      <p class="text-light text-right" dmx-text="serverconnect3.data.api.data.results.count()">0</p>
     </div>
   </div>
 
