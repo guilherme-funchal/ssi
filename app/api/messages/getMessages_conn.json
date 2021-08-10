@@ -71,17 +71,23 @@
               "name": "messages"
             },
             "joins": [],
-            "query": "SELECT message_id, connection_id, from, to, content, date, topic, state\nFROM messages\nWHERE connection_id = :P1 /* {{$_GET.connection_id}} */",
+            "query": "SELECT message_id, connection_id, from, to, content, date, topic, state\nFROM messages\nWHERE connection_id = :P1 /* {{$_GET.connection_id}} */ AND to = :P2 /* {{$_COOKIE.email}} */",
             "params": [
               {
                 "operator": "equal",
                 "type": "expression",
                 "name": ":P1",
                 "value": "{{$_GET.connection_id}}"
+              },
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P2",
+                "value": "{{$_COOKIE.email}}"
               }
             ],
             "wheres": {
-              "condition": "OR",
+              "condition": "AND",
               "rules": [
                 {
                   "id": "messages.connection_id",
@@ -92,6 +98,19 @@
                   "data": {
                     "table": "messages",
                     "column": "connection_id",
+                    "type": "text"
+                  },
+                  "operation": "="
+                },
+                {
+                  "id": "messages.to",
+                  "field": "messages.to",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "{{$_COOKIE.email}}",
+                  "data": {
+                    "table": "messages",
+                    "column": "to",
                     "type": "text"
                   },
                   "operation": "="

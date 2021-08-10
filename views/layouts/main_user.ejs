@@ -75,18 +75,17 @@
     <div class="d-flex" id="wrapper" dmx-class:toggled="sidebartoggle.value == 0">
 
       <!-- Sidebar -->
-      <div class="d-block bg-light border-right" id="sidebar-wrapper">
+      <div class="d-block border-right bg-light" id="sidebar-wrapper">
         <div class="list-group list-group-flush d-none d-md-block" style="width: 180px; height: 1000px;">
           <li class="nav-item">
             <a class="nav-link text-truncate text-left" href="/home" internal><i class="fa fa-pie-chart"></i>Dashboard</a>
-            <a class="nav-link text-truncate text-primary" href="/dashboard" dmx-on:mouseover="" style="/* a: hover */"><i class="fa fa-pie-chart"></i>&nbsp;Dashboard</a>
-            <a class="nav-link text-truncate text-primary" href="/connections"><i class="fa fa-plug"></i>&nbsp;Conexões</a>
-            <a class="nav-link text-truncate text-primary" href="/messages"><i class="fa fa-envelope"></i>&nbsp;Mensagens</a>
-            <a class="nav-link text-truncate text-primary" href="/users"><i class="fa fa-user-plus"></i>&nbsp;Usuários</a>
-            <a class="nav-link text-truncate text-primary" href="/schemas"><i class="fa fa-database"></i>&nbsp;Schemas</a>
-            <a class="nav-link text-truncate text-primary" href="/server"><i class="fa fa-server"></i>&nbsp;Servidor</a>
-            <a class="nav-link text-truncate text-primary" href="/config" dmx-on:click="usuario.setValue($_COOKIE.email)"><i class="fa fa-cog"></i>&nbsp;Perfil</a>
-            <a class="nav-link text-truncate text-primary" dmx-on:click="serverconnect1.load({});browser1.goto('login');session1.removeAll()" href="#"><i class="fa fa-times"></i>&nbsp;Sair</a>
+            <a class="nav-link text-truncate text-danger" href="/dashboard_user" dmx-on:mouseover="" style="/* a: hover */"><i class="fa fa-pie-chart"></i>&nbsp;Dashboard</a>
+            <a class="nav-link text-truncate text-danger" href="/connections_user"><i class="fa fa-plug"></i>&nbsp;Conexões</a>
+            <a class="nav-link text-truncate text-danger" href="/messages_user"><i class="fa fa-envelope"></i>&nbsp;Mensagens</a>
+            <a class="nav-link text-truncate text-danger" href="/credentials_user"><i class="fa fa-th"></i>&nbsp;Credenciais</a>
+            <a class="nav-link text-truncate text-danger" href="/proofs_user"><i class="fa fa-refresh"></i>&nbsp;Consentimento</a>
+            <a class="nav-link text-truncate text-danger" href="/config_user" dmx-on:click="usuario.setValue($_COOKIE.email)"><i class="fa fa-cog"></i>&nbsp;Perfil</a>
+            <a class="nav-link text-truncate text-danger" dmx-on:click="serverconnect1.load({});browser1.goto('login');session1.removeAll()" href="#"><i class="fa fa-times"></i>&nbsp;Sair</a>
           </li>
         </div>
       </div>
@@ -95,12 +94,12 @@
       <!-- Page Content -->
       <div class="d-block w-100" id="page-content-wrapper">
 
-        <nav class="navbar navbar-expand-lg border-bottom fixed-top h-auto small w-auto navbar-light bg-primary">
+        <nav class="navbar navbar-expand-lg border-bottom fixed-top h-auto small w-auto navbar-light bg-secondary">
 
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topnav1" aria-controls="topnav1" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse bg-primary h-auto" id="topnav1">
+          <div class="collapse navbar-collapse h-auto bg-secondary" id="topnav1">
             <h6 wappler-command="editContent" class="text-light font-weight-bold pl-2" dmx-text="session1.data.usuario">Serpro</h6>
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
               <li class="nav-item active" wappler-empty="undefined" wappler-command="editContent">

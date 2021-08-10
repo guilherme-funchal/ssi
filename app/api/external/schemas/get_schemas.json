@@ -139,8 +139,7 @@
             "type": "text"
           }
         ],
-        "outputType": "array",
-        "disabled": true
+        "outputType": "array"
       }
     ]
   }

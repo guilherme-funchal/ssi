@@ -1,9 +1,9 @@
 <div is="dmx-browser" id="browser1"></div>
 <dmx-serverconnect id="serverconnect1" url="/api/external/connection/get_connections"></dmx-serverconnect>
 <dmx-serverconnect id="serverconnect2" url="/api/external/credentials/get_credentials"></dmx-serverconnect>
-<!-- Wappler include head-page="layouts/main" is="dmx-app" id="home" appConnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cerulean" bootstrap_icons="cdn" components="{dmxDataTraversal:{},dmxBootstrap4TableGenerator:{},dmxBootstrap4Modal:{},dmxCharts:{},dmxFormatter:{},dmxStateManagement:{},dmxBrowser:{}}" -->
+<!-- Wappler include head-page="layouts/main_user" is="dmx-app" id="home" appConnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cerulean" bootstrap_icons="cdn" components="{dmxDataTraversal:{},dmxBootstrap4TableGenerator:{},dmxBootstrap4Modal:{},dmxCharts:{},dmxFormatter:{},dmxStateManagement:{},dmxBrowser:{}}" -->
 
-<meta name="ac:route" content="/dashboard">
+<meta name="ac:route" content="/dashboard_user">
 <dmx-serverconnect id="serverconnect3" url="/api/external/proofs/list_proofs"></dmx-serverconnect>
 <dmx-session-manager id="session1"></dmx-session-manager>
 
@@ -12,12 +12,12 @@
 <div class="wappler-block mt-4 mb-0 pt-5 pb-0 container-fluid">
   <p dmx-text="email.value">Enter your content here</p>
 
-  <h5 class="text-center h-auto mb-5"><i class="bi-file-bar-graph-fill"></i>&nbsp;Dashboard</h5>
+  <h5 class="text-center h-auto mb-5"><i class="bi-file-bar-graph-fill"></i>&nbsp;Dashboard usuário</h5>
   <div class="row">
     <div class="col-1"></div>
 
 
-    <div class="bg-primary rounded-lg w-25 mr-2 col-3" dmx-on:click="browser1.goto('/connections')">
+    <div class="bg-primary rounded-lg w-25 mr-2 col-3" dmx-on:click="browser1.goto('/connections_user')">
       <p class="text-light">&nbsp;
         <i class="fa fa-link fa-2x"></i>
       </p>
@@ -29,7 +29,7 @@
 
 
 
-    <div class="bg-success rounded-lg w-10 mr-2 col-3" dmx-on:click="browser1.goto('/credentials')">
+    <div class="bg-success rounded-lg w-10 mr-2 col-3" dmx-on:click="browser1.goto('/credentials_user')">
       <p class="text-light">
         <i class="fa fa-id-card fa-2x"></i>
       </p>
@@ -39,7 +39,7 @@
 
 
 
-    <div class="bg-danger rounded-lg w-10 col-3" dmx-on:click="browser1.goto('/messages')">
+    <div class="bg-danger rounded-lg w-10 col-3" dmx-on:click="browser1.goto('/messages_user')">
       <p class="text-light"><i class="fa fa-info fa-2x"></i></p>
       <p class="text-light text-right lead">Provas</p>
       <p class="text-light text-right" dmx-text="serverconnect3.data.api.data.results.count()">0</p>

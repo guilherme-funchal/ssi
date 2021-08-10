@@ -1,8 +1,8 @@
-<!-- Wappler include head-page="layouts/main" is="dmx-app" id="home" appConnect="local" fontawesome_4="local" bootstrap4="cdn" bootstrap_icons="cdn" components="{dmxBootstrap4TableGenerator:{},dmxDataTraversal:{},dmxBootstrap4Modal:{},dmxFormatter:{},dmxPreloader:{},dmxNotifications:{},dmxStateManagement:{},dmxValidator:{}}" jquery_slim_34="cdn" -->
+<!-- Wappler include head-page="layouts/main_user" is="dmx-app" id="home" appConnect="local" fontawesome_4="local" bootstrap4="cdn" bootstrap_icons="cdn" components="{dmxBootstrap4TableGenerator:{},dmxDataTraversal:{},dmxBootstrap4Modal:{},dmxFormatter:{},dmxPreloader:{},dmxNotifications:{},dmxStateManagement:{},dmxValidator:{}}" jquery_slim_34="cdn" -->
 <dmx-cookie-manager id="cookies1"></dmx-cookie-manager>
 
 <dmx-serverconnect id="serverconnect4" url="/api/messages/getMessages_conn" noload></dmx-serverconnect>
-<meta name="ac:route" content="/connections">
+<meta name="ac:route" content="/connections_user">
 <dmx-serverconnect id="sc_send_proof" url="/api/external/proofs/send_proof"></dmx-serverconnect>
 <dmx-serverconnect id="serverconnect3" url="/api/proofs/getProva_email" noload></dmx-serverconnect>
 <dmx-serverconnect id="sc_get_schema_id" url="/api/external/schemas/get_schemas_id" dmx-param:cred_id="session1.data.id" dmx-param:schema_id="session1.data.id"></dmx-serverconnect>
@@ -106,6 +106,7 @@
         </button>
       </div>
       <div class="modal-body">
+        <p dmx-text="'Creddef :'+sc_get_schema_id.data.api_creddef.data.credential_definition_ids">Enter your content here</p>
 
 
         <form enctype="application/json" id="credencial-form" method="post" is="dmx-api-form" action="/api/external/credentials/send_credential" onreset="">
@@ -116,11 +117,11 @@
           <div class="row" is="dmx-repeat" id="repeat1" dmx-bind:repeat="content.sc_get_schema_id.data.api_credentials.data.schema.attrNames">
             <div class="col">
 
-              <p dmx-text="$value" class="font-weight-bold mb-n1 small"></p><input id="attributes" class="form-control form-control-sm" onfocus="this.value=''" dmx-bind:name="attributes[{{$index}}][{{$value}}]">
+              <p dmx-text="$value" class="font-weight-bold small text-monospace mb-n1"></p><input id="attributes" class="form-control" onfocus="this.value=''" dmx-bind:name="attributes[{{$index}}][{{$value}}]">
 
 
             </div>
-            <div class="col-break w-100 small mb-n5 rounded-sm"></div>
+            <div class="col-break w-100 small mb-n5"></div>
           </div>
         </form>
 
@@ -153,9 +154,7 @@
           <tbody is="dmx-repeat" dmx-generator="bs4table" dmx-bind:repeat="serverconnect4.data.query" id="tableRepeat2">
             <tr class="small">
               <td dmx-text="from" class="text-center"></td>
-              <td class="text-center">
-                <p dmx-text="content">A nice paragraph</p>
-              </td>
+              <td dmx-text="content" class="text-center"></td>
               <td dmx-text="date.formatDate('dd/MM/yyyy HH:mm')" class="text-center"></td>
             </tr>
           </tbody>

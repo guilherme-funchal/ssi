@@ -80,7 +80,7 @@
     "description": ""
   },
   "login.ejs": {
-    "layoutPage": "main",
+    "layoutPage": "main_user",
     "description": ""
   },
   "fail.ejs": {
@@ -109,6 +109,34 @@
   },
   "dashboard.ejs": {
     "layoutPage": "main",
+    "description": ""
+  },
+  "dashboard_user.ejs": {
+    "layoutPage": "main_user",
+    "description": ""
+  },
+  "connections_user.ejs": {
+    "layoutPage": "main_user",
+    "description": ""
+  },
+  "messages_user.ejs": {
+    "layoutPage": "main_user",
+    "description": ""
+  },
+  "credentials_user.ejs": {
+    "layoutPage": "main_user",
+    "description": ""
+  },
+  "proofs_user.ejs": {
+    "layoutPage": "main_user",
+    "description": ""
+  },
+  "config_user.ejs": {
+    "layoutPage": "main_user",
+    "description": ""
+  },
+  "login_user.ejs": {
+    "layoutPage": "main_user",
     "description": ""
   }
 }

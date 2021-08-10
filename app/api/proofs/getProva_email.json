@@ -147,7 +147,7 @@
               "alias": "provas"
             },
             "joins": [],
-            "query": "SELECT id, name, description, req_attrs, predicates, schema, state, date, valid, id_user\nFROM proofs AS provas\nWHERE id_user LIKE :P1 /* {{usuario[0].id}} */",
+            "query": "SELECT id, name, description, req_attrs, predicates, schema, state, date, valid, id_user\nFROM proofs AS provas\nWHERE id_user LIKE :P1 /* {{usuario[0].id}} */ AND state = 'true'",
             "params": [
               {
                 "operator": "contains",
@@ -171,6 +171,19 @@
                     "type": "text"
                   },
                   "operation": "LIKE"
+                },
+                {
+                  "id": "provas.state",
+                  "field": "provas.state",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "true",
+                  "data": {
+                    "table": "provas",
+                    "column": "state",
+                    "type": "text"
+                  },
+                  "operation": "="
                 }
               ],
               "conditional": null,
@@ -214,7 +227,7 @@
           },
           {
             "name": "valid",
-            "type": "date"
+            "type": "text"
           },
           {
             "name": "id_user",

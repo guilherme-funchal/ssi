@@ -2,8 +2,8 @@
 <dmx-serverconnect id="serverconnect2" url="/api/external/connection/get_connections"></dmx-serverconnect>
 <dmx-data-detail id="data_detail1" dmx-bind:data="serverconnect1.data.query" key="message_id"></dmx-data-detail>
 <dmx-serverconnect id="serverconnect1" url="/api/messages/getMessages"></dmx-serverconnect>
-<!-- Wappler include head-page="layouts/main" is="dmx-app" id="messages" appConnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cerulean" bootstrap_icons="cdn" components="{dmxDataTraversal:{},dmxBootstrap4TableGenerator:{},dmxBootstrap4Modal:{},dmxFormatter:{},dmxNotifications:{}}" -->
-<meta name="ac:route" content="/messages">
+<!-- Wappler include head-page="layouts/main_user" is="dmx-app" id="messages" appConnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cerulean" bootstrap_icons="cdn" components="{dmxDataTraversal:{},dmxBootstrap4TableGenerator:{},dmxBootstrap4Modal:{},dmxFormatter:{},dmxNotifications:{}}" -->
+<meta name="ac:route" content="/messages_user">
 
 
 
@@ -34,7 +34,7 @@
       </table>
     </div>
     <div class="modal mb-5" id="modal1" is="dmx-bs4-modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Mensagem</h5>
@@ -81,7 +81,6 @@
                     <th class="small font-weight-bold">Mensagem</th>
                     <td>
                       <p dmx-text="data_detail1.data.content">A nice paragraph</p>
-
                     </td>
                   </tr>
                 </tbody>

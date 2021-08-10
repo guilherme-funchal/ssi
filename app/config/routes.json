@@ -88,7 +88,7 @@
     {
       "path": "/login",
       "page": "login",
-      "layout": "main",
+      "layout": "main_user",
       "routeType": "page",
       "exec": ""
     },
@@ -110,15 +110,45 @@
       "exec": "/api/security/user"
     },
     {
-      "path": "/credentials_old",
-      "page": "credentials_old",
-      "layout": "main"
-    },
-    {
       "path": "/credentials",
       "page": "credentials",
       "layout": "main",
       "exec": "/api/security/user"
+    },
+    {
+      "path": "/dashboard_user",
+      "page": "dashboard_user",
+      "layout": "main_user"
+    },
+    {
+      "path": "/connections_user",
+      "page": "connections_user",
+      "layout": "main_user"
+    },
+    {
+      "path": "/messages_user",
+      "page": "messages_user",
+      "layout": "main_user"
+    },
+    {
+      "path": "/credentials_user",
+      "page": "credentials_user",
+      "layout": "main_user"
+    },
+    {
+      "path": "/proofs_user",
+      "page": "proofs_user",
+      "layout": "main_user"
+    },
+    {
+      "path": "/config_user",
+      "page": "config_user",
+      "layout": "main_user"
+    },
+    {
+      "path": "/login_user",
+      "page": "login_user",
+      "layout": "main_user"
     }
   ]
 }
