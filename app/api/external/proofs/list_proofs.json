@@ -4,7 +4,7 @@
     "module": "core",
     "action": "setvalue",
     "options": {
-      "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ3YWxsZXRfaWQiOiIyZjNiOWU3NC01MDBhLTQxNDctOTIyYi03Y2EzNzI5Y2UyZjIifQ.hvgHXXTY7O9_4blvZGxyyOrkB1JvEBG6an1pIkZPQ78",
+      "value": "{{$_COOKIE.token}}",
       "key": "token"
     }
   },
@@ -13,7 +13,7 @@
     "module": "api",
     "action": "send",
     "options": {
-      "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/present-proof/records?role=prover&state=presentation_acked",
+      "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/present-proof/records?state=presentation_acked",
       "headers": {
         "Authorization": "{{'Bearer '+token}}"
       },

@@ -1,0 +1,583 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "thread_id"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "thread_id",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_GET.thread_id}}",
+          "key": "thread_id"
+        }
+      },
+      {
+        "name": "token",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "key": "token",
+          "value": "{{$_COOKIE.token}}"
+        }
+      },
+      {
+        "name": "api",
+        "module": "api",
+        "action": "send",
+        "options": {
+          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/present-proof/records?thread_id={{thread_id}}",
+          "headers": {
+            "Authorization": "{{'Bearer '+token}}"
+          },
+          "schema": []
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "object",
+            "name": "data",
+            "sub": [
+              {
+                "type": "array",
+                "name": "results",
+                "sub": [
+                  {
+                    "type": "object",
+                    "name": "presentation_request",
+                    "sub": [
+                      {
+                        "type": "text",
+                        "name": "name"
+                      },
+                      {
+                        "type": "text",
+                        "name": "version"
+                      },
+                      {
+                        "type": "key_array",
+                        "name": "requested_attributes",
+                        "sub": [
+                          {
+                            "type": "text",
+                            "name": "name"
+                          },
+                          {
+                            "type": "object",
+                            "name": "non_revoked",
+                            "sub": [
+                              {
+                                "type": "number",
+                                "name": "to"
+                              },
+                              {
+                                "type": "number",
+                                "name": "from"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "name": "requested_predicates"
+                      },
+                      {
+                        "type": "text",
+                        "name": "nonce"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "name": "thread_id"
+                  },
+                  {
+                    "type": "text",
+                    "name": "presentation_exchange_id"
+                  },
+                  {
+                    "type": "text",
+                    "name": "initiator"
+                  },
+                  {
+                    "type": "text",
+                    "name": "state"
+                  },
+                  {
+                    "type": "text",
+                    "name": "connection_id"
+                  },
+                  {
+                    "type": "text",
+                    "name": "updated_at"
+                  },
+                  {
+                    "type": "text",
+                    "name": "role"
+                  },
+                  {
+                    "type": "boolean",
+                    "name": "trace"
+                  },
+                  {
+                    "type": "text",
+                    "name": "verified"
+                  },
+                  {
+                    "type": "text",
+                    "name": "created_at"
+                  },
+                  {
+                    "type": "object",
+                    "name": "presentation",
+                    "sub": [
+                      {
+                        "type": "object",
+                        "name": "proof",
+                        "sub": [
+                          {
+                            "type": "array",
+                            "name": "proofs"
+                          },
+                          {
+                            "type": "object",
+                            "name": "aggregated_proof",
+                            "sub": [
+                              {
+                                "type": "text",
+                                "name": "c_hash"
+                              },
+                              {
+                                "type": "array",
+                                "name": "c_list"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "name": "requested_proof",
+                        "sub": [
+                          {
+                            "type": "object",
+                            "name": "revealed_attrs"
+                          },
+                          {
+                            "type": "object",
+                            "name": "self_attested_attrs",
+                            "sub": [
+                              {
+                                "type": "text",
+                                "name": "banco_referent"
+                              },
+                              {
+                                "type": "text",
+                                "name": "agencia_referent"
+                              },
+                              {
+                                "type": "text",
+                                "name": "conta_referent"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "name": "unrevealed_attrs"
+                          },
+                          {
+                            "type": "object",
+                            "name": "predicates"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "name": "identifiers"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "boolean",
+                    "name": "auto_present"
+                  },
+                  {
+                    "type": "object",
+                    "name": "presentation_request_dict",
+                    "sub": [
+                      {
+                        "type": "text",
+                        "name": "@type"
+                      },
+                      {
+                        "type": "text",
+                        "name": "@id"
+                      },
+                      {
+                        "type": "array",
+                        "name": "request_presentations~attach",
+                        "sub": [
+                          {
+                            "type": "text",
+                            "name": "@id"
+                          },
+                          {
+                            "type": "text",
+                            "name": "mime-type"
+                          },
+                          {
+                            "type": "object",
+                            "name": "data",
+                            "sub": [
+                              {
+                                "type": "text",
+                                "name": "base64"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "name": "headers",
+            "sub": [
+              {
+                "type": "text",
+                "name": "content-length"
+              },
+              {
+                "type": "text",
+                "name": "content-type"
+              },
+              {
+                "type": "text",
+                "name": "date"
+              },
+              {
+                "type": "text",
+                "name": "server"
+              }
+            ]
+          }
+        ],
+        "outputType": "object"
+      },
+      {
+        "name": "pres_ex_id",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "key": "pres_ex_id",
+          "value": "{{api.data.results[0].presentation_exchange_id}}"
+        }
+      },
+      {
+        "name": "api_delete_presentation",
+        "module": "api",
+        "action": "send",
+        "options": {
+          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/present-proof/records/{{pres_ex_id}}",
+          "headers": {
+            "Authorization": "{{'Bearer '+token}}"
+          },
+          "schema": [],
+          "method": "DELETE"
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "object",
+            "name": "data",
+            "sub": [
+              {
+                "type": "array",
+                "name": "results",
+                "sub": [
+                  {
+                    "type": "object",
+                    "name": "presentation_request",
+                    "sub": [
+                      {
+                        "type": "text",
+                        "name": "name"
+                      },
+                      {
+                        "type": "text",
+                        "name": "version"
+                      },
+                      {
+                        "type": "key_array",
+                        "name": "requested_attributes",
+                        "sub": [
+                          {
+                            "type": "text",
+                            "name": "name"
+                          },
+                          {
+                            "type": "object",
+                            "name": "non_revoked",
+                            "sub": [
+                              {
+                                "type": "number",
+                                "name": "to"
+                              },
+                              {
+                                "type": "number",
+                                "name": "from"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "name": "requested_predicates"
+                      },
+                      {
+                        "type": "text",
+                        "name": "nonce"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "name": "thread_id"
+                  },
+                  {
+                    "type": "text",
+                    "name": "presentation_exchange_id"
+                  },
+                  {
+                    "type": "text",
+                    "name": "initiator"
+                  },
+                  {
+                    "type": "text",
+                    "name": "state"
+                  },
+                  {
+                    "type": "text",
+                    "name": "connection_id"
+                  },
+                  {
+                    "type": "text",
+                    "name": "updated_at"
+                  },
+                  {
+                    "type": "text",
+                    "name": "role"
+                  },
+                  {
+                    "type": "boolean",
+                    "name": "trace"
+                  },
+                  {
+                    "type": "text",
+                    "name": "verified"
+                  },
+                  {
+                    "type": "text",
+                    "name": "created_at"
+                  },
+                  {
+                    "type": "object",
+                    "name": "presentation",
+                    "sub": [
+                      {
+                        "type": "object",
+                        "name": "proof",
+                        "sub": [
+                          {
+                            "type": "array",
+                            "name": "proofs"
+                          },
+                          {
+                            "type": "object",
+                            "name": "aggregated_proof",
+                            "sub": [
+                              {
+                                "type": "text",
+                                "name": "c_hash"
+                              },
+                              {
+                                "type": "array",
+                                "name": "c_list"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "name": "requested_proof",
+                        "sub": [
+                          {
+                            "type": "object",
+                            "name": "revealed_attrs"
+                          },
+                          {
+                            "type": "object",
+                            "name": "self_attested_attrs",
+                            "sub": [
+                              {
+                                "type": "text",
+                                "name": "banco_referent"
+                              },
+                              {
+                                "type": "text",
+                                "name": "agencia_referent"
+                              },
+                              {
+                                "type": "text",
+                                "name": "conta_referent"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "name": "unrevealed_attrs"
+                          },
+                          {
+                            "type": "object",
+                            "name": "predicates"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "name": "identifiers"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "boolean",
+                    "name": "auto_present"
+                  },
+                  {
+                    "type": "object",
+                    "name": "presentation_request_dict",
+                    "sub": [
+                      {
+                        "type": "text",
+                        "name": "@type"
+                      },
+                      {
+                        "type": "text",
+                        "name": "@id"
+                      },
+                      {
+                        "type": "array",
+                        "name": "request_presentations~attach",
+                        "sub": [
+                          {
+                            "type": "text",
+                            "name": "@id"
+                          },
+                          {
+                            "type": "text",
+                            "name": "mime-type"
+                          },
+                          {
+                            "type": "object",
+                            "name": "data",
+                            "sub": [
+                              {
+                                "type": "text",
+                                "name": "base64"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "name": "headers",
+            "sub": [
+              {
+                "type": "text",
+                "name": "content-length"
+              },
+              {
+                "type": "text",
+                "name": "content-type"
+              },
+              {
+                "type": "text",
+                "name": "date"
+              },
+              {
+                "type": "text",
+                "name": "server"
+              }
+            ]
+          }
+        ],
+        "outputType": "object"
+      },
+      {
+        "name": "delete",
+        "module": "dbupdater",
+        "action": "delete",
+        "options": {
+          "connection": "ssi",
+          "sql": {
+            "type": "delete",
+            "table": "messages",
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "message_id",
+                  "field": "message_id",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "{{thread_id}}",
+                  "data": {
+                    "column": "message_id"
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "DELETE\nFROM messages\nWHERE message_id = :P1 /* {{thread_id}} */",
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{thread_id}}"
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      }
+    ]
+  }
+}

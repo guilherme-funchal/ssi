@@ -1,9 +1,32 @@
 {
-  "name": "api",
-  "module": "api",
-  "action": "send",
-  "options": {
-    "url": "/present-proof/send-request"
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "thread_id"
+      }
+    ]
   },
-  "output": true
+  "exec": {
+    "steps": [
+      {
+        "name": "thread_id",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "key": "thread_id",
+          "value": "1a135fe7-469b-4a5e-b9ea-9068dc9fcf2d"
+        }
+      },
+      {
+        "name": "api",
+        "module": "api",
+        "action": "send",
+        "options": {
+          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/present-proof/records?thread_id={{thread_id}}"
+        },
+        "output": true
+      }
+    ]
+  }
 }
