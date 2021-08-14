@@ -35,7 +35,7 @@
         "module": "api",
         "action": "send",
         "options": {
-          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/schemas/created",
+          "url": "http://161.148.151.16:8021/schemas/created",
           "schema": [],
           "headers": {
             "Authorization": "{{'Bearer '+token}}",

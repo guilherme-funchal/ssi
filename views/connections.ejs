@@ -271,28 +271,26 @@
         </button>
       </div>
       <div class="modal-body">
-        <table class="table table-striped table-bordered table-sm">
-          <thead>
-            <tr>
-              <th class="text-center small font-weight-bold">Remetente</th>
-              <th class="text-center small font-weight-bold">Conteúdo</th>
-              <th class="text-center small font-weight-bold">Data</th>
-              <th class="text-center small font-weight-bold">Ação</th>
-            </tr>
-          </thead>
-          <tbody is="dmx-repeat" dmx-generator="bs4table" dmx-bind:repeat="sc_getmessages_conn.data.query" id="tableRepeat2">
-            <tr class="small">
-              <td dmx-text="from" class="text-center"></td>
-              <td class="text-center">
-                <p dmx-text="content">A nice paragraph</p>
-              </td>
-              <td dmx-text="date.formatDate('dd/MM/yyyy HH:mm')" class="text-center"></td>
-              <td class="text-center">
-                <button id="btn8" class="btn btn-sm btn-danger" dmx-on:click="sc_remove_proof.load({thread_id: message_id});sc_getmessages_conn.load({connection_id: modal1.serverconnectform1.inp_connection_id.value});modal5.update();notifies1.success('Prova excluída')"><i class="bi-trash"></i></button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered table-hover table-sm">
+            <thead>
+              <tr>
+
+                <th class="font-weight-bold small">Data</th>
+                <th class="font-weight-bold small">Estado</th>
+                <th class="font-weight-bold small text-center">Conteúdo</th>
+              </tr>
+            </thead>
+            <tbody is="dmx-repeat" dmx-generator="bs4table" dmx-bind:repeat="sc_getmessages_conn.data.query" id="tableRepeat2">
+              <tr class="text-break small">
+
+                <td dmx-text="date.formatDate('dd/MM/yy HH:mm')"></td>
+                <td dmx-text="state"></td>
+                <td dmx-text="content"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" dmx-on:click="modal5.hide();modal1.show()">Voltar</button>

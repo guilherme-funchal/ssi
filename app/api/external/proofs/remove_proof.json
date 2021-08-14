@@ -28,6 +28,51 @@
         }
       },
       {
+        "name": "delete",
+        "module": "dbupdater",
+        "action": "delete",
+        "options": {
+          "connection": "ssi",
+          "sql": {
+            "type": "delete",
+            "table": "messages",
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "message_id",
+                  "field": "message_id",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "{{thread_id}}",
+                  "data": {
+                    "column": "message_id"
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            },
+            "query": "DELETE\nFROM messages\nWHERE message_id = :P1 /* {{thread_id}} */",
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{thread_id}}"
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      },
+      {
         "name": "api",
         "module": "api",
         "action": "send",
@@ -532,51 +577,6 @@
           }
         ],
         "outputType": "object"
-      },
-      {
-        "name": "delete",
-        "module": "dbupdater",
-        "action": "delete",
-        "options": {
-          "connection": "ssi",
-          "sql": {
-            "type": "delete",
-            "table": "messages",
-            "wheres": {
-              "condition": "AND",
-              "rules": [
-                {
-                  "id": "message_id",
-                  "field": "message_id",
-                  "type": "string",
-                  "operator": "equal",
-                  "value": "{{thread_id}}",
-                  "data": {
-                    "column": "message_id"
-                  },
-                  "operation": "="
-                }
-              ],
-              "conditional": null,
-              "valid": true
-            },
-            "query": "DELETE\nFROM messages\nWHERE message_id = :P1 /* {{thread_id}} */",
-            "params": [
-              {
-                "operator": "equal",
-                "type": "expression",
-                "name": ":P1",
-                "value": "{{thread_id}}"
-              }
-            ]
-          }
-        },
-        "meta": [
-          {
-            "name": "affected",
-            "type": "number"
-          }
-        ]
       }
     ]
   }
