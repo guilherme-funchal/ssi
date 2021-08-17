@@ -1,0 +1,384 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "connection_id"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "connection_id",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "key": "connection_id",
+          "value": "{{$_GET.connection_id}}"
+        }
+      },
+      {
+        "name": "token",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{$_COOKIE.token}}",
+          "key": "token"
+        }
+      },
+      {
+        "name": "api",
+        "module": "api",
+        "action": "send",
+        "options": {
+          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/present-proof/records?connection_id={{connection_id}}&state=verified",
+          "headers": {
+            "Authorization": "{{'Bearer '+token}}"
+          },
+          "schema": []
+        },
+        "meta": [
+          {
+            "type": "object",
+            "name": "data",
+            "sub": [
+              {
+                "type": "array",
+                "name": "results",
+                "sub": [
+                  {
+                    "type": "object",
+                    "name": "presentation_request",
+                    "sub": [
+                      {
+                        "type": "text",
+                        "name": "name"
+                      },
+                      {
+                        "type": "text",
+                        "name": "version"
+                      },
+                      {
+                        "type": "key_array",
+                        "name": "requested_attributes",
+                        "sub": [
+                          {
+                            "type": "text",
+                            "name": "name"
+                          },
+                          {
+                            "type": "object",
+                            "name": "non_revoked",
+                            "sub": [
+                              {
+                                "type": "number",
+                                "name": "to"
+                              },
+                              {
+                                "type": "number",
+                                "name": "from"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "name": "requested_predicates"
+                      },
+                      {
+                        "type": "text",
+                        "name": "nonce"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "text",
+                    "name": "thread_id"
+                  },
+                  {
+                    "type": "text",
+                    "name": "presentation_exchange_id"
+                  },
+                  {
+                    "type": "text",
+                    "name": "initiator"
+                  },
+                  {
+                    "type": "text",
+                    "name": "state"
+                  },
+                  {
+                    "type": "text",
+                    "name": "connection_id"
+                  },
+                  {
+                    "type": "text",
+                    "name": "updated_at"
+                  },
+                  {
+                    "type": "text",
+                    "name": "role"
+                  },
+                  {
+                    "type": "boolean",
+                    "name": "trace"
+                  },
+                  {
+                    "type": "text",
+                    "name": "created_at"
+                  },
+                  {
+                    "type": "boolean",
+                    "name": "auto_present"
+                  },
+                  {
+                    "type": "object",
+                    "name": "presentation_request_dict",
+                    "sub": [
+                      {
+                        "type": "text",
+                        "name": "@type"
+                      },
+                      {
+                        "type": "text",
+                        "name": "@id"
+                      },
+                      {
+                        "type": "array",
+                        "name": "request_presentations~attach",
+                        "sub": [
+                          {
+                            "type": "text",
+                            "name": "@id"
+                          },
+                          {
+                            "type": "text",
+                            "name": "mime-type"
+                          },
+                          {
+                            "type": "object",
+                            "name": "data",
+                            "sub": [
+                              {
+                                "type": "text",
+                                "name": "base64"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "name": "headers",
+            "sub": [
+              {
+                "type": "text",
+                "name": "content-length"
+              },
+              {
+                "type": "text",
+                "name": "content-type"
+              },
+              {
+                "type": "text",
+                "name": "date"
+              },
+              {
+                "type": "text",
+                "name": "server"
+              }
+            ]
+          }
+        ],
+        "outputType": "object"
+      },
+      {
+        "name": "repeat",
+        "module": "core",
+        "action": "repeat",
+        "options": {
+          "repeat": "{{api.data.results}}",
+          "outputFields": [
+            "presentation_exchange_id",
+            "updated_at",
+            "thread_id",
+            "state"
+          ],
+          "exec": {
+            "steps": {
+              "name": "state",
+              "module": "core",
+              "action": "setvalue",
+              "options": {
+                "value": "{{state}}",
+                "key": "pres_exc_id"
+              },
+              "output": true,
+              "outputType": "text"
+            }
+          }
+        },
+        "meta": [
+          {
+            "name": "$index",
+            "type": "number"
+          },
+          {
+            "name": "$number",
+            "type": "number"
+          },
+          {
+            "name": "$name",
+            "type": "text"
+          },
+          {
+            "name": "$value",
+            "type": "object"
+          },
+          {
+            "name": "presentation_request",
+            "type": "object",
+            "sub": [
+              {
+                "name": "name",
+                "type": "text"
+              },
+              {
+                "name": "version",
+                "type": "text"
+              },
+              {
+                "name": "requested_attributes",
+                "type": "key_array",
+                "sub": [
+                  {
+                    "name": "name",
+                    "type": "text"
+                  },
+                  {
+                    "name": "non_revoked",
+                    "type": "object",
+                    "sub": [
+                      {
+                        "name": "to",
+                        "type": "number"
+                      },
+                      {
+                        "name": "from",
+                        "type": "number"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "requested_predicates",
+                "type": "object"
+              },
+              {
+                "name": "nonce",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "name": "thread_id",
+            "type": "text"
+          },
+          {
+            "name": "presentation_exchange_id",
+            "type": "text"
+          },
+          {
+            "name": "initiator",
+            "type": "text"
+          },
+          {
+            "name": "state",
+            "type": "text"
+          },
+          {
+            "name": "connection_id",
+            "type": "text"
+          },
+          {
+            "name": "updated_at",
+            "type": "text"
+          },
+          {
+            "name": "role",
+            "type": "text"
+          },
+          {
+            "name": "trace",
+            "type": "boolean"
+          },
+          {
+            "name": "created_at",
+            "type": "text"
+          },
+          {
+            "name": "auto_present",
+            "type": "boolean"
+          },
+          {
+            "name": "presentation_request_dict",
+            "type": "object",
+            "sub": [
+              {
+                "name": "@type",
+                "type": "text"
+              },
+              {
+                "name": "@id",
+                "type": "text"
+              },
+              {
+                "name": "request_presentations~attach",
+                "type": "array",
+                "sub": [
+                  {
+                    "name": "@id",
+                    "type": "text"
+                  },
+                  {
+                    "name": "mime-type",
+                    "type": "text"
+                  },
+                  {
+                    "name": "data",
+                    "type": "object",
+                    "sub": [
+                      {
+                        "name": "base64",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "pres_ex_id",
+            "type": "text"
+          },
+          {
+            "name": "thread_id",
+            "type": "text"
+          }
+        ],
+        "outputType": "array",
+        "output": true
+      }
+    ]
+  }
+}

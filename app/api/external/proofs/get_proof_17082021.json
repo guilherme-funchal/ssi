@@ -345,7 +345,7 @@
                       "module": "core",
                       "action": "setvalue",
                       "options": {
-                        "value": "\"non_revoked\":{\"to\": 1629201865},\"requested_predicates\":{}}}",
+                        "value": ",\"requested_predicates\":{}}}",
                         "key": "basement"
                       }
                     }
@@ -387,7 +387,7 @@
                       "module": "core",
                       "action": "setvalue",
                       "options": {
-                        "value": ",\"requested_predicates\":{}}}",
+                        "value": "},\"requested_predicates\":{}}}",
                         "key": "basement"
                       }
                     }
@@ -457,14 +457,6 @@
         "options": {
           "value": "{{json_attributes.parseJSON()}}",
           "key": "json_attributes"
-        }
-      },
-      {
-        "name": "tst_json",
-        "module": "core",
-        "action": "setcookie",
-        "options": {
-          "value": "{{json_attributes}}"
         }
       },
       {
