@@ -48,90 +48,8 @@
                 "name": "results",
                 "sub": [
                   {
-                    "type": "object",
-                    "name": "presentation_request",
-                    "sub": [
-                      {
-                        "type": "text",
-                        "name": "name"
-                      },
-                      {
-                        "type": "text",
-                        "name": "version"
-                      },
-                      {
-                        "type": "key_array",
-                        "name": "requested_attributes",
-                        "sub": [
-                          {
-                            "type": "text",
-                            "name": "name"
-                          },
-                          {
-                            "type": "object",
-                            "name": "non_revoked",
-                            "sub": [
-                              {
-                                "type": "number",
-                                "name": "to"
-                              },
-                              {
-                                "type": "number",
-                                "name": "from"
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "name": "requested_predicates"
-                      },
-                      {
-                        "type": "text",
-                        "name": "nonce"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "text",
-                    "name": "thread_id"
-                  },
-                  {
-                    "type": "text",
-                    "name": "presentation_exchange_id"
-                  },
-                  {
-                    "type": "text",
-                    "name": "initiator"
-                  },
-                  {
-                    "type": "text",
-                    "name": "state"
-                  },
-                  {
                     "type": "text",
                     "name": "connection_id"
-                  },
-                  {
-                    "type": "text",
-                    "name": "updated_at"
-                  },
-                  {
-                    "type": "text",
-                    "name": "role"
-                  },
-                  {
-                    "type": "boolean",
-                    "name": "trace"
-                  },
-                  {
-                    "type": "text",
-                    "name": "created_at"
-                  },
-                  {
-                    "type": "boolean",
-                    "name": "auto_present"
                   },
                   {
                     "type": "object",
@@ -168,6 +86,414 @@
                             ]
                           }
                         ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "name": "presentation",
+                    "sub": [
+                      {
+                        "type": "object",
+                        "name": "proof",
+                        "sub": [
+                          {
+                            "type": "array",
+                            "name": "proofs",
+                            "sub": [
+                              {
+                                "type": "object",
+                                "name": "primary_proof",
+                                "sub": [
+                                  {
+                                    "type": "object",
+                                    "name": "eq_proof",
+                                    "sub": [
+                                      {
+                                        "type": "object",
+                                        "name": "revealed_attrs",
+                                        "sub": [
+                                          {
+                                            "type": "text",
+                                            "name": "marca"
+                                          },
+                                          {
+                                            "type": "text",
+                                            "name": "modelo"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "a_prime"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "e"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "v"
+                                      },
+                                      {
+                                        "type": "object",
+                                        "name": "m",
+                                        "sub": [
+                                          {
+                                            "type": "text",
+                                            "name": "capacidade"
+                                          },
+                                          {
+                                            "type": "text",
+                                            "name": "placa"
+                                          },
+                                          {
+                                            "type": "text",
+                                            "name": "cor_predominante"
+                                          },
+                                          {
+                                            "type": "text",
+                                            "name": "potencia"
+                                          },
+                                          {
+                                            "type": "text",
+                                            "name": "numero_renavan"
+                                          },
+                                          {
+                                            "type": "text",
+                                            "name": "chassi"
+                                          },
+                                          {
+                                            "type": "text",
+                                            "name": "especie"
+                                          },
+                                          {
+                                            "type": "text",
+                                            "name": "exercicio"
+                                          },
+                                          {
+                                            "type": "text",
+                                            "name": "combustivel"
+                                          },
+                                          {
+                                            "type": "text",
+                                            "name": "master_secret"
+                                          },
+                                          {
+                                            "type": "text",
+                                            "name": "cilindrada"
+                                          },
+                                          {
+                                            "type": "text",
+                                            "name": "ano_mod"
+                                          },
+                                          {
+                                            "type": "text",
+                                            "name": "ano_fab"
+                                          },
+                                          {
+                                            "type": "text",
+                                            "name": "categoria"
+                                          },
+                                          {
+                                            "type": "text",
+                                            "name": "codigo_renavam"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "m2"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "array",
+                                    "name": "ge_proofs"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "object",
+                                "name": "non_revoc_proof",
+                                "sub": [
+                                  {
+                                    "type": "object",
+                                    "name": "x_list",
+                                    "sub": [
+                                      {
+                                        "type": "text",
+                                        "name": "rho"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "r"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "r_prime"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "r_prime_prime"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "r_prime_prime_prime"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "o"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "o_prime"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "m"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "m_prime"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "t"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "t_prime"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "m2"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "s"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "c"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "name": "c_list",
+                                    "sub": [
+                                      {
+                                        "type": "text",
+                                        "name": "e"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "d"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "a"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "g"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "w"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "s"
+                                      },
+                                      {
+                                        "type": "text",
+                                        "name": "u"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "name": "aggregated_proof",
+                            "sub": [
+                              {
+                                "type": "text",
+                                "name": "c_hash"
+                              },
+                              {
+                                "type": "array",
+                                "name": "c_list",
+                                "sub": [
+                                  {
+                                    "type": "array",
+                                    "name": "$value",
+                                    "sub": [
+                                      {
+                                        "type": "number",
+                                        "name": "$value"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "name": "requested_proof",
+                        "sub": [
+                          {
+                            "type": "key_array",
+                            "name": "revealed_attrs",
+                            "sub": [
+                              {
+                                "type": "number",
+                                "name": "sub_proof_index"
+                              },
+                              {
+                                "type": "text",
+                                "name": "raw"
+                              },
+                              {
+                                "type": "text",
+                                "name": "encoded"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "name": "self_attested_attrs"
+                          },
+                          {
+                            "type": "object",
+                            "name": "unrevealed_attrs"
+                          },
+                          {
+                            "type": "object",
+                            "name": "predicates"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "array",
+                        "name": "identifiers",
+                        "sub": [
+                          {
+                            "type": "text",
+                            "name": "schema_id"
+                          },
+                          {
+                            "type": "text",
+                            "name": "cred_def_id"
+                          },
+                          {
+                            "type": "text",
+                            "name": "rev_reg_id"
+                          },
+                          {
+                            "type": "number",
+                            "name": "timestamp"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "boolean",
+                    "name": "auto_present"
+                  },
+                  {
+                    "type": "text",
+                    "name": "verified"
+                  },
+                  {
+                    "type": "text",
+                    "name": "initiator"
+                  },
+                  {
+                    "type": "text",
+                    "name": "created_at"
+                  },
+                  {
+                    "type": "text",
+                    "name": "presentation_exchange_id"
+                  },
+                  {
+                    "type": "text",
+                    "name": "role"
+                  },
+                  {
+                    "type": "text",
+                    "name": "state"
+                  },
+                  {
+                    "type": "text",
+                    "name": "updated_at"
+                  },
+                  {
+                    "type": "text",
+                    "name": "thread_id"
+                  },
+                  {
+                    "type": "boolean",
+                    "name": "trace"
+                  },
+                  {
+                    "type": "object",
+                    "name": "presentation_request",
+                    "sub": [
+                      {
+                        "type": "text",
+                        "name": "name"
+                      },
+                      {
+                        "type": "text",
+                        "name": "version"
+                      },
+                      {
+                        "type": "key_array",
+                        "name": "requested_attributes",
+                        "sub": [
+                          {
+                            "type": "text",
+                            "name": "name"
+                          },
+                          {
+                            "type": "array",
+                            "name": "restrictions",
+                            "sub": [
+                              {
+                                "type": "text",
+                                "name": "schema_name"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "name": "non_revoked",
+                            "sub": [
+                              {
+                                "type": "number",
+                                "name": "to"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "name": "requested_predicates"
+                      },
+                      {
+                        "type": "text",
+                        "name": "nonce"
                       }
                     ]
                   }
@@ -207,10 +533,12 @@
         "options": {
           "repeat": "{{api.data.results}}",
           "outputFields": [
+            "verified",
             "presentation_exchange_id",
+            "state",
             "updated_at",
             "thread_id",
-            "state"
+            "presentation_request"
           ],
           "exec": {
             "steps": {
@@ -244,90 +572,8 @@
             "type": "object"
           },
           {
-            "name": "presentation_request",
-            "type": "object",
-            "sub": [
-              {
-                "name": "name",
-                "type": "text"
-              },
-              {
-                "name": "version",
-                "type": "text"
-              },
-              {
-                "name": "requested_attributes",
-                "type": "key_array",
-                "sub": [
-                  {
-                    "name": "name",
-                    "type": "text"
-                  },
-                  {
-                    "name": "non_revoked",
-                    "type": "object",
-                    "sub": [
-                      {
-                        "name": "to",
-                        "type": "number"
-                      },
-                      {
-                        "name": "from",
-                        "type": "number"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "requested_predicates",
-                "type": "object"
-              },
-              {
-                "name": "nonce",
-                "type": "text"
-              }
-            ]
-          },
-          {
-            "name": "thread_id",
-            "type": "text"
-          },
-          {
-            "name": "presentation_exchange_id",
-            "type": "text"
-          },
-          {
-            "name": "initiator",
-            "type": "text"
-          },
-          {
-            "name": "state",
-            "type": "text"
-          },
-          {
             "name": "connection_id",
             "type": "text"
-          },
-          {
-            "name": "updated_at",
-            "type": "text"
-          },
-          {
-            "name": "role",
-            "type": "text"
-          },
-          {
-            "name": "trace",
-            "type": "boolean"
-          },
-          {
-            "name": "created_at",
-            "type": "text"
-          },
-          {
-            "name": "auto_present",
-            "type": "boolean"
           },
           {
             "name": "presentation_request_dict",
@@ -368,11 +614,415 @@
             ]
           },
           {
-            "name": "pres_ex_id",
+            "name": "presentation",
+            "type": "object",
+            "sub": [
+              {
+                "name": "proof",
+                "type": "object",
+                "sub": [
+                  {
+                    "name": "proofs",
+                    "type": "array",
+                    "sub": [
+                      {
+                        "name": "primary_proof",
+                        "type": "object",
+                        "sub": [
+                          {
+                            "name": "eq_proof",
+                            "type": "object",
+                            "sub": [
+                              {
+                                "name": "revealed_attrs",
+                                "type": "object",
+                                "sub": [
+                                  {
+                                    "name": "marca",
+                                    "type": "text"
+                                  },
+                                  {
+                                    "name": "modelo",
+                                    "type": "text"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "a_prime",
+                                "type": "text"
+                              },
+                              {
+                                "name": "e",
+                                "type": "text"
+                              },
+                              {
+                                "name": "v",
+                                "type": "text"
+                              },
+                              {
+                                "name": "m",
+                                "type": "object",
+                                "sub": [
+                                  {
+                                    "name": "capacidade",
+                                    "type": "text"
+                                  },
+                                  {
+                                    "name": "placa",
+                                    "type": "text"
+                                  },
+                                  {
+                                    "name": "cor_predominante",
+                                    "type": "text"
+                                  },
+                                  {
+                                    "name": "potencia",
+                                    "type": "text"
+                                  },
+                                  {
+                                    "name": "numero_renavan",
+                                    "type": "text"
+                                  },
+                                  {
+                                    "name": "chassi",
+                                    "type": "text"
+                                  },
+                                  {
+                                    "name": "especie",
+                                    "type": "text"
+                                  },
+                                  {
+                                    "name": "exercicio",
+                                    "type": "text"
+                                  },
+                                  {
+                                    "name": "combustivel",
+                                    "type": "text"
+                                  },
+                                  {
+                                    "name": "master_secret",
+                                    "type": "text"
+                                  },
+                                  {
+                                    "name": "cilindrada",
+                                    "type": "text"
+                                  },
+                                  {
+                                    "name": "ano_mod",
+                                    "type": "text"
+                                  },
+                                  {
+                                    "name": "ano_fab",
+                                    "type": "text"
+                                  },
+                                  {
+                                    "name": "categoria",
+                                    "type": "text"
+                                  },
+                                  {
+                                    "name": "codigo_renavam",
+                                    "type": "text"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "m2",
+                                "type": "text"
+                              }
+                            ]
+                          },
+                          {
+                            "name": "ge_proofs",
+                            "type": "array"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "non_revoc_proof",
+                        "type": "object",
+                        "sub": [
+                          {
+                            "name": "x_list",
+                            "type": "object",
+                            "sub": [
+                              {
+                                "name": "rho",
+                                "type": "text"
+                              },
+                              {
+                                "name": "r",
+                                "type": "text"
+                              },
+                              {
+                                "name": "r_prime",
+                                "type": "text"
+                              },
+                              {
+                                "name": "r_prime_prime",
+                                "type": "text"
+                              },
+                              {
+                                "name": "r_prime_prime_prime",
+                                "type": "text"
+                              },
+                              {
+                                "name": "o",
+                                "type": "text"
+                              },
+                              {
+                                "name": "o_prime",
+                                "type": "text"
+                              },
+                              {
+                                "name": "m",
+                                "type": "text"
+                              },
+                              {
+                                "name": "m_prime",
+                                "type": "text"
+                              },
+                              {
+                                "name": "t",
+                                "type": "text"
+                              },
+                              {
+                                "name": "t_prime",
+                                "type": "text"
+                              },
+                              {
+                                "name": "m2",
+                                "type": "text"
+                              },
+                              {
+                                "name": "s",
+                                "type": "text"
+                              },
+                              {
+                                "name": "c",
+                                "type": "text"
+                              }
+                            ]
+                          },
+                          {
+                            "name": "c_list",
+                            "type": "object",
+                            "sub": [
+                              {
+                                "name": "e",
+                                "type": "text"
+                              },
+                              {
+                                "name": "d",
+                                "type": "text"
+                              },
+                              {
+                                "name": "a",
+                                "type": "text"
+                              },
+                              {
+                                "name": "g",
+                                "type": "text"
+                              },
+                              {
+                                "name": "w",
+                                "type": "text"
+                              },
+                              {
+                                "name": "s",
+                                "type": "text"
+                              },
+                              {
+                                "name": "u",
+                                "type": "text"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "aggregated_proof",
+                    "type": "object",
+                    "sub": [
+                      {
+                        "name": "c_hash",
+                        "type": "text"
+                      },
+                      {
+                        "name": "c_list",
+                        "type": "array",
+                        "sub": [
+                          {
+                            "name": "$value",
+                            "type": "array",
+                            "sub": [
+                              {
+                                "name": "$value",
+                                "type": "number"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "requested_proof",
+                "type": "object",
+                "sub": [
+                  {
+                    "name": "revealed_attrs",
+                    "type": "key_array",
+                    "sub": [
+                      {
+                        "name": "sub_proof_index",
+                        "type": "number"
+                      },
+                      {
+                        "name": "raw",
+                        "type": "text"
+                      },
+                      {
+                        "name": "encoded",
+                        "type": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "self_attested_attrs",
+                    "type": "object"
+                  },
+                  {
+                    "name": "unrevealed_attrs",
+                    "type": "object"
+                  },
+                  {
+                    "name": "predicates",
+                    "type": "object"
+                  }
+                ]
+              },
+              {
+                "name": "identifiers",
+                "type": "array",
+                "sub": [
+                  {
+                    "name": "schema_id",
+                    "type": "text"
+                  },
+                  {
+                    "name": "cred_def_id",
+                    "type": "text"
+                  },
+                  {
+                    "name": "rev_reg_id",
+                    "type": "text"
+                  },
+                  {
+                    "name": "timestamp",
+                    "type": "number"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "auto_present",
+            "type": "boolean"
+          },
+          {
+            "name": "verified",
+            "type": "text"
+          },
+          {
+            "name": "initiator",
+            "type": "text"
+          },
+          {
+            "name": "created_at",
+            "type": "text"
+          },
+          {
+            "name": "presentation_exchange_id",
+            "type": "text"
+          },
+          {
+            "name": "role",
+            "type": "text"
+          },
+          {
+            "name": "state",
+            "type": "text"
+          },
+          {
+            "name": "updated_at",
             "type": "text"
           },
           {
             "name": "thread_id",
+            "type": "text"
+          },
+          {
+            "name": "trace",
+            "type": "boolean"
+          },
+          {
+            "name": "presentation_request",
+            "type": "object",
+            "sub": [
+              {
+                "name": "name",
+                "type": "text"
+              },
+              {
+                "name": "version",
+                "type": "text"
+              },
+              {
+                "name": "requested_attributes",
+                "type": "key_array",
+                "sub": [
+                  {
+                    "name": "name",
+                    "type": "text"
+                  },
+                  {
+                    "name": "restrictions",
+                    "type": "array",
+                    "sub": [
+                      {
+                        "name": "schema_name",
+                        "type": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "non_revoked",
+                    "type": "object",
+                    "sub": [
+                      {
+                        "name": "to",
+                        "type": "number"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "requested_predicates",
+                "type": "object"
+              },
+              {
+                "name": "nonce",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "name": "state",
             "type": "text"
           }
         ],

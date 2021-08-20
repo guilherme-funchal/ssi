@@ -81,11 +81,6 @@
       "exec": "/api/security/user"
     },
     {
-      "path": "/login-tmp",
-      "page": "login-tmp",
-      "layout": "main"
-    },
-    {
       "path": "/login",
       "page": "login",
       "layout": "main_user",

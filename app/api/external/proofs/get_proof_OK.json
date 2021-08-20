@@ -386,7 +386,7 @@
                       "module": "core",
                       "action": "setvalue",
                       "options": {
-                        "value": "{{'\"'+$value+'\":{\"name\":\"'+$value+'\",\"restrictions\": [{\"schema_name\": \"'+schema_name+'\"}],\"non_revoked\":{\"to\":'+timestamp+'}}'}}",
+                        "value": "{{'\"'+$value+'_referent\":{\"name\":\"'+$value+'\",\"restrictions\": [{\"schema_name\": \"'+schema_name+'\"}],\"non_revoked\":{\"to\":'+timestamp+'}}'}}",
                         "key": "json_attributes_tmp"
                       },
                       "outputType": "text"

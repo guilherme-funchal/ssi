@@ -3,6 +3,7 @@
     "$_POST": [
       {
         "type": "text",
+        "fieldName": "email",
         "options": {
           "rules": {}
         },
@@ -10,6 +11,7 @@
       },
       {
         "type": "text",
+        "fieldName": "password",
         "options": {
           "rules": {}
         },
@@ -17,6 +19,7 @@
       },
       {
         "type": "text",
+        "fieldName": "pass_confirm",
         "options": {
           "rules": {}
         },
@@ -24,14 +27,17 @@
       },
       {
         "type": "text",
+        "fieldName": "first_name",
         "name": "first_name"
       },
       {
         "type": "text",
+        "fieldName": "last_name",
         "name": "last_name"
       },
       {
         "type": "text",
+        "fieldName": "document",
         "name": "document"
       },
       {
@@ -75,7 +81,8 @@
               }
             }
           ]
-        }
+        },
+        "disabled": true
       },
       {
         "name": "salt",

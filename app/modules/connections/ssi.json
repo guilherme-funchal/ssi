@@ -10,10 +10,8 @@
       "user": "postgres",
       "password": "gfs@2109",
       "database": "ssi"
-    },
-    "meta": {}
+    }
   },
   "fileName": "ssi.json",
-  "actionFilePath": "file:///home/funchal/projetos/ssi/app/modules/connections/ssi.json",
   "serverType": "node"
 }

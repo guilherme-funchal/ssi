@@ -305,6 +305,23 @@
         }
       },
       {
+        "name": "timestamp",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{TIMESTAMP-1}}",
+          "key": "timestamp"
+        }
+      },
+      {
+        "name": "tst_timestamp",
+        "module": "core",
+        "action": "setcookie",
+        "options": {
+          "value": "{{timestamp}}"
+        }
+      },
+      {
         "name": "repeat",
         "module": "core",
         "action": "repeat",
@@ -335,7 +352,7 @@
                       "module": "core",
                       "action": "setvalue",
                       "options": {
-                        "value": "\"{{$value}}_referent\":{\"name\":\"{{$value}}\",\"non_revoked\":{\"to\":1629201865}}}",
+                        "value": "'\"'+$value+'_referent\":{\"name\":\"'+$value+'\",\"non_revoked\":{\"to\":1629397348},",
                         "key": "json_attributes"
                       },
                       "outputType": "text"
@@ -347,6 +364,14 @@
                       "options": {
                         "value": ",\"requested_predicates\":{}}}",
                         "key": "basement"
+                      }
+                    },
+                    {
+                      "name": "tst",
+                      "module": "core",
+                      "action": "setcookie",
+                      "options": {
+                        "value": "{{json_attributes}}"
                       }
                     }
                   ]
@@ -387,7 +412,7 @@
                       "module": "core",
                       "action": "setvalue",
                       "options": {
-                        "value": "},\"requested_predicates\":{}}}",
+                        "value": ",\"requested_predicates\":{}}}",
                         "key": "basement"
                       }
                     }
@@ -457,6 +482,14 @@
         "options": {
           "value": "{{json_attributes.parseJSON()}}",
           "key": "json_attributes"
+        }
+      },
+      {
+        "name": "tst_json",
+        "module": "core",
+        "action": "setcookie",
+        "options": {
+          "value": "{{json_attributes}}"
         }
       },
       {

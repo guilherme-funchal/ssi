@@ -3,7 +3,7 @@
     "$_GET": [
       {
         "type": "text",
-        "name": "pres_exc_id"
+        "name": "pres_ex_id"
       }
     ]
   },
@@ -15,8 +15,9 @@
         "action": "setvalue",
         "options": {
           "key": "pres_exc_id",
-          "value": "{{$_GET.presentation_exchange_id}}"
-        }
+          "value": "{{$_GET.pres_ex_id}}"
+        },
+        "output": true
       },
       {
         "name": "token",
@@ -32,7 +33,7 @@
         "module": "api",
         "action": "send",
         "options": {
-          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/present-proof/records/{{presentation_exchange_id}}",
+          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/present-proof/records/{{pres_exc_id}}",
           "headers": {
             "Authorization": "{{'Bearer '+token}}"
           },
@@ -270,7 +271,8 @@
             ]
           }
         ],
-        "outputType": "object"
+        "outputType": "object",
+        "output": true
       }
     ]
   }

@@ -10,7 +10,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="register1" method="post" is="dmx-serverconnect-form" action="/api/security/registration" dmx-on:success="modal3.hide();serverconnect1.load({},true)">
+        <form id="register1" method="post" is="dmx-serverconnect-form" action="/api/security/registration" dmx-on:success="modal3.hide();sc_users.load({},true)">
           <div class="form-group row">
             <label for="inp_password" class="col-sm-2 col-form-label col-form-label-sm">Nome</label>
             <div class="col-sm-10">
@@ -83,7 +83,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" dmx-on:click="run({run:{action:`modal2.form1.submit();modal2.hide();serverconnect1.load({},true)`}})">Salvar</button>
+        <button type="button" class="btn btn-primary" dmx-on:click="run({run:{action:`modal2.form1.submit();modal2.hide();sc_users.load({},true)`}})">Salvar</button>
       </div>
     </div>
   </div>
@@ -98,7 +98,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/users/mod" dmx-generator="bootstrap4" dmx-form-type="horizontal" dmx-populate="data_detail1.data" dmx-on:success="modal1.hide();serverconnect1.load({},true)">
+        <form is="dmx-serverconnect-form" id="serverconnectform1" method="post" action="/api/users/mod" dmx-generator="bootstrap4" dmx-form-type="horizontal" dmx-populate="data_detail1.data" dmx-on:success="modal1.hide();sc_users.load({},true)">
           <input type="hidden" name="operation" id="inp_operation" dmx-bind:value="data_detail1.data.operation">
           <div class="form-group row">
             <label for="inp_first_name" class="col-sm-2 col-form-label col-form-label-sm">Nome</label>
@@ -177,8 +177,8 @@
     </div>
   </div>
 </div>
-<dmx-data-detail id="data_detail1" dmx-bind:data="content.serverconnect1.data.query" key="id"></dmx-data-detail>
-<dmx-serverconnect id="serverconnect1" url="/api/users/get"></dmx-serverconnect>
+<dmx-data-detail id="data_detail1" dmx-bind:data="content.sc_users.data.query" key="id"></dmx-data-detail>
+<dmx-serverconnect id="sc_users" url="/api/users/get"></dmx-serverconnect>
 
 
 
@@ -199,7 +199,7 @@
           <th>Document</th>
         </tr>
       </thead>
-      <tbody is="dmx-repeat" dmx-generator="bs4table" dmx-bind:repeat="content.serverconnect1.data.query" id="tableRepeat1">
+      <tbody is="dmx-repeat" dmx-generator="bs4table" dmx-bind:repeat="content.sc_users.data.query" id="tableRepeat1">
         <tr dmx-on:click="data_detail1.select(id);modal1.show()">
           <td dmx-text="first_name"></td>
           <td dmx-text="last_name"></td>

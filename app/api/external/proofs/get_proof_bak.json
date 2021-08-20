@@ -296,24 +296,6 @@
         }
       },
       {
-        "name": "timestamp",
-        "module": "core",
-        "action": "setvalue",
-        "options": {
-          "value": "{{TIMESTAMP-1}}",
-          "key": "timestamp"
-        }
-      },
-      {
-        "name": "schema_name",
-        "module": "core",
-        "action": "setvalue",
-        "options": {
-          "value": "{{query[0].schema.split(':')[2]}}",
-          "key": "schema_name"
-        }
-      },
-      {
         "name": "size",
         "module": "core",
         "action": "setvalue",
@@ -353,7 +335,7 @@
                       "module": "core",
                       "action": "setvalue",
                       "options": {
-                        "value": "{{'\"'+$value+'_referent\":{\"name\":\"'+$value+'\",\"restrictions\": [{\"schema_name\": \"'+schema_name+'\"}],\"non_revoked\":{\"to\":'+timestamp+'}}}'}}",
+                        "value": "\"{{$value}}_referent\":{\"name\":\"{{$value}}\",\"non_revoked\":{\"to\":1629201865}}}",
                         "key": "json_attributes"
                       },
                       "outputType": "text"
@@ -363,7 +345,7 @@
                       "module": "core",
                       "action": "setvalue",
                       "options": {
-                        "value": ",\"requested_predicates\":{}}}",
+                        "value": "\"non_revoked\":{\"to\": 1629201865},\"requested_predicates\":{}}}",
                         "key": "basement"
                       }
                     }
@@ -386,7 +368,7 @@
                       "module": "core",
                       "action": "setvalue",
                       "options": {
-                        "value": "{{'\"'+$value+'\":{\"name\":\"'+$value+'\",\"restrictions\": [{\"schema_name\": \"'+schema_name+'\"}],\"non_revoked\":{\"to\":'+timestamp+'}}'}}",
+                        "value": "\"{{$value}}_referent\":{\"name\":\"{{$value}}\",\"non_revoked\":{\"to\":1629201865}}",
                         "key": "json_attributes_tmp"
                       },
                       "outputType": "text"
@@ -405,7 +387,7 @@
                       "module": "core",
                       "action": "setvalue",
                       "options": {
-                        "value": "{{'},\"requested_predicates\":{}}}'}}",
+                        "value": ",\"requested_predicates\":{}}}",
                         "key": "basement"
                       }
                     }

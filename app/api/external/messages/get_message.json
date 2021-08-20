@@ -146,14 +146,6 @@
                 }
               },
               {
-                "name": "teste_val",
-                "module": "core",
-                "action": "setcookie",
-                "options": {
-                  "value": "{{msg.body.thread_id}}"
-                }
-              },
-              {
                 "name": "insert",
                 "module": "dbupdater",
                 "action": "insert",
@@ -285,38 +277,6 @@
           {
             "name": "$value",
             "type": "text"
-          },
-          {
-            "name": "api_conn",
-            "type": "object",
-            "sub": [
-              {
-                "type": "array",
-                "name": "data"
-              },
-              {
-                "type": "object",
-                "name": "headers",
-                "sub": [
-                  {
-                    "type": "text",
-                    "name": "content-length"
-                  },
-                  {
-                    "type": "text",
-                    "name": "content-type"
-                  },
-                  {
-                    "type": "text",
-                    "name": "date"
-                  },
-                  {
-                    "type": "text",
-                    "name": "server"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "outputType": "array"
