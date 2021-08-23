@@ -1,0 +1,163 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      },
+      {
+        "type": "text",
+        "name": "connection_id"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "conn_tst",
+        "module": "core",
+        "action": "setcookie",
+        "options": {
+          "value": "{{$_GET.connection_id}}"
+        }
+      },
+      {
+        "name": "query",
+        "module": "dbconnector",
+        "action": "select",
+        "options": {
+          "connection": "ssi",
+          "sql": {
+            "type": "SELECT",
+            "columns": [
+              {
+                "table": "messages",
+                "column": "message_id"
+              },
+              {
+                "table": "messages",
+                "column": "connection_id"
+              },
+              {
+                "table": "messages",
+                "column": "from"
+              },
+              {
+                "table": "messages",
+                "column": "to"
+              },
+              {
+                "table": "messages",
+                "column": "content"
+              },
+              {
+                "table": "messages",
+                "column": "date"
+              },
+              {
+                "table": "messages",
+                "column": "topic"
+              },
+              {
+                "table": "messages",
+                "column": "state"
+              }
+            ],
+            "table": {
+              "name": "messages"
+            },
+            "joins": [],
+            "query": "SELECT message_id, connection_id, from, to, content, date, topic, state\nFROM messages\nWHERE connection_id = :P1 /* {{$_GET.connection_id}} */ AND to = :P2 /* {{$_COOKIE.email}} */",
+            "params": [
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P1",
+                "value": "{{$_GET.connection_id}}"
+              },
+              {
+                "operator": "equal",
+                "type": "expression",
+                "name": ":P2",
+                "value": "{{$_COOKIE.email}}"
+              }
+            ],
+            "wheres": {
+              "condition": "AND",
+              "rules": [
+                {
+                  "id": "messages.connection_id",
+                  "field": "messages.connection_id",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "{{$_GET.connection_id}}",
+                  "data": {
+                    "table": "messages",
+                    "column": "connection_id",
+                    "type": "text"
+                  },
+                  "operation": "="
+                },
+                {
+                  "id": "messages.to",
+                  "field": "messages.to",
+                  "type": "string",
+                  "operator": "equal",
+                  "value": "{{$_COOKIE.email}}",
+                  "data": {
+                    "table": "messages",
+                    "column": "to",
+                    "type": "text"
+                  },
+                  "operation": "="
+                }
+              ],
+              "conditional": null,
+              "valid": true
+            }
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "name": "message_id",
+            "type": "text"
+          },
+          {
+            "name": "connection_id",
+            "type": "text"
+          },
+          {
+            "name": "from",
+            "type": "text"
+          },
+          {
+            "name": "to",
+            "type": "text"
+          },
+          {
+            "name": "content",
+            "type": "text"
+          },
+          {
+            "name": "date",
+            "type": "date"
+          },
+          {
+            "name": "topic",
+            "type": "text"
+          },
+          {
+            "name": "state",
+            "type": "text"
+          }
+        ],
+        "outputType": "array"
+      }
+    ]
+  }
+}

@@ -497,9 +497,9 @@
             "Authorization": "{{'Bearer '+token}}",
             "Accept": "application/json"
           },
-          "data": "{{json_attributes}}"
-        },
-        "output": true
+          "data": "{{json_attributes}}",
+          "passErrors": false
+        }
       },
       {
         "name": "api_messages",
@@ -510,9 +510,9 @@
           "headers": {
             "Authorization": "{{'Bearer '+api_key}}"
           },
-          "schema": []
+          "schema": [],
+          "passErrors": false
         },
-        "output": true,
         "meta": [
           {
             "type": "array",

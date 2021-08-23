@@ -36,7 +36,8 @@
           "headers": {
             "Authorization": "{{'Bearer '+token}}"
           },
-          "schema": []
+          "schema": [],
+          "passErrors": false
         },
         "meta": [
           {

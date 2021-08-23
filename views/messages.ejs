@@ -58,27 +58,34 @@
               <table class="table table-bordered table-hover table-striped table-sm">
                 <tbody dmx-generator="bs4table" dmx-populate="serverconnect1.data.query">
                   <tr>
-                    <th class="small font-weight-bold">Message ID</th>
+                    <th class="font-weight-bold">Message ID</th>
                     <td dmx-text="data_detail1.data.message_id"></td>
                   </tr>
                   <tr>
-                    <th class="small font-weight-bold">Remetente</th>
+                    <th class="font-weight-bold">Remetente</th>
                     <td dmx-text="data_detail1.data.from"></td>
                   </tr>
                   <tr>
-                    <th class="small font-weight-bold">Estado</th>
-                    <td dmx-text="data_detail1.data.state"></td>
+                    <th class="font-weight-bold">Estado</th>
+                    <td>
+                      <div id="conditional1" is="dmx-if" dmx-bind:condition="data_detail1.data.state == 'received'">
+                        <p dmx-text="'Recebida'">Enter your content here</p>
+                      </div>
+                      <div id="conditional2" is="dmx-if" dmx-bind:condition="data_detail1.data.state == 'Apresentação reconhecida'">
+                        <p dmx-text="'Apresentação reconhecida'">Enter your content here</p>
+                      </div>
+                    </td>
                   </tr>
                   <tr>
-                    <th class="small font-weight-bold">Data</th>
+                    <th class="font-weight-bold">Data</th>
                     <td dmx-text="data_detail1.data.date.formatDate('dd/MM/yyyy HH:mm')"></td>
                   </tr>
                   <tr>
-                    <th class="font-weight-bold small">Tipo</th>
+                    <th class="font-weight-bold">Tipo</th>
                     <td dmx-text="data_detail1.data.topic"></td>
                   </tr>
                   <tr>
-                    <th class="small font-weight-bold">Mensagem</th>
+                    <th class="font-weight-bold">Mensagem</th>
                     <td class="text-break">
                       <p dmx-text="data_detail1.data.content">A nice paragraph</p>
 

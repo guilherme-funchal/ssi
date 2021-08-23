@@ -19,7 +19,7 @@
 <div class="mt-5 container">
 
   <div class="modal pt-5" id="modal3" is="dmx-bs4-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Escolha o esquema</h5>
@@ -40,7 +40,7 @@
     </div>
   </div>
   <div class="modal" id="modal1" is="dmx-bs4-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Novo consentimento</h5>
@@ -54,19 +54,19 @@
             <input type="hidden" class="form-control" id="inp_operator" name="operator" dmx-bind:value="" aria-describedby="inp_operator_help" placeholder="Enter Operator">
             <input type="hidden" class="form-control" id="inp_org" name="org" dmx-bind:value="session1.data.org" aria-describedby="inp_operator_help" placeholder="Enter Operator">
             <div class="form-group row">
-              <label for="inp_name" class="col-sm-2 col-form-label col-form-label-sm">Name</label>
+              <label for="inp_name" class="col-sm-2 col-form-label col-form-label-sm">Nome</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="inp_name" name="name" dmx-bind:value="'Dados_pessoais-'+session1.data.org.capitalize()+'-'+session1.data.usuario" aria-describedby="inp_name_help" value="DadosPessoaisSerpro">
+                <input type="text" class="form-control form-control-sm" id="inp_name" name="name" dmx-bind:value="session1.data.schema.split(':')[2]+'-'+session1.data.org.capitalize()+'-'+session1.data.usuario" aria-describedby="inp_name_help">
               </div>
             </div>
             <div class="form-group row">
-              <label for="inp_description" class="col-sm-2 col-form-label col-form-label-sm">Description</label>
+              <label for="inp_description" class="col-sm-2 col-form-label col-form-label-sm">Descrição</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control form-control-sm" id="inp_description" name="description" dmx-bind:value="'Dados pessoais '+session1.data.org.capitalize()" aria-describedby="inp_description_help" placeholder="Enter Description">
+                <input type="text" class="form-control form-control-sm" id="inp_description" name="description" dmx-bind:value="session1.data.schema.split(':')[2]" aria-describedby="inp_description_help">
               </div>
             </div>
             <div class="form-group row">
-              <label for="inp_req_attrs" class="col-sm-2 col-form-label col-form-label-sm">Req attrs</label>
+              <label for="inp_req_attrs" class="col-sm-2 col-form-label col-form-label-sm">Atributos</label>
 
               <div class="col-sm-10">
                 <select id="req_attrs" class="custom-select" dmx-bind:options="serverconnect5.data.api_credentials.data.schema.attrNames" optiontext="$value" optionvalue="$value" name="req_attrs" multiple="true">
@@ -75,17 +75,17 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="inp_schema" class="col-sm-2 col-form-label col-form-label-sm">Schema</label>
+              <label for="inp_schema" class="col-sm-2 col-form-label col-form-label-sm">Esquema</label>
               <div class="col-sm-10">
-                <input class="form-control form-control-sm" id="inp_schema" name="schema" dmx-bind:value="session1.data.schema" aria-describedby="inp_schema_help" placeholder="Enter Schema" readonly="true">
+                <input class="form-control form-control-sm" id="inp_schema" name="schema" dmx-bind:value="session1.data.schema" aria-describedby="inp_schema_help" readonly="true">
               </div>
             </div>
             <input type="hidden" name="id" id="inp_id" dmx-bind:value="data_detail1.data.id">
             <div class="form-group row">
-              <label for="inp_predicates" class="col-sm-2 col-form-label col-form-label-sm">Predicates</label>
+              <label for="inp_predicates" class="col-sm-2 col-form-label col-form-label-sm">Predicados</label>
               <div class="col-sm-10">
 
-                <input type="text" class="form-control form-control-sm" id="inp_predicates" name="predicates" dmx-bind:value="" aria-describedby="inp_predicates_help" placeholder="Enter Predicates">
+                <input type="text" class="form-control form-control-sm" id="inp_predicates" name="predicates" dmx-bind:value="" aria-describedby="inp_predicates_help">
               </div>
             </div>
             <div class="form-group row">
