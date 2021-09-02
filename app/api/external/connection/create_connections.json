@@ -114,7 +114,7 @@
         "module": "api",
         "action": "send",
         "options": {
-          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections?alias={{email_org}}",
+          "url": "{{$_ENV.ACCESS+'://'+$_ENV.REST_HOST+':'+$_ENV.REST_PORT+'/connections?alias='+email_org}}",
           "schema": [],
           "headers": {
             "authorization": "{{'Bearer '+token}}"
@@ -240,7 +240,7 @@
                 "module": "api",
                 "action": "send",
                 "options": {
-                  "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections/create-invitation",
+                  "url": "{{$_ENV.ACCESS}}://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections/create-invitation",
                   "schema": [],
                   "headers": {
                     "authorization": "{{'Bearer '+token}}"
@@ -350,7 +350,7 @@
                 "module": "api",
                 "action": "send",
                 "options": {
-                  "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections",
+                  "url": "{{$_ENV.ACCESS}}://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections",
                   "schema": [],
                   "headers": {
                     "authorization": "{{'Bearer '+token}}"
@@ -467,7 +467,7 @@
                       "module": "api",
                       "action": "send",
                       "options": {
-                        "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections/receive-invitation",
+                        "url": "{{$_ENV.ACCESS}}://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections/receive-invitation",
                         "schema": [],
                         "headers": {
                           "authorization": "{{'Bearer '+query[0].token}}"

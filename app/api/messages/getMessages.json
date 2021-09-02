@@ -30,7 +30,7 @@
             "name": "messages"
           },
           "joins": [],
-          "query": "SELECT *\nFROM messages\nWHERE to = :P1 /* {{$_COOKIE.email}} */ OR (to = :P2 /* {{$_COOKIE.org}} */)",
+          "query": "SELECT *\nFROM messages\nWHERE to = :P1 /* {{$_COOKIE.email}} */ OR (to = :P2 /* {{$_COOKIE.org}} */)\nORDER BY date ASC",
           "params": [
             {
               "operator": "equal",
@@ -83,7 +83,15 @@
             ],
             "conditional": null,
             "valid": true
-          }
+          },
+          "orders": [
+            {
+              "table": "messages",
+              "column": "date",
+              "direction": "ASC"
+            }
+          ],
+          "distinct": false
         }
       },
       "output": true,
@@ -110,7 +118,7 @@
         },
         {
           "name": "date",
-          "type": "date"
+          "type": "datetime"
         },
         {
           "name": "topic",

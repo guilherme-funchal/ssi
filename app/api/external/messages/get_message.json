@@ -68,7 +68,7 @@
         "module": "api",
         "action": "send",
         "options": {
-          "url": "http://161.148.151.16:8022/new_messages",
+          "url": "{{$_ENV.WEBHOOK}}/new_messages",
           "headers": {
             "Authorization": "{{'Bearer '+api_key}}"
           },

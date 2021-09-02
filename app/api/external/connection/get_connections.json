@@ -34,7 +34,7 @@
         "module": "api",
         "action": "send",
         "options": {
-          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections",
+          "url": "{{$_ENV.ACCESS}}://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections",
           "schema": [],
           "headers": {
             "authorization": "{{'Bearer '+token}}"

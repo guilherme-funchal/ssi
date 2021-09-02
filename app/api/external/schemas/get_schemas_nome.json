@@ -150,7 +150,7 @@
         "module": "api",
         "action": "send",
         "options": {
-          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/schemas/created",
+          "url": "{{$_ENV.ACCESS}}://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/schemas/created",
           "schema": [],
           "headers": {
             "Authorization": "{{'Bearer '+token}}",

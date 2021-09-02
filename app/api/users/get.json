@@ -23,10 +23,6 @@
           "columns": [
             {
               "table": "users",
-              "column": "id"
-            },
-            {
-              "table": "users",
               "column": "first_name"
             },
             {
@@ -67,23 +63,58 @@
             },
             {
               "table": "users",
+              "column": "last_login"
+            },
+            {
+              "table": "users",
               "column": "wallet_id"
+            },
+            {
+              "table": "users",
+              "column": "organization"
+            },
+            {
+              "table": "users",
+              "column": "id"
             }
           ],
           "table": {
             "name": "users"
           },
           "joins": [],
-          "query": "SELECT id, first_name, last_name, email, document, role, did, verkey, pass_hash, pass_salt, token, wallet_id\nFROM users",
-          "params": []
+          "query": "SELECT first_name, last_name, email, document, role, did, verkey, pass_hash, pass_salt, token, last_login, wallet_id, organization, id\nFROM users\nWHERE organization = :P1 /* {{$_COOKIE.org}} */",
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_COOKIE.org}}"
+            }
+          ],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "users.organization",
+                "field": "users.organization",
+                "type": "string",
+                "operator": "equal",
+                "value": "{{$_COOKIE.org}}",
+                "data": {
+                  "table": "users",
+                  "column": "organization",
+                  "type": "text"
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          }
         }
       },
       "output": true,
       "meta": [
-        {
-          "name": "id",
-          "type": "text"
-        },
         {
           "name": "first_name",
           "type": "text"
@@ -125,7 +156,19 @@
           "type": "text"
         },
         {
+          "name": "last_login",
+          "type": "text"
+        },
+        {
           "name": "wallet_id",
+          "type": "text"
+        },
+        {
+          "name": "organization",
+          "type": "text"
+        },
+        {
+          "name": "id",
           "type": "text"
         }
       ],

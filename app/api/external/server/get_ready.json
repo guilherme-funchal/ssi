@@ -3,7 +3,7 @@
   "module": "api",
   "action": "send",
   "options": {
-    "url": "https://{{_ENV_REST_HOST}}:{{_ENV_REST_PORT}}/status/ready",
+    "url": "{{$_ENV.ACCESS}}://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/status/ready",
     "schema": []
   },
   "output": true,

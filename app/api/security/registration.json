@@ -48,6 +48,12 @@
         "type": "text",
         "name": "last_login"
       }
+    ],
+    "$_COOKIE": [
+      {
+        "type": "text",
+        "name": "org"
+      }
     ]
   },
   "exec": {
@@ -121,7 +127,7 @@
         "module": "api",
         "action": "send",
         "options": {
-          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/multitenancy/wallet",
+          "url": "{{$_ENV.ACCESS}}://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/multitenancy/wallet",
           "method": "POST",
           "data": {
             "key_management_mode": "managed",
@@ -171,7 +177,7 @@
         "module": "api",
         "action": "send",
         "options": {
-          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/wallet/did/create",
+          "url": "{{$_ENV.ACCESS}}://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/wallet/did/create",
           "method": "POST",
           "schema": [],
           "dataType": "json",
@@ -213,7 +219,7 @@
         "module": "api",
         "action": "send",
         "options": {
-          "url": "https://{{$_ENV.LEDGER_BROWSER}}/register",
+          "url": "{{$_ENV.ACCESS}}://{{$_ENV.LEDGER_BROWSER}}/register",
           "method": "POST",
           "schema": [],
           "dataType": "json",
@@ -240,7 +246,7 @@
         "module": "api",
         "action": "send",
         "options": {
-          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/wallet/did/public?did={{did}}",
+          "url": "{{$_ENV.ACCESS+'://'+$_ENV.REST_HOST+':'+$_ENV.REST_PORT+'/wallet/did/public?did='+did}}",
           "method": "POST",
           "schema": [],
           "dataType": "json",
@@ -341,11 +347,17 @@
                 "column": "wallet_id",
                 "type": "text",
                 "value": "{{wallet_id}}"
+              },
+              {
+                "table": "users",
+                "column": "organization",
+                "type": "text",
+                "value": "{{$_COOKIE.org}}"
               }
             ],
             "table": "users",
             "returning": "id",
-            "query": "INSERT INTO users\n(first_name, last_name, email, document, role, token, last_login, verkey, did, pass_salt, pass_hash, wallet_id) VALUES (:P1 /* {{$_POST.first_name}} */, :P2 /* {{$_POST.last_name}} */, :P3 /* {{$_POST.email}} */, :P4 /* {{$_POST.document}} */, 'user', :P5 /* {{token}} */, :P6 /* {{NOW_UTC}} */, :P7 /* {{verkey}} */, :P8 /* {{did}} */, :P9 /* {{salt}} */, :P10 /* {{$_POST.password.sha512(salt)}} */, :P11 /* {{wallet_id}} */)",
+            "query": "INSERT INTO users\n(first_name, last_name, email, document, role, token, last_login, verkey, did, pass_salt, pass_hash, wallet_id, organization) VALUES (:P1 /* {{$_POST.first_name}} */, :P2 /* {{$_POST.last_name}} */, :P3 /* {{$_POST.email}} */, :P4 /* {{$_POST.document}} */, 'user', :P5 /* {{token}} */, :P6 /* {{NOW_UTC}} */, :P7 /* {{verkey}} */, :P8 /* {{did}} */, :P9 /* {{salt}} */, :P10 /* {{$_POST.password.sha512(salt)}} */, :P11 /* {{wallet_id}} */, :P12 /* {{$_COOKIE.org}} */)",
             "params": [
               {
                 "name": ":P1",
@@ -401,6 +413,11 @@
                 "name": ":P11",
                 "type": "expression",
                 "value": "{{wallet_id}}"
+              },
+              {
+                "name": ":P12",
+                "type": "expression",
+                "value": "{{$_COOKIE.org}}"
               }
             ]
           }

@@ -147,6 +147,14 @@
                 "module": "core",
                 "action": "setvalue",
                 "options": {
+                  "value": "307d3028-fd11-4be7-b716-9afd416486e8"
+                }
+              },
+              {
+                "name": "conn_id_copy",
+                "module": "core",
+                "action": "setvalue",
+                "options": {
                   "value": "{{msg.body.connection_id}}"
                 },
                 "disabled": true
@@ -156,7 +164,7 @@
                 "module": "api",
                 "action": "send",
                 "options": {
-                  "url": "{{$_ENV.ACCESS+'://'+$_ENV.REST_HOST+':'+$_ENV.REST_PORT+'/connections/'+conn_id}}",
+                  "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections/{{conn_id}}",
                   "headers": {
                     "Authorization": "{{'Bearer '+$_COOKIE.token}}"
                   },
@@ -245,7 +253,7 @@
                               "table": "messages",
                               "column": "date",
                               "type": "date",
-                              "value": "{{NOW_UTC.toLocalTime()}}"
+                              "value": "{{NOW_UTC}}"
                             },
                             {
                               "table": "messages",

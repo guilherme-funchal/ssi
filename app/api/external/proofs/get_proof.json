@@ -490,7 +490,7 @@
         "module": "api",
         "action": "send",
         "options": {
-          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/present-proof/send-request",
+          "url": "{{$_ENV.ACCESS}}://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/present-proof/send-request",
           "dataType": "json",
           "method": "POST",
           "headers": {
@@ -694,7 +694,7 @@
                         "table": "messages",
                         "column": "date",
                         "type": "date",
-                        "value": "{{NOW_UTC}}"
+                        "value": "{{NOW_UTC.toLocalTime()}}"
                       },
                       {
                         "table": "messages",
@@ -717,7 +717,7 @@
                     ],
                     "table": "messages",
                     "returning": "message_id",
-                    "query": "INSERT INTO messages\n(connection_id, from, to, content, date, topic, state, message_id) VALUES (:P1 /* {{connection_id}} */, :P2 /* {{email}} */, :P3 /* {{$_COOKIE.email}} */, :P4 /* {{proof_attr}} */, :P5 /* {{NOW_UTC}} */, 'Prova recebida', 'Apresentação reconhecida', :P6 /* {{message_id}} */)",
+                    "query": "INSERT INTO messages\n(connection_id, from, to, content, date, topic, state, message_id) VALUES (:P1 /* {{connection_id}} */, :P2 /* {{email}} */, :P3 /* {{$_COOKIE.email}} */, :P4 /* {{proof_attr}} */, :P5 /* {{NOW_UTC.toLocalTime()}} */, 'Prova recebida', 'Apresentação reconhecida', :P6 /* {{message_id}} */)",
                     "params": [
                       {
                         "name": ":P1",
@@ -742,7 +742,7 @@
                       {
                         "name": ":P5",
                         "type": "expression",
-                        "value": "{{NOW_UTC}}"
+                        "value": "{{NOW_UTC.toLocalTime()}}"
                       },
                       {
                         "name": ":P6",
@@ -800,7 +800,7 @@
                         "table": "messages",
                         "column": "date",
                         "type": "date",
-                        "value": "{{NOW_UTC}}"
+                        "value": "{{NOW_UTC.toLocalTime()}}"
                       },
                       {
                         "table": "messages",
@@ -823,7 +823,7 @@
                     ],
                     "table": "messages",
                     "returning": "message_id",
-                    "query": "INSERT INTO messages\n(connection_id, from, to, content, date, topic, state, message_id) VALUES (:P1 /* {{connection_id}} */, :P2 /* {{$_COOKIE.email}} */, :P3 /* {{email}} */, :P4 /* {{'Dados solicitados '+proof_name+' por '+$_COOKIE.email}} */, :P5 /* {{NOW_UTC}} */, 'Prova enviada', 'Apresentação enviada', :P6 /* {{message_id}}-b */)",
+                    "query": "INSERT INTO messages\n(connection_id, from, to, content, date, topic, state, message_id) VALUES (:P1 /* {{connection_id}} */, :P2 /* {{$_COOKIE.email}} */, :P3 /* {{email}} */, :P4 /* {{'Dados solicitados '+proof_name+' por '+$_COOKIE.email}} */, :P5 /* {{NOW_UTC.toLocalTime()}} */, 'Prova enviada', 'Apresentação enviada', :P6 /* {{message_id}}-b */)",
                     "params": [
                       {
                         "name": ":P1",
@@ -848,7 +848,7 @@
                       {
                         "name": ":P5",
                         "type": "expression",
-                        "value": "{{NOW_UTC}}"
+                        "value": "{{NOW_UTC.toLocalTime()}}"
                       },
                       {
                         "name": ":P6",

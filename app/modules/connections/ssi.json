@@ -5,15 +5,15 @@
   "options": {
     "client": "postgres",
     "connection": {
-      "host": "127.0.0.1",
+      "host": "192.168.3.24",
       "port": 5432,
       "user": "postgres",
-      "password": "gfs@2109",
+      "password": "79inVct",
       "database": "ssi"
     },
     "meta": {}
   },
   "fileName": "ssi.json",
   "serverType": "node",
-  "actionFilePath": "file:///home/funchal/projetos/ssi/app/modules/connections/ssi.json"
+  "actionFilePath": "file:///home/node/ssi/app/modules/connections/ssi.json"
 }

@@ -23,7 +23,7 @@
         "module": "api",
         "action": "send",
         "options": {
-          "url": "{{$_ENV.ACCESS+'://'+$_ENV.REST_HOST+':'+$_ENV.REST_PORT+'/present-proof/records?thread_id='+thread_id}}"
+          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/present-proof/records?thread_id={{thread_id}}"
         },
         "output": true
       }

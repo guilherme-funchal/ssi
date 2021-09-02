@@ -1,7 +1,7 @@
 <!-- Wappler include head-page="layouts/main" is="dmx-app" id="users" appConnect="local" jquery_slim_35="local" fontawesome_4="local" bootstrap4="cerulean" bootstrap_icons="cdn" components="{dmxBootstrap4TableGenerator:{},dmxDataTraversal:{},dmxBootstrap4Modal:{},dmxFormatter:{}}" -->
 <meta name="ac:route" content="/users">
 <div class="modal mt-5 pt-5" id="modal3" is="dmx-bs4-modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Adicionar usuário</h5>
@@ -55,7 +55,7 @@
   </div>
 </div>
 <div class="modal" id="modal2" is="dmx-bs4-modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Trocar senha</h5>
@@ -70,14 +70,14 @@
           <div class="form-group row">
             <label for="inp_password" class="col-sm-2 col-form-label col-form-label-sm">Senha</label>
             <div class="col-sm-10">
-              <input type="password" class="form-control" id="inp_password" name="password" aria-describedby="input1_help" placeholder="Enter some text">
+              <input type="password" class="form-control" id="inp_password" name="password" aria-describedby="input1_help" placeholder="Digite a senha">
 
             </div>
           </div>
           <div class="form-group row">
             <label for="inp_pass_confirm" class="col-sm-2 col-form-label col-form-label-sm">Confirmação</label>
             <div class="col-sm-10">
-              <input type="password" class="form-control" id="inp_pass_confirm" name="pass_confirm" aria-describedby="input1_help" placeholder="Enter some text">
+              <input type="password" class="form-control" id="inp_pass_confirm" name="pass_confirm" aria-describedby="input1_help" placeholder="Confirme a senha">
             </div>
           </div>
         </form>
@@ -89,7 +89,7 @@
   </div>
 </div>
 <div class="modal" id="modal1" is="dmx-bs4-modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Usuário</h5>
@@ -122,6 +122,12 @@
             <label for="inp_document" class="col-sm-2 col-form-label col-form-label-sm">Document</label>
             <div class="col-sm-10">
               <input type="text" class="form-control form-control-sm" id="inp_document" name="document" dmx-bind:value="data_detail1.data.document" aria-describedby="inp_document_help" placeholder="Enter Document">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inp_organization" class="col-sm-2 col-form-label col-form-label-sm">Organização</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control form-control-sm" id="inp_organization" name="organization" dmx-bind:value="data_detail1.data.organization" aria-describedby="inp_document_help" placeholder="Enter Document">
             </div>
           </div>
           <div class="form-group row">

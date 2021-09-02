@@ -52,7 +52,7 @@
         "module": "api",
         "action": "send",
         "options": {
-          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections/{{conn_id}}/send-message",
+          "url": "{{$_ENV.ACCESS}}://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections/{{conn_id}}/send-message",
           "headers": {
             "Authorization": "{{'Bearer '+$_COOKIE.token}}"
           },
@@ -166,7 +166,7 @@
                 "module": "api",
                 "action": "send",
                 "options": {
-                  "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections/{{conn_id}}",
+                  "url": "{{$_ENV.ACCESS+'://'+$_ENV.REST_HOST+':'+$_ENV.REST_PORT+'/connections/'+conn_id}}",
                   "headers": {
                     "Authorization": "{{'Bearer '+$_COOKIE.token}}"
                   },
@@ -255,7 +255,7 @@
                               "table": "messages",
                               "column": "date",
                               "type": "date",
-                              "value": "{{NOW_UTC}}"
+                              "value": "{{NOW_UTC.toLocalTime()}}"
                             },
                             {
                               "table": "messages",
@@ -278,7 +278,7 @@
                           ],
                           "table": "messages",
                           "returning": "message_id",
-                          "query": "INSERT INTO messages\n(connection_id, from, to, content, date, topic, state, message_id) VALUES (:P1 /* {{msg.body.connection_id}} */, 'Mensagem automática', :P2 /* {{from}} */, :P3 /* {{msg.body.content}} */, :P4 /* {{NOW_UTC}} */, :P5 /* {{msg.topic}} */, :P6 /* {{msg.body.state}} */, :P7 /* {{msg.body.message_id}} */)",
+                          "query": "INSERT INTO messages\n(connection_id, from, to, content, date, topic, state, message_id) VALUES (:P1 /* {{msg.body.connection_id}} */, 'Mensagem automática', :P2 /* {{from}} */, :P3 /* {{msg.body.content}} */, :P4 /* {{NOW_UTC.toLocalTime()}} */, :P5 /* {{msg.topic}} */, :P6 /* {{msg.body.state}} */, :P7 /* {{msg.body.message_id}} */)",
                           "params": [
                             {
                               "name": ":P1",
@@ -298,7 +298,7 @@
                             {
                               "name": ":P4",
                               "type": "expression",
-                              "value": "{{NOW_UTC}}"
+                              "value": "{{NOW_UTC.toLocalTime()}}"
                             },
                             {
                               "name": ":P5",
@@ -368,7 +368,7 @@
                               "table": "messages",
                               "column": "date",
                               "type": "date",
-                              "value": "{{NOW_UTC}}"
+                              "value": "{{NOW_UTC.toLocalTime()}}"
                             },
                             {
                               "table": "messages",
@@ -391,7 +391,7 @@
                           ],
                           "table": "messages",
                           "returning": "message_id",
-                          "query": "INSERT INTO messages\n(connection_id, from, to, content, date, topic, state, message_id) VALUES (:P1 /* {{msg.body.connection_id}} */, :P2 /* {{from}} */, :P3 /* {{to}} */, :P4 /* {{msg.body.content}} */, :P5 /* {{NOW_UTC}} */, 'Mensagem direta', :P6 /* {{msg.body.state}} */, :P7 /* {{msg.body.message_id}} */)",
+                          "query": "INSERT INTO messages\n(connection_id, from, to, content, date, topic, state, message_id) VALUES (:P1 /* {{msg.body.connection_id}} */, :P2 /* {{from}} */, :P3 /* {{to}} */, :P4 /* {{msg.body.content}} */, :P5 /* {{NOW_UTC.toLocalTime()}} */, 'Mensagem direta', :P6 /* {{msg.body.state}} */, :P7 /* {{msg.body.message_id}} */)",
                           "params": [
                             {
                               "name": ":P1",
@@ -416,7 +416,7 @@
                             {
                               "name": ":P5",
                               "type": "expression",
-                              "value": "{{NOW_UTC}}"
+                              "value": "{{NOW_UTC.toLocalTime()}}"
                             },
                             {
                               "name": ":P6",
@@ -449,7 +449,7 @@
             ]
           }
         },
-        "output": true,
+        "output": false,
         "meta": [
           {
             "name": "$index",

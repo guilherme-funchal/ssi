@@ -296,15 +296,6 @@
         }
       },
       {
-        "name": "size",
-        "module": "core",
-        "action": "setvalue",
-        "options": {
-          "value": "{{attributes.count()}}",
-          "key": "size"
-        }
-      },
-      {
         "name": "timestamp",
         "module": "core",
         "action": "setvalue",
@@ -314,11 +305,21 @@
         }
       },
       {
-        "name": "tst_timestamp",
+        "name": "schema_name",
         "module": "core",
-        "action": "setcookie",
+        "action": "setvalue",
         "options": {
-          "value": "{{timestamp}}"
+          "value": "{{query[0].schema.split(':')[2]}}",
+          "key": "schema_name"
+        }
+      },
+      {
+        "name": "size",
+        "module": "core",
+        "action": "setvalue",
+        "options": {
+          "value": "{{attributes.count()}}",
+          "key": "size"
         }
       },
       {
@@ -352,7 +353,7 @@
                       "module": "core",
                       "action": "setvalue",
                       "options": {
-                        "value": "'\"'+$value+'_referent\":{\"name\":\"'+$value+'\",\"non_revoked\":{\"to\":1629397348},",
+                        "value": "{{'\"'+$value+'_referent\":{\"name\":\"'+$value+'\",\"restrictions\": [{\"schema_name\": \"'+schema_name+'\"}],\"non_revoked\":{\"to\":'+timestamp+'}}}'}}",
                         "key": "json_attributes"
                       },
                       "outputType": "text"
@@ -364,14 +365,6 @@
                       "options": {
                         "value": ",\"requested_predicates\":{}}}",
                         "key": "basement"
-                      }
-                    },
-                    {
-                      "name": "tst",
-                      "module": "core",
-                      "action": "setcookie",
-                      "options": {
-                        "value": "{{json_attributes}}"
                       }
                     }
                   ]
@@ -393,7 +386,7 @@
                       "module": "core",
                       "action": "setvalue",
                       "options": {
-                        "value": "\"{{$value}}_referent\":{\"name\":\"{{$value}}\",\"non_revoked\":{\"to\":1629201865}}",
+                        "value": "{{'\"'+$value+'\":{\"name\":\"'+$value+'\",\"restrictions\": [{\"schema_name\": \"'+schema_name+'\"}],\"non_revoked\":{\"to\":'+timestamp+'}}'}}",
                         "key": "json_attributes_tmp"
                       },
                       "outputType": "text"
@@ -412,7 +405,7 @@
                       "module": "core",
                       "action": "setvalue",
                       "options": {
-                        "value": ",\"requested_predicates\":{}}}",
+                        "value": "{{'},\"requested_predicates\":{}}}'}}",
                         "key": "basement"
                       }
                     }
@@ -504,9 +497,9 @@
             "Authorization": "{{'Bearer '+token}}",
             "Accept": "application/json"
           },
-          "data": "{{json_attributes}}"
-        },
-        "output": true
+          "data": "{{json_attributes}}",
+          "passErrors": false
+        }
       },
       {
         "name": "api_messages",
@@ -517,9 +510,9 @@
           "headers": {
             "Authorization": "{{'Bearer '+api_key}}"
           },
-          "schema": []
+          "schema": [],
+          "passErrors": false
         },
-        "output": true,
         "meta": [
           {
             "type": "array",

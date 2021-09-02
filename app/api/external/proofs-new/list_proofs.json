@@ -13,7 +13,7 @@
     "module": "api",
     "action": "send",
     "options": {
-      "url": "{{$_ENV.ACCESS}}://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/present-proof/records?state=presentation_acked",
+      "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/present-proof/records?state=presentation_acked",
       "headers": {
         "Authorization": "{{'Bearer '+token}}"
       },

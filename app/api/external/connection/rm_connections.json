@@ -110,7 +110,7 @@
         "module": "api",
         "action": "send",
         "options": {
-          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections/{{$_POST.connection_id}}",
+          "url": "{{$_ENV.ACCESS+'://'+$_ENV.REST_HOST+':'+$_ENV.REST_PORT+'/connections/'+$_POST.connection_id}}",
           "schema": [],
           "headers": {
             "authorization": "{{'Bearer '+token}}"
@@ -213,25 +213,17 @@
         "outputType": "object"
       },
       {
-        "name": "their_label",
-        "module": "core",
-        "action": "setcookie",
-        "options": {
-          "value": "{{$_POST.their_label}}"
-        }
-      },
-      {
         "name": "api_get_org",
         "module": "api",
         "action": "send",
         "options": {
-          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections",
+          "url": "{{$_ENV.ACCESS}}://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections",
           "schema": [],
           "headers": {
             "authorization": "{{'Bearer '+token_org}}"
           },
           "params": {
-            "their_label": "guilherme.funchal@gmail.com"
+            "their_label": "{{email}}"
           }
         },
         "output": true,
@@ -342,7 +334,7 @@
         "module": "api",
         "action": "send",
         "options": {
-          "url": "https://{{$_ENV.REST_HOST}}:{{$_ENV.REST_PORT}}/connections/{{connection_id}}",
+          "url": "{{$_ENV.ACCESS+'://'+$_ENV.REST_HOST+':'+$_ENV.REST_PORT+'/connections/'+connection_id}}",
           "schema": [],
           "headers": {
             "authorization": "{{'Bearer '+token_org}}"
